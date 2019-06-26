@@ -1,5 +1,5 @@
-name: 'JavaScript Template Action'
-description: 'Get started with JavaScript actions'
+name: 'Node 12 Template Action'
+description: 'Get started with Node actions'
 author: 'GitHub'
 inputs: 
   myInput:
