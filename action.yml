@@ -6,5 +6,5 @@ inputs:
     description: 'Input to use'
     default: 'world'
 runs:
-  using: 'node'
+  using: 'node12'
   main: 'lib/main.js'
