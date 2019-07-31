@@ -9,8 +9,8 @@ npm install @actions/core
 npm run-script build
 npm prune --production
 git add -f node_modules/*
-git commit -am "My first action is ready!"
+git commit -am "My action is ready!"
 git push
 ```
 
-Then you are ready to author a worfklow using this repo!
+Then you are ready to author a worfklow that uses this repo!
