@@ -5,11 +5,24 @@ jobs:
   check_pr:
     runs-on: ubuntu-latest
     steps:
-    - name: "install, build, format, and ensure no changes present"
-      shell: bash
+    - uses: actions/checkout@v1
+
+    - name: "npm ci"
+      run: npm ci
+
+    - name: "npm run build"
+      run: npm run build
+
+    - name: "npm run test"
+      run: npm run test
+
+    - name: "check format"
+      run: npm run format-check
+
+    - name: "check for uncommitted changes"
+      # Ensure no changes, but ignore node_modules dir since dev/fresh ci deps installed.
       run: |
-        npm install
-        npm run build
-        npm run format
-        # ensure no changes, but ignore node_modules dir since dev deps installed:
-        git diff --exit-code --stat -- . ':!node_modules'  
+        git diff --exit-code --stat -- . ':!node_modules' \
+        || (echo "##[error] found changed files after build. please 'npm run build && npm run format'" \
+                 "and check in all changes" \
+            && exit 1)
