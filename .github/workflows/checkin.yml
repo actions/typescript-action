@@ -1,0 +1,15 @@
+name: "PR Checks"
+on: [pull_request, push]
+
+jobs:
+  check_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "install, build, format, and ensure no changes present"
+      shell: bash
+      run: |
+        npm install
+        npm run build
+        npm run format
+        # ensure no changes, but ignore node_modules dir since dev deps installed:
+        git diff --exit-code --stat -- . ':!node_modules'  
