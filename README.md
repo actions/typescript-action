@@ -1,5 +1,9 @@
-# Node 12 Template Action
+# JavaScript Action Template
 
-To get started, click the `Use this template` button on this repository [which will create a new repository based on this template](https://github.blog/2019-06-06-generate-new-repositories-with-repository-templates/).
+This template offers an easy way to get started writing a javascript action with TypeScript compile time support, unit testing with Jest and using the GitHub Actions Toolkit.
 
-For info on how to build your first JavaScript action, see the [toolkit docs folder](https://github.com/actions/toolkit/blob/master/docs/node12-action.md).
+## Getting Started
+
+See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/node12-action.md).
+
+In addition to walking your through how to create an action, it also provides strategies for versioning, releasing and referencing your actions.
