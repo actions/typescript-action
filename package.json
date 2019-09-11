@@ -1,8 +1,8 @@
 {
-  "name": "node12-template-action",
+  "name": "javascript-template-action",
   "version": "0.0.0",
   "private": true,
-  "description": "Node 12 template action",
+  "description": "JavaScript template action",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -17,7 +17,7 @@
     "node",
     "setup"
   ],
-  "author": "GitHub",
+  "author": "YourNameOrOrganization",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.0.0"
