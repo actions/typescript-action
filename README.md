@@ -4,6 +4,6 @@ This template offers an easy way to get started writing a JavaScript action with
 
 ## Getting Started
 
-See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/javascript-action.md).
+See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/typescript-action.md).
 
 In addition to walking your through how to create an action, it also provides strategies for versioning, releasing and referencing your actions.
