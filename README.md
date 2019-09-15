@@ -1,4 +1,4 @@
-# JavaScript Action Template
+# Create a JavaScript Action using TypeScript
 
 This template offers an easy way to get started writing a JavaScript action with TypeScript compile time support, unit testing with Jest and using the GitHub Actions Toolkit.
 
