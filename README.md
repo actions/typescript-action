@@ -97,7 +97,7 @@ See the [versioning documentation](https://github.com/actions/toolkit/blob/maste
 You can now validate the action by referencing the releases/v1 branch
 
 ```yaml
-uses: actions/javascript-action@releases/v1
+uses: actions/typescript-action@releases/v1
 with:
   milliseconds: 1000
 ```
