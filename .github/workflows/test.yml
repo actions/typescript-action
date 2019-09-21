@@ -13,6 +13,6 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: npm test
-    - uses: actions/typescript-action@releases/v1
+    - uses: ./
       with: 
         milliseconds: 1000
