@@ -1,0 +1,18 @@
+name: "Test JavaScript Action"
+on:
+  push:
+    branches:    
+      - 'releases/*'   # only run in release distribution branches
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - run: npm ci
+    - run: npm run build
+    - run: npm test
+    - uses: ./
+      with: 
+        milliseconds: 1000

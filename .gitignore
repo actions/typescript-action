@@ -1,5 +1,8 @@
 __tests__/runner/*
 
+# comment out in distribution branches
+node_modules/
+
 # Rest pulled from https://github.com/github/gitignore/blob/master/Node.gitignore
 # Logs
 logs
@@ -41,7 +44,6 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
