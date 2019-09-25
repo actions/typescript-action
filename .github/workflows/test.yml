@@ -1,8 +1,10 @@
-name: "Test JavaScript Action"
+name: "Test typescript-action"
 on:
+  pull_request:
   push:
-    branches:    
-      - 'releases/*'   # only run in release distribution branches
+    branches:
+      - master
+      - 'releases/*'
 
 jobs:
   test:
