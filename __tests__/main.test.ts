@@ -4,7 +4,8 @@ import * as cp from 'child_process'
 import * as path from 'path'
 
 test('throws invalid number', async() => {
-    await expect(wait('foo')).rejects.toThrow('milleseconds not a number');
+    const input = parseInt('foo', 10);
+    await expect(wait(input)).rejects.toThrow('milleseconds not a number');
 });
 
 test('wait 500 ms', async() => {
@@ -19,5 +20,8 @@ test('wait 500 ms', async() => {
 test('test runs', () => {
     process.env['INPUT_MILLISECONDS'] = '500';
     const ip = path.join(__dirname, '..', 'lib', 'main.js');
-    console.log(cp.execSync(`node ${ip}`).toString());
-})
+    const options: cp.ExecSyncOptions = {
+        env: process.env
+    };
+    console.log(cp.execSync(`node ${ip}`, options).toString());
+});
