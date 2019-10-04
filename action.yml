@@ -1,8 +1,8 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Auto merge pull requests from specific users'
+description: 'Some PRs are opened by a bot bumping deps and these do not require manual review if the tests pass'
+author: 'Tom Heyes'
 inputs:
-  myInput:              # change this
+  autoMergeUser:
     description: 'input description here'
     default: 'default value if applicable'
 runs:
