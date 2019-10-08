@@ -4,7 +4,7 @@ author: 'Tom Heyes'
 inputs:
   autoMergeUser:
     description: 'input description here'
-    default: 'default value if applicable'
+    required: true
 runs:
   using: 'node12'
   main: 'lib/main.js'

@@ -1,13 +1,9 @@
-import * as core from '@actions/core';
-import {inspect} from "util";
-import colors = module
-
+const core = require('@actions/core');
 const github = require('@actions/github');
 
 async function run() {
   try {
-      const ms = core.getInput('autoMergeUser');
-    console.log(`Waiting ${ms} milliseconds ...`)
+      const userToAllowAutoMerge = core.getInput('autoMergeUser');
 
       const actionPayload = github.context.payload;
 
@@ -29,13 +25,10 @@ async function run() {
           const repoOwner = repoInfo.owner.login;
           const repoName = repoInfo.name;
 
-
-
           // make api call for more PR info
-
           console.log('Making api call for PR: ' + pullRequestNumber + " " + pullRequestSource + ":" + pullRequestDestination);
 
-          const myToken = core.getInput('myToken');
+          const myToken = core.getInput('github_token');
           const octokit = new github.GitHub(myToken);
           const {data: pullRequest} = await octokit.pulls.get({
               repo: repoName,
@@ -45,13 +38,13 @@ async function run() {
 
           console.log('Found PR: ' + pullRequest.title);
           console.log('PR raised by: ' + pullRequest.user.login)
+          console.log('PR data: \n' + JSON.stringify(pullRequest, undefined, 2));
 
+          if (userToAllowAutoMerge === pullRequest.user.login) {
+              console.log("okay to merge!");
+          }
 
       }
-
-
-
-    core.setOutput('time', new Date().toTimeString());
   } catch (error) {
     core.setFailed(error.message);
   }
