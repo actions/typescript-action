@@ -1,7 +1,7 @@
-export function wait(milliseconds) {
-    return new Promise((resolve, reject) => {
-        if (typeof(milliseconds) !== 'number') { 
-        throw new Error('milleseconds not a number'); 
+export function wait(milliseconds: number) {
+    return new Promise((resolve) => {
+        if (isNaN(milliseconds)) { 
+            throw new Error('milleseconds not a number'); 
         }
 
         setTimeout(() => resolve("done!"), milliseconds)
