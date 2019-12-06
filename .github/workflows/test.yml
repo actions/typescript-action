@@ -12,10 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - run: npm run all
+    - run: |
+      npm install
+      npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v1
     - uses: ./
       with: 
         milliseconds: 1000
