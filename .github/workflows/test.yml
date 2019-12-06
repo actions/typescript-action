@@ -1,5 +1,5 @@
 name: "Test typescript-action"
-on:
+on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
