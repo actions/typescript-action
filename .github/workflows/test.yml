@@ -7,14 +7,15 @@ on:
       - 'releases/*'
 
 jobs:
-  test:
+  build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
 
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
+    - run: npm run all
+  test: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
     - uses: ./
-      with: 
-        milliseconds: 1000
+    with: 
+      milliseconds: 1000
