@@ -23,5 +23,5 @@ test('test runs', () => {
   const options: cp.ExecSyncOptions = {
     env: process.env
   }
-  console.log(cp.execSync(`node ${ip}`, options).toString())
+  console.log(cp.spawnSync(`node`, [ip], options).toString())
 })
