@@ -21,9 +21,9 @@ Install the dependencies
 $ npm install
 ```
 
-Build the typescript
+Build the typescript and package it for distribution
 ```bash
-$ npm run build
+$ npm run build && npm run pack
 ```
 
 Run the tests :heavy_check_mark:  
@@ -72,20 +72,16 @@ See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/R
 
 Actions are run from GitHub repos.  We will create a releases branch and only checkin production modules (core in this case). 
 
-Comment out node_modules in .gitignore and create a releases/v1 branch
-```bash
-# comment out in distribution branches
-# node_modules/
-```
-
+Create a releases/v1 branch:
 ```bash
 $ git checkout -b releases/v1
 $ git commit -a -m "prod dependencies"
 ```
 
+Then run [ncc](https://github.com/zeit/ncc) and push the results:
 ```bash
-$ npm prune --production
-$ git add node_modules
+$ npm run pack
+$ git add dist
 $ git commit -a -m "prod dependencies"
 $ git push origin releases/v1
 ```
