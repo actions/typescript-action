@@ -70,13 +70,7 @@ See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/R
 
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos.  We will create a releases branch and only checkin production modules (core in this case). 
-
-Create a releases/v1 branch:
-```bash
-$ git checkout -b releases/v1
-$ git commit -a -m "prod dependencies"
-```
+Actions are run from GitHub repos so we will checkin the packed dist folder. 
 
 Then run [ncc](https://github.com/zeit/ncc) and push the results:
 ```bash
@@ -92,10 +86,10 @@ See the [versioning documentation](https://github.com/actions/toolkit/blob/maste
 
 ## Validate
 
-You can now validate the action by referencing the releases/v1 branch
+You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml)])
 
 ```yaml
-uses: actions/typescript-action@releases/v1
+uses: ./
 with:
   milliseconds: 1000
 ```
@@ -104,10 +98,4 @@ See the [actions tab](https://github.com/actions/javascript-action/actions) for 
 
 ## Usage:
 
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and tested action
-
-```yaml
-uses: actions/typescript-action@v1
-with:
-  milliseconds: 1000
-```
+After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
