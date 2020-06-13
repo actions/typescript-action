@@ -1,0 +1,19 @@
+{
+    "plugins": ["jest", "@typescript-eslint", "github"],
+    "extends": ["plugin:github/recommended", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 9,
+      "sourceType": "module",
+      "project": "./tsconfig.json",
+      "createDefaultProgram": true
+    },
+    "rules": {
+      "camelcase": "off"
+    },
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest/globals": true
+    }
+  }
