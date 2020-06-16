@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "printWidth": 80,
   "tabWidth": 2,
   "useTabs": false,
@@ -8,3 +9,15 @@
   "bracketSpacing": false,
   "arrowParens": "avoid"
 }
+=======
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": false,
+    "arrowParens": "avoid",
+    "parser": "typescript"
+  }
+>>>>>>> ed3b47b (Update .prettierrc.json)
