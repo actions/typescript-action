@@ -5,24 +5,24 @@
   "description": "TypeScript template action",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
-    "format": "prettier --write '**/*.ts'",
-    "format-check": "prettier --check '**/*.ts'",
-    "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "build": "yarn tsc",
+    "format": "yarn prettier --write '**/*.ts'",
+    "format-check": "yarn prettier --check '**/*.ts'",
+    "lint": "yarn eslint src/**/*.ts",
+    "dist": "yarn ncc build --source-map --license licenses.txt",
+    "test": "yarn jest",
+    "all": "yarn build && yarn format && yarn lint && yarn test && yarn dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/getsentry/typescript-action.git"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "",
+  "author": "Sentry",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.6.0"
@@ -32,8 +32,9 @@
     "@typescript-eslint/parser": "^5.8.1",
     "@vercel/ncc": "^0.31.1",
     "eslint": "^7.32.0",
-    "eslint-plugin-github": "^4.3.2",
+    "eslint-config-sentry": "^1.41.0",
     "eslint-plugin-jest": "^25.3.2",
+    "eslint-plugin-prettier": "^3.1.4",
     "jest": "^27.2.5",
     "js-yaml": "^4.1.0",
     "prettier": "2.5.1",
