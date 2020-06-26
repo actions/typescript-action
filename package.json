@@ -9,7 +9,7 @@
     "format": "yarn prettier --write '**/*.ts'",
     "format-check": "yarn prettier --check '**/*.ts'",
     "lint": "yarn eslint src/**/*.ts",
-    "dist": "yarn ncc build --source-map --license licenses.txt",
+    "dist": "yarn build && yarn ncc build --source-map --license licenses.txt",
     "test": "yarn jest",
     "all": "yarn build && yarn format && yarn lint && yarn test && yarn dist"
   },
