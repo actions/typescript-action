@@ -24,19 +24,33 @@
   ],
   "author": "Sentry",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "yarn eslint --fix",
+      "yarn prettier --write"
+    ]
+  },
   "dependencies": {
     "@actions/core": "^1.6.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.5",
     "@typescript-eslint/parser": "^5.8.1",
-    "@vercel/ncc": "^0.31.1",
+    "@vercel/ncc": "^0.33.1",
     "eslint": "^7.32.0",
-    "eslint-config-sentry": "^1.41.0",
+    "eslint-config-sentry": "^1.70.0",
     "eslint-plugin-jest": "^25.3.2",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.2.5",
+    "jest-circus": "^27.4.6",
     "js-yaml": "^4.1.0",
+    "lint-staged": "^12.1.7",
     "prettier": "2.5.1",
     "ts-jest": "^27.1.2",
     "typescript": "^4.4.4"
