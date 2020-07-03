@@ -1,23 +1,21 @@
-name: 'build-test'
-on: # rebuild any PRs and main branch changes
-  pull_request:
+name: test
+
+on:
   push:
     branches:
       - main
-      - 'releases/*'
+  pull_request:
+
 
 jobs:
-  build: # make sure build/ci work properly
+  test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - run: |
-        yarn install
-        yarn all
-  test: # make sure the action works on a clean machine without building
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ./
-      with:
-        milliseconds: 1000
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          node-version: 12
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn test
