@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/jest": "^24.9.0",
     "@types/node": "^12.7.12",
-    "@typescript-eslint/parser": "^2.8.0",
+    "@typescript-eslint/parser": "^3.6.1",
     "@zeit/ncc": "^0.20.5",
     "eslint": "^5.16.0",
     "eslint-plugin-github": "^2.0.0",
