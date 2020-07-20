@@ -34,7 +34,7 @@
     "@zeit/ncc": "^0.20.5",
     "eslint": "^5.16.0",
     "eslint-plugin-github": "^2.0.0",
-    "eslint-plugin-jest": "^22.21.0",
+    "eslint-plugin-jest": "^23.18.0",
     "jest": "^24.9.0",
     "jest-circus": "^24.9.0",
     "js-yaml": "^3.13.1",
