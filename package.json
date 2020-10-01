@@ -25,7 +25,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.2.6"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
