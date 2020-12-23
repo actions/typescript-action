@@ -1,6 +1,31 @@
 import * as core from '@actions/core'
 import {Octokit} from '@octokit/action'
 import {readFileSync} from 'fs'
+import {context} from '@actions/github'
+
+export async function getActionUrl(): Promise<string> {
+  const {runId, job} = context
+  const {owner, repo} = context.repo
+  const commandUrl = 'GET /repos/{group}/{repo}/actions/runs/{run_id}/jobs'
+  const commandParams = {
+    group: owner,
+    repo: repo,
+    run_id: runId
+  }
+  const github_token = process.env['GITHUB_TOKEN']
+  const octokit = new Octokit({auth: github_token})
+  const retval = await octokit.request(commandUrl, commandParams)
+  for (const buildNum in retval.data.jobs) {
+    if (retval.data.jobs[buildNum].name === job) {
+      const runJobId = retval.data.jobs[buildNum].id
+      const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`
+      console.log(link)
+      return link
+    }
+  }
+
+  return ''
+}
 
 async function run(): Promise<void> {
   try {
@@ -12,13 +37,16 @@ async function run(): Promise<void> {
     if (messageContent === '') {
       messageContent = readFileSync(fileName, 'utf-8')
     }
+    const buildUrl = await getActionUrl()
+    const footer = `<br> [action logs](${buildUrl})`
+    const textToPublish = messageContent.concat(footer.toString())
     const parts = repo.split('/')
     const commandUrl = 'POST /repos/:org/:repo/issues/:pull_request_id/comments'
     const commandParams = {
       org: parts[0],
       repo: parts[1],
       pull_request_id: pullRequestId,
-      body: messageContent,
+      body: textToPublish,
       headers: {
         'content-type': 'text/plain'
       }
