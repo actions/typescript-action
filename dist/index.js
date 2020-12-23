@@ -59,6 +59,7 @@ function run() {
                     'content-type': 'text/plain'
                 }
             };
+            core.info(`Built url ${commandUrl} with text ${messageContent}`);
             const octokit = new action_1.Octokit();
             yield octokit.request(commandUrl, commandParams);
         }
