@@ -13,7 +13,7 @@ inputs:
     description: 'text to post'
   repo:
     required: true
-    description: 'target repository'
+    description: 'target repository ( github.repository ) '
   pull_request_id:
     required: true
     description: 'pull request id ( github.event.issue.number )"'

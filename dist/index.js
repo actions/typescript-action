@@ -50,9 +50,11 @@ function run() {
             if (messageContent === '') {
                 messageContent = fs_1.readFileSync(fileName, 'utf-8');
             }
-            const commandUrl = 'POST /repos/:repository/issues/:pull_request_id/comments';
+            const parts = repo.split('/');
+            const commandUrl = 'POST /repos/:org/:repo/issues/:pull_request_id/comments';
             const commandParams = {
-                repository: repo,
+                org: parts[0],
+                repo: parts[1],
                 pull_request_id: pullRequestId,
                 body: messageContent,
                 headers: {
