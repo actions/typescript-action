@@ -1,11 +1,22 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'publish-pr-comment'
+description: 'Publish results to PR issues comments'
+author: 'core3'
+branding:
+  icon: 'crosshair'  
+  color: 'green'
 inputs:
-  milliseconds: # change this
+  fileName: 
+    required: false
+    description: 'file to post as comment'
+  text:
+    required: false
+    description: 'text to post'
+  repo:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'target repository'
+  pull_request_id:
+    required: true
+    description: 'pull request id ( github.event.issue.number )"'
 runs:
   using: 'node12'
   main: 'dist/index.js'

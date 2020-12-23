@@ -1,16 +1,29 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {Octokit} from '@octokit/action'
+import {readFileSync} from 'fs'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const fileName: string = core.getInput('fileName')
+    const text: string = core.getInput('text')
+    const repo: string = core.getInput('repo')
+    const pullRequestId: string = core.getInput('pull_request_id')
+    let messageContent = text
+    if (messageContent === '') {
+      messageContent = readFileSync(fileName, 'utf-8')
+    }
+    const commandUrl =
+      'POST /repos/:repository/issues/:pull_request_id/comments'
+    const commandParams = {
+      repository: repo,
+      pull_request_id: pullRequestId,
+      body: messageContent,
+      headers: {
+        'content-type': 'text/plain'
+      }
+    }
+    const octokit = new Octokit()
+    await octokit.request(commandUrl, commandParams)
   } catch (error) {
     core.setFailed(error.message)
   }
