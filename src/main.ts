@@ -22,7 +22,9 @@ async function run(): Promise<void> {
         'content-type': 'text/plain'
       }
     }
-    core.info(`Built url ${commandUrl} with text ${messageContent}`)
+    core.info(
+      `Built url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`
+    )
     const octokit = new Octokit()
     await octokit.request(commandUrl, commandParams)
   } catch (error) {
