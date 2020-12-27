@@ -38,7 +38,7 @@ async function run(): Promise<void> {
       messageContent = readFileSync(fileName, 'utf-8')
     }
     const buildUrl = await getActionUrl()
-    const footer = `\n\n<a href="${buildUrl}" target="_blank">action logs</a>`
+    const footer = `\n---\n[action logs](${buildUrl})`
     const textToPublish = messageContent.concat(footer.toString())
     const parts = repo.split('/')
     const commandUrl = 'POST /repos/:org/:repo/issues/:pull_request_id/comments'
