@@ -61,11 +61,8 @@ function getActionUrl() {
                 const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`;
                 return link;
             }
-            else {
-                throw Error(`Job ${job} cannot be found at ${owner}/${repo}`);
-            }
         }
-        return '';
+        throw Error(`Job ${job} cannot be found at ${owner}/${repo}`);
     });
 }
 exports.getActionUrl = getActionUrl;
