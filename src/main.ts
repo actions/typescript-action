@@ -4,6 +4,7 @@ import {readFileSync} from 'fs'
 import {context} from '@actions/github'
 
 export async function getActionUrl(): Promise<string> {
+
   const {runId, job} = context
   const {owner, repo} = context.repo
   const commandUrl =
@@ -13,6 +14,7 @@ export async function getActionUrl(): Promise<string> {
     repoName: repo,
     runIdPar: runId
   }
+  core.info(`Get action logs ${owner}/${repo} ${runId} ${job}`)
   const github_token = process.env['GITHUB_TOKEN']
   const octokit = new Octokit({auth: github_token})
   const retval = await octokit.request(commandUrl, commandParams)
@@ -21,6 +23,8 @@ export async function getActionUrl(): Promise<string> {
       const runJobId = retval.data.jobs[buildNum].id
       const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`
       return link
+    }else{
+      throw Error(`Job ${job} cannot be found at ${owner}/${repo}`)
     }
   }
 

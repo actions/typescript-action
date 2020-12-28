@@ -51,6 +51,7 @@ function getActionUrl() {
             repoName: repo,
             runIdPar: runId
         };
+        core.info(`Get action logs ${owner}/${repo} ${runId} ${job}`);
         const github_token = process.env['GITHUB_TOKEN'];
         const octokit = new action_1.Octokit({ auth: github_token });
         const retval = yield octokit.request(commandUrl, commandParams);
@@ -59,6 +60,9 @@ function getActionUrl() {
                 const runJobId = retval.data.jobs[buildNum].id;
                 const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`;
                 return link;
+            }
+            else {
+                throw Error(`Job ${job} cannot be found at ${owner}/${repo}`);
             }
         }
         return '';
