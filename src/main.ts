@@ -38,7 +38,7 @@ async function run(): Promise<void> {
       messageContent = readFileSync(fileName, 'utf-8')
     }
     const buildUrl = await getActionUrl()
-    const footer = `\n---\n[action logs](${buildUrl})`
+    const footer = `\n---\n [action logs](${buildUrl})`
     const textToPublish = messageContent.concat(footer.toString())
     const parts = repo.split('/')
     const commandUrl = 'POST /repos/:org/:repo/issues/:pull_request_id/comments'
@@ -52,7 +52,10 @@ async function run(): Promise<void> {
       }
     }
     core.info(
-      `Built url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`
+      `Built url ${buildUrl}`
+    )
+    core.info(
+      `Action log url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`
     )
     const octokit = new Octokit()
     await octokit.request(commandUrl, commandParams)

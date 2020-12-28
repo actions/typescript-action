@@ -78,7 +78,7 @@ function run() {
                 messageContent = fs_1.readFileSync(fileName, 'utf-8');
             }
             const buildUrl = yield getActionUrl();
-            const footer = `\n---\n[action logs](${buildUrl})`;
+            const footer = `\n---\n [action logs](${buildUrl})`;
             const textToPublish = messageContent.concat(footer.toString());
             const parts = repo.split('/');
             const commandUrl = 'POST /repos/:org/:repo/issues/:pull_request_id/comments';
@@ -91,7 +91,8 @@ function run() {
                     'content-type': 'text/plain'
                 }
             };
-            core.info(`Built url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`);
+            core.info(`Built url ${buildUrl}`);
+            core.info(`Action log url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`);
             const octokit = new action_1.Octokit();
             yield octokit.request(commandUrl, commandParams);
         }
