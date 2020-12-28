@@ -45,11 +45,11 @@ function getActionUrl() {
     return __awaiter(this, void 0, void 0, function* () {
         const { runId, job } = github_1.context;
         const { owner, repo } = github_1.context.repo;
-        const commandUrl = 'GET /repos/{group}/{repo}/actions/runs/{run_id}/jobs';
+        const commandUrl = 'GET /repos/{onerPar}/{repoName}/actions/runs/{runIdPar}/jobs';
         const commandParams = {
-            group: owner,
-            repo: repo,
-            run_id: runId
+            onerPar: owner,
+            repoName: repo,
+            runIdPar: runId
         };
         const github_token = process.env['GITHUB_TOKEN'];
         const octokit = new action_1.Octokit({ auth: github_token });
