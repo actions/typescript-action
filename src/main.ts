@@ -52,11 +52,12 @@ async function run(): Promise<void> {
       }
     }
     core.info(
-      `Built url ${buildUrl}`
+      `PR comment url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`
     )
     core.info(
-      `Action log url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`
+      `Action log url ${buildUrl}`
     )
+    
     const octokit = new Octokit()
     await octokit.request(commandUrl, commandParams)
   } catch (error) {

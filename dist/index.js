@@ -91,8 +91,8 @@ function run() {
                     'content-type': 'text/plain'
                 }
             };
-            core.info(`Built url ${buildUrl}`);
-            core.info(`Action log url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`);
+            core.info(`PR comment url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`);
+            core.info(`Action log url ${buildUrl}`);
             const octokit = new action_1.Octokit();
             yield octokit.request(commandUrl, commandParams);
         }
