@@ -19,7 +19,6 @@ export async function getActionUrl(): Promise<string> {
     if (retval.data.jobs[buildNum].name === job) {
       const runJobId = retval.data.jobs[buildNum].id
       const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`
-      console.log(link)
       return link
     }
   }
