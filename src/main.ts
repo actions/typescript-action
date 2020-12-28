@@ -6,11 +6,12 @@ import {context} from '@actions/github'
 export async function getActionUrl(): Promise<string> {
   const {runId, job} = context
   const {owner, repo} = context.repo
-  const commandUrl = 'GET /repos/{group}/{repo}/actions/runs/{run_id}/jobs'
+  const commandUrl =
+    'GET /repos/{onerPar}/{repoName}/actions/runs/{runIdPar}/jobs'
   const commandParams = {
-    group: owner,
-    repo: repo,
-    run_id: runId
+    onerPar: owner,
+    repoName: repo,
+    runIdPar: runId
   }
   const github_token = process.env['GITHUB_TOKEN']
   const octokit = new Octokit({auth: github_token})
@@ -53,10 +54,7 @@ async function run(): Promise<void> {
     core.info(
       `PR comment url ${commandUrl} with text ${messageContent} pull_request ${pullRequestId} repo ${repo}`
     )
-    core.info(
-      `Action log url ${buildUrl}`
-    )
-    
+    core.info(`Action log url ${buildUrl}`)
     const octokit = new Octokit()
     await octokit.request(commandUrl, commandParams)
   } catch (error) {
