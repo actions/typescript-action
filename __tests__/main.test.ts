@@ -1,3 +1,1 @@
-test('Empty test', () => {
-   
-})
+test('Empty test', () => {})

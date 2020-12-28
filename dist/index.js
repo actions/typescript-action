@@ -41,7 +41,20 @@ const core = __importStar(__webpack_require__(186));
 const action_1 = __webpack_require__(231);
 const fs_1 = __webpack_require__(747);
 const github_1 = __webpack_require__(438);
-function getActionUrl() {
+function getJobName(job, matrixOs, matrixNode) {
+    let jobName = job;
+    if (matrixOs && matrixNode) {
+        jobName = `${job} (${matrixOs}, ${matrixNode})`;
+    }
+    else if (matrixOs && !matrixNode) {
+        jobName = `${job} (${matrixOs})`;
+    }
+    else if (!matrixOs && matrixNode) {
+        jobName = `${job} (${matrixNode})`;
+    }
+    return jobName;
+}
+function getActionUrl(matrixOs, matrixNode) {
     return __awaiter(this, void 0, void 0, function* () {
         const { runId, job } = github_1.context;
         const { owner, repo } = github_1.context.repo;
@@ -51,12 +64,13 @@ function getActionUrl() {
             repoName: repo,
             runIdPar: runId
         };
-        core.info(`Get action logs ${owner}/${repo} ${runId} ${job}`);
+        const jobName = getJobName(job, matrixOs, matrixNode);
+        core.info(`Get action logs ${owner}/${repo} ${runId} ${jobName}`);
         const github_token = process.env['GITHUB_TOKEN'];
         const octokit = new action_1.Octokit({ auth: github_token });
         const retval = yield octokit.request(commandUrl, commandParams);
         for (const buildNum in retval.data.jobs) {
-            if (retval.data.jobs[buildNum].name === job) {
+            if (retval.data.jobs[buildNum].name === jobName) {
                 const runJobId = retval.data.jobs[buildNum].id;
                 const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`;
                 return link;
@@ -73,11 +87,13 @@ function run() {
             const text = core.getInput('text');
             const repo = core.getInput('repo');
             const pullRequestId = core.getInput('pull_request_id');
+            const matrixOs = core.getInput('matrix_os');
+            const matrixNode = core.getInput('matrix_node');
             let messageContent = text;
             if (messageContent === '') {
                 messageContent = fs_1.readFileSync(fileName, 'utf-8');
             }
-            const buildUrl = yield getActionUrl();
+            const buildUrl = yield getActionUrl(matrixOs, matrixNode);
             const footer = `\n\n---\n[action logs](${buildUrl})`;
             const textToPublish = messageContent.concat(footer.toString());
             const parts = repo.split('/');

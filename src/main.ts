@@ -3,10 +3,25 @@ import {Octokit} from '@octokit/action'
 import {readFileSync} from 'fs'
 import {context} from '@actions/github'
 
-export async function getActionUrl(): Promise<string> {
+function getJobName(job: string, matrixOs: string, matrixNode: string): string {
+  let jobName = job
+  if (matrixOs && matrixNode) {
+    jobName = `${job} (${matrixOs}, ${matrixNode})`
+  } else if (matrixOs && !matrixNode) {
+    jobName = `${job} (${matrixOs})`
+  } else if (!matrixOs && matrixNode) {
+    jobName = `${job} (${matrixNode})`
+  }
+  return jobName
+}
 
+export async function getActionUrl(
+  matrixOs: string,
+  matrixNode: string
+): Promise<string> {
   const {runId, job} = context
   const {owner, repo} = context.repo
+
   const commandUrl =
     'GET /repos/{onerPar}/{repoName}/actions/runs/{runIdPar}/jobs'
   const commandParams = {
@@ -14,13 +29,14 @@ export async function getActionUrl(): Promise<string> {
     repoName: repo,
     runIdPar: runId
   }
-  core.info(`Get action logs ${owner}/${repo} ${runId} ${job}`)
+  const jobName = getJobName(job, matrixOs, matrixNode)
+  core.info(`Get action logs ${owner}/${repo} ${runId} ${jobName}`)
   const github_token = process.env['GITHUB_TOKEN']
   const octokit = new Octokit({auth: github_token})
   const retval = await octokit.request(commandUrl, commandParams)
-  
+
   for (const buildNum in retval.data.jobs) {
-    if (retval.data.jobs[buildNum].name === job) {
+    if (retval.data.jobs[buildNum].name === jobName) {
       const runJobId = retval.data.jobs[buildNum].id
       const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`
       return link
@@ -35,11 +51,14 @@ async function run(): Promise<void> {
     const text: string = core.getInput('text')
     const repo: string = core.getInput('repo')
     const pullRequestId: string = core.getInput('pull_request_id')
+    const matrixOs: string = core.getInput('matrix_os')
+    const matrixNode: string = core.getInput('matrix_node')
+
     let messageContent = text
     if (messageContent === '') {
       messageContent = readFileSync(fileName, 'utf-8')
     }
-    const buildUrl = await getActionUrl()
+    const buildUrl = await getActionUrl(matrixOs, matrixNode)
     const footer = `\n\n---\n[action logs](${buildUrl})`
     const textToPublish = messageContent.concat(footer.toString())
     const parts = repo.split('/')

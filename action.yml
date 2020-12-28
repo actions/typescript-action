@@ -17,6 +17,12 @@ inputs:
   pull_request_id:
     required: true
     description: 'pull request id ( github.event.issue.number )"'
+  matrix_os:
+    required: true
+    description: 'if job is part or matrix strategy, (matris.os))'
+  matrix_node:
+    required: true
+    description: 'if job is part or matrix strategy, (matris.node-version))'
 runs:
   using: 'node12'
   main: 'dist/index.js'
