@@ -18,17 +18,15 @@ export async function getActionUrl(): Promise<string> {
   const github_token = process.env['GITHUB_TOKEN']
   const octokit = new Octokit({auth: github_token})
   const retval = await octokit.request(commandUrl, commandParams)
+  
   for (const buildNum in retval.data.jobs) {
     if (retval.data.jobs[buildNum].name === job) {
       const runJobId = retval.data.jobs[buildNum].id
       const link = `https://github.com/${owner}/${repo}/runs/${runJobId}?check_suite_focus=true`
       return link
-    }else{
-      throw Error(`Job ${job} cannot be found at ${owner}/${repo}`)
     }
   }
-
-  return ''
+  throw Error(`Job ${job} cannot be found at ${owner}/${repo}`)
 }
 
 async function run(): Promise<void> {
