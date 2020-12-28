@@ -56,7 +56,9 @@ You can now validate the action by referencing `./` in a workflow in your repo (
         with:
           repo: ${{ github.repository }}
           pull_request_id: ${{github.event.issue.number}}
-          text: "bom bom"
+          text: 'Whats up ${{matrix.os}}  ${{matrix.node-version}}'
+          matrix_os: ${{matrix.os}}
+          matrix_node: ${{matrix.node-version}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```

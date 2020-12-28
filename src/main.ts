@@ -3,7 +3,7 @@ import {Octokit} from '@octokit/action'
 import {readFileSync} from 'fs'
 import {context} from '@actions/github'
 
-function getJobName(job: string, matrixOs: string, matrixNode: string): string {
+export function getJobName(job: string, matrixOs: string, matrixNode: string): string {
   let jobName = job
   if (matrixOs && matrixNode) {
     jobName = `${job} (${matrixOs}, ${matrixNode})`
@@ -42,7 +42,7 @@ export async function getActionUrl(
       return link
     }
   }
-  throw Error(`Job ${job} cannot be found at ${owner}/${repo}`)
+  throw Error(`Job ${jobName} cannot be found at ${owner}/${repo}`)
 }
 
 async function run(): Promise<void> {

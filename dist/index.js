@@ -36,7 +36,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getActionUrl = void 0;
+exports.getActionUrl = exports.getJobName = void 0;
 const core = __importStar(__webpack_require__(186));
 const action_1 = __webpack_require__(231);
 const fs_1 = __webpack_require__(747);
@@ -54,6 +54,7 @@ function getJobName(job, matrixOs, matrixNode) {
     }
     return jobName;
 }
+exports.getJobName = getJobName;
 function getActionUrl(matrixOs, matrixNode) {
     return __awaiter(this, void 0, void 0, function* () {
         const { runId, job } = github_1.context;
@@ -76,7 +77,7 @@ function getActionUrl(matrixOs, matrixNode) {
                 return link;
             }
         }
-        throw Error(`Job ${job} cannot be found at ${owner}/${repo}`);
+        throw Error(`Job ${jobName} cannot be found at ${owner}/${repo}`);
     });
 }
 exports.getActionUrl = getActionUrl;
