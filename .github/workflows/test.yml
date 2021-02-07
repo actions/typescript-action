@@ -25,4 +25,4 @@ jobs:
           pull_request_id: 1
           text: "bom bom"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
