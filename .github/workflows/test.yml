@@ -1,23 +1,24 @@
-name: "build-test"
+name: 'build-test'
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
-      - master
+      - main
       - 'releases/*'
 
 jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - run: |
-        npm install
-        npm run all
+      - uses: actions/checkout@v2
+      - run: |
+          npm install
+      - run: |
+          npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: ./
-      with: 
-        milliseconds: 1000
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          milliseconds: 1000
