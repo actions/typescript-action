@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+https://github.com/actions/typescript-action.git"
   },
+  "engines": {
+    "node": "^16.13.1"
+  },
   "keywords": [
     "actions",
     "node",
