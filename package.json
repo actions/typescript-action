@@ -11,7 +11,8 @@
     "lint": "yarn eslint src/**/*.ts",
     "dist": "yarn build && yarn ncc build --source-map --license licenses.txt",
     "test": "yarn jest",
-    "all": "yarn build && yarn format && yarn lint && yarn test && yarn dist"
+    "all": "yarn build && yarn format && yarn lint && yarn test && yarn dist",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -48,7 +49,7 @@
     "eslint-config-sentry": "^1.70.0",
     "eslint-plugin-jest": "^25.3.2",
     "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "jest": "^27.2.5",
     "jest-circus": "^27.4.6",
     "js-yaml": "^4.1.0",
