@@ -5,7 +5,7 @@
     "parserOptions": {
       "ecmaVersion": 9,
       "sourceType": "module",
-      "project": "./tsconfig.json"
+      "project": "./tsconfig.eslintrc.json"
     },
     "rules": {
       "i18n-text/no-en": "off",
