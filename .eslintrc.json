@@ -46,7 +46,7 @@
       "@typescript-eslint/semi": ["error", "never"],
       "@typescript-eslint/type-annotation-spacing": "error",
       "@typescript-eslint/unbound-method": "error",
-      "filenames/match-regex": [2, "^[a-z_]+(.test)?$", true]
+      "filenames/match-regex": [2, "^[a-z_-].+$", true]
     },
     "env": {
       "node": true,
