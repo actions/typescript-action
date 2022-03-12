@@ -1,6 +1,6 @@
 {
     "env": {
-        "browser": true,
+        "node": true,
         "es2021": true
     },
     "extends": [
@@ -14,7 +14,5 @@
     },
     "plugins": [
         "@typescript-eslint"
-    ],
-    "rules": {
-    }
+    ]
 }
