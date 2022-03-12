@@ -59,7 +59,7 @@ async function run() {
   try { 
       ...
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error.message)
   }
 }
 
