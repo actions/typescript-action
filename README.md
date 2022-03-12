@@ -32,11 +32,10 @@ Run the tests :heavy_check_mark:
 ```bash
 $ npm test
 
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
+ PASS  __tests__/main.test.ts
+  √ throws invalid number (4 ms)
+  √ wait 500 ms (508 ms)
+  √ test runs (560 ms
 ...
 ```
 
@@ -53,15 +52,14 @@ See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-
 Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
 
 ```javascript
-import * as core from '@actions/core';
+import * as core from '@actions/core'
 ...
 
 async function run() {
   try { 
       ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
+  } catch (error) {
+    core.setFailed(error.message)
   }
 }
 
@@ -72,14 +70,14 @@ See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/R
 
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
+Actions are run from GitHub repos so we will checking the [action.yml](action.yml) `runs.main` attribute. In this case `dist/index.js`
 
 Then run [ncc](https://github.com/zeit/ncc) and push the results:
 ```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
+npm run package
+git add dist
+git commit -a -m "prod dependencies"
+git push origin releases/v1
 ```
 
 Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
