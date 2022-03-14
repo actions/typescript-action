@@ -28,7 +28,7 @@ Build the project.
 npm run build
 ```
 
-Run the tests :heavy_check_mark:  
+Run the tests.
 ```bash
 npm test
 ```
