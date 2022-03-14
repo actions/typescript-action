@@ -19,17 +19,17 @@ Click the `Use this Template` and provide the new repo details for your action
 > First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
 
 Install the dependencies.
-```bash
+```
 npm install
 ```
 
 Build the project.
-```bash
+```
 npm run build
 ```
 
 Run the tests.
-```bash
+```
 npm test
 ```
 ## Change action.yml
@@ -66,7 +66,7 @@ See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/R
 Actions are run from GitHub repos so we will checking the [action.yml](action.yml) `runs.main` attribute. In this case `dist/index.js`
 
 Then run [ncc](https://github.com/vercel/ncc) and push the results:
-```bash
+```
 npm run build
 git add dist
 git commit -a -m "prod dependencies"
