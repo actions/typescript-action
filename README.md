@@ -34,7 +34,7 @@ npm test
 ```
 ## Change action.yml
 
-The action.yml defines the inputs and output for your action.
+The [action.yml](action.yml) file defines the inputs and output for your action.
 
 Update the action.yml with your name, description, inputs and outputs for your action.
 
@@ -65,7 +65,7 @@ See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/R
 
 Actions are run from GitHub repos so we will checking the [action.yml](action.yml) `runs.main` attribute. In this case `dist/index.js`
 
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
+Then run [ncc](https://github.com/vercel/ncc) and push the results:
 ```bash
 npm run build
 git add dist
@@ -89,8 +89,8 @@ with:
   milliseconds: 1000
 ```
 
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
+See the [Actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
 
 ## Usage:
 
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest v1 action
