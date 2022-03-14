@@ -20,3 +20,5 @@ jobs:
       - uses: ./
         with:
           milliseconds: 1000
+        id: wait
+      - run: echo 'Waited ${{ steps.wait.outputs.milliseconds }} milliseconds'
