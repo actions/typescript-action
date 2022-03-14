@@ -18,27 +18,20 @@ Click the `Use this Template` and provide the new repo details for your action
 
 > First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
 
-Install the dependencies  
+Install the dependencies.
 ```bash
-$ npm install
+npm install
 ```
 
-Build the typescript and package it for distribution
+Build the project.
 ```bash
-$ npm run build && npm run package
+npm run build
 ```
 
 Run the tests :heavy_check_mark:  
 ```bash
-$ npm test
-
- PASS  __tests__/main.test.ts
-  √ throws invalid number (4 ms)
-  √ wait 500 ms (508 ms)
-  √ test runs (560 ms
-...
+npm test
 ```
-
 ## Change action.yml
 
 The action.yml defines the inputs and output for your action.
@@ -74,7 +67,7 @@ Actions are run from GitHub repos so we will checking the [action.yml](action.ym
 
 Then run [ncc](https://github.com/zeit/ncc) and push the results:
 ```bash
-npm run package
+npm run build
 git add dist
 git commit -a -m "prod dependencies"
 git push origin releases/v1
