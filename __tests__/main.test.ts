@@ -19,6 +19,7 @@ test('wait 500 ms', async () => {
 
 // shows how the runner will run a javascript action with env / stdout protocol
 test('test runs', () => {
+  // Set all expected inputs (even defaults) with prefix INPUT_ and capitalized input name
   process.env['INPUT_MILLISECONDS'] = '500'
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
