@@ -168,18 +168,24 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const context = github.context;
         const doccPath = yield (0, install_1.installDocc)();
+        const options = {};
         const path = core.getInput('path');
         let fallbackDisplayName = core.getInput('fallback-display-name');
         if (!fallbackDisplayName) {
             fallbackDisplayName = context.repo.repo;
         }
+        options['--fallback-display-name'] = fallbackDisplayName;
         let fallbackBundleIdentifier = (0, core_1.getInput)('fallback-bundle-identifier');
         if (!fallbackBundleIdentifier) {
             fallbackBundleIdentifier = context.repo.repo;
         }
-        const fallbackBundleVersion = (0, core_1.getInput)('fallback-bundle-version');
-        const additionalSymbolGraphDir = (0, core_1.getInput)('additional-symbol-graph-dir');
+        options['--fallback-bundle-identifier'] = fallbackBundleIdentifier;
+        options['--fallback-bundle-version'] = (0, core_1.getInput)('fallback-bundle-version');
+        options['--additional-symbol-graph-dir'] = (0, core_1.getInput)('additional-symbol-graph-dir');
         const outputPath = (0, core_1.getInput)('output-path');
+        options['--output-path'] = outputPath;
+        const hostingBasePath = (0, core_1.getInput)('hosting-base-path');
+        options['--hosting-base-path'] = hostingBasePath;
         let doccHtmlDir = core.getInput('DOCC_HTML_DIR');
         if (!doccHtmlDir) {
             doccHtmlDir = `${doccPath}/../share/docc/render`;
@@ -187,13 +193,10 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         core.info(`DOCC_HTML_DIR: ${doccHtmlDir}`);
         // remove current docs
         yield io.rmRF(outputPath);
-        yield (0, build_1.buildDocs)('docc', ['convert', path], {
-            '--fallback-display-name': fallbackDisplayName,
-            '--fallback-bundle-identifier': fallbackBundleIdentifier,
-            '--fallback-bundle-version': fallbackBundleVersion,
-            '--additional-symbol-graph-dir': additionalSymbolGraphDir,
-            '--output-path': outputPath
-        }, {
+        if (hostingBasePath) {
+            options['--hosting-base-path'] = hostingBasePath;
+        }
+        yield (0, build_1.buildDocs)('docc', ['convert', path], options, {
             DOCC_HTML_DIR: doccHtmlDir
         });
         const commit = (0, core_1.getBooleanInput)('commit');
@@ -201,13 +204,16 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         // `TODO define output, which states if there are changes (or abort if there are changes)
         // `TODO refactor this into functions
         if (commit) {
+            yield exec.exec('git', ['remote', '-v']);
+            yield exec.exec('git', ['fetch', 'origin']);
             // `TODO use context to determine branch...
-            const branch = github_action_helper_1.Utils.getPrBranch(context);
+            let branch = github_action_helper_1.Utils.getPrBranch(context);
+            if (!branch) {
+                branch = github_action_helper_1.Utils.getBranch(context.ref);
+            }
             if (!branch) {
                 core.setFailed('could not determine branch to push changes to');
             }
-            yield exec.exec('git', ['remote', '-v']);
-            yield exec.exec('git', ['fetch', 'origin']);
             yield exec.exec('git', ['checkout', '-b', branch, `origin/${branch}`]);
             yield exec.exec('git', ['add', `${outputPath}/*`]);
             // TODO check for git status

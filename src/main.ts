@@ -13,20 +13,29 @@ const run = async (): Promise<void> => {
     const context = github.context
     const doccPath = await installDocc()
 
+    const options: {[key: string]: string} = {}
+
     const path: string = core.getInput('path')
     let fallbackDisplayName = core.getInput('fallback-display-name')
     if (!fallbackDisplayName) {
       fallbackDisplayName = context.repo.repo
     }
+    options['--fallback-display-name'] = fallbackDisplayName
 
     let fallbackBundleIdentifier = getInput('fallback-bundle-identifier')
     if (!fallbackBundleIdentifier) {
       fallbackBundleIdentifier = context.repo.repo
     }
+    options['--fallback-bundle-identifier'] = fallbackBundleIdentifier
 
-    const fallbackBundleVersion = getInput('fallback-bundle-version')
-    const additionalSymbolGraphDir = getInput('additional-symbol-graph-dir')
-    const outputPath: string = getInput('output-path')
+    options['--fallback-bundle-version'] = getInput('fallback-bundle-version')
+    options['--additional-symbol-graph-dir'] = getInput(
+      'additional-symbol-graph-dir'
+    )
+    const outputPath = getInput('output-path')
+    options['--output-path'] = outputPath
+    const hostingBasePath = getInput('hosting-base-path')
+    options['--hosting-base-path'] = hostingBasePath
 
     let doccHtmlDir = core.getInput('DOCC_HTML_DIR')
     if (!doccHtmlDir) {
@@ -37,35 +46,30 @@ const run = async (): Promise<void> => {
     // remove current docs
     await io.rmRF(outputPath)
 
-    await buildDocs(
-      'docc',
-      ['convert', path],
-      {
-        '--fallback-display-name': fallbackDisplayName,
-        '--fallback-bundle-identifier': fallbackBundleIdentifier,
-        '--fallback-bundle-version': fallbackBundleVersion,
-        '--additional-symbol-graph-dir': additionalSymbolGraphDir,
-        '--output-path': outputPath
-      },
-      {
-        DOCC_HTML_DIR: doccHtmlDir
-      }
-    )
+    if (hostingBasePath) {
+      options['--hosting-base-path'] = hostingBasePath
+    }
+    await buildDocs('docc', ['convert', path], options, {
+      DOCC_HTML_DIR: doccHtmlDir
+    })
 
     const commit: boolean = getBooleanInput('commit')
     const commitMessage = getInput('commit-message')
     // `TODO define output, which states if there are changes (or abort if there are changes)
     // `TODO refactor this into functions
     if (commit) {
+      await exec.exec('git', ['remote', '-v'])
+      await exec.exec('git', ['fetch', 'origin'])
+
       // `TODO use context to determine branch...
-      const branch = Utils.getPrBranch(context)
+      let branch = Utils.getPrBranch(context)
+      if (!branch) {
+        branch = Utils.getBranch(context.ref)
+      }
       if (!branch) {
         core.setFailed('could not determine branch to push changes to')
       }
 
-      await exec.exec('git', ['remote', '-v'])
-
-      await exec.exec('git', ['fetch', 'origin'])
       await exec.exec('git', ['checkout', '-b', branch, `origin/${branch}`])
       await exec.exec('git', ['add', `${outputPath}/*`])
       // TODO check for git status

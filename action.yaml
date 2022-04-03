@@ -27,6 +27,11 @@ inputs:
     description:
       value for parameter `--additional-symbol-graph-dir`
     default: '.build'
+  hosting-base-path:
+    required: false
+    description:
+      The base path your documentation website will be hosted at.
+      For example, to deploy your site to 'example.com/my_name/my_project/documentation' instead of 'example.com/documentation', pass '/my_name/my_project' as the base path.
   output-path:
     required: true
     description:

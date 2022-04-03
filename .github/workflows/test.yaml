@@ -26,4 +26,5 @@ jobs:
         with:
           path: DemoSwiftPackage/Sources/DemoSwiftPackage/DemoSwiftPackage.docc
           additional-symbol-graph-dir: DemoSwiftPackage/.build
+          hosting-base-path: swift-docc-action
 
