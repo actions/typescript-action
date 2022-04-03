@@ -18,31 +18,23 @@ Click the `Use this Template` and provide the new repo details for your action
 
 > First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
 
-Install the dependencies  
-```bash
-$ npm install
+Install the dependencies.
+```
+npm install
 ```
 
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
+Build the project.
+```
+npm run build
 ```
 
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
+Run the tests.
 ```
-
+npm test
+```
 ## Change action.yml
 
-The action.yml defines the inputs and output for your action.
+The [action.yml](action.yml) file defines the inputs and output for your action.
 
 Update the action.yml with your name, description, inputs and outputs for your action.
 
@@ -53,15 +45,14 @@ See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-
 Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
 
 ```javascript
-import * as core from '@actions/core';
+import * as core from '@actions/core'
 ...
 
 async function run() {
   try { 
       ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
+  } catch (error) {
+    core.setFailed(error.message)
   }
 }
 
@@ -72,14 +63,14 @@ See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/R
 
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
+Actions are run from GitHub repos so we will checking the [action.yml](action.yml) `runs.main` attribute. In this case `dist/index.js`
 
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
+Then run [ncc](https://github.com/vercel/ncc) and push the results:
+```
+npm run build
+git add dist
+git commit -a -m "prod dependencies"
+git push origin releases/v1
 ```
 
 Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
@@ -98,8 +89,8 @@ with:
   milliseconds: 1000
 ```
 
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
+See the [Actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
 
 ## Usage:
 
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest v1 action
