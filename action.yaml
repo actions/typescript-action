@@ -1,0 +1,50 @@
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+name: swift-docc
+description:
+  Generate Swift Documentation using DocC
+author:
+  dastrobu
+inputs:
+  path:
+    required: true
+    description:
+      path to the docc folder, e.g. Sources/Foo/Foo.docc
+  fallback-display-name:
+    required: false
+    description:
+      value for parameter `--fallback-display-name`
+  fallback-bundle-identifier:
+    required: false
+    description:
+      value for parameter `--fallback-bundle-identifier`
+  fallback-bundle-version:
+    required: true
+    description:
+      value for parameter `--fallback-bundle-version`
+    default: '1'
+  additional-symbol-graph-dir:
+    required: true
+    description:
+      value for parameter `--additional-symbol-graph-dir`
+    default: '.build'
+  output-path:
+    required: true
+    description:
+      value for parameter `--output`
+    default: 'docs'
+  DOCC_HTML_DIR:
+    required: false
+    description:
+      path to a HTML template dir
+  commit:
+    required: true
+    description: flag to indicate if the generated docs should be commited
+    default:
+      'true'
+  commit-message:
+    required: true
+    description: message under which changes should be commit
+    default: (swift-docc-action) update generated documentation
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

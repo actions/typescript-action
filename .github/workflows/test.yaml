@@ -8,7 +8,7 @@ on: # rebuild any PRs and main branch changes
 
 jobs:
   build: # make sure build/ci work properly
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -16,9 +16,14 @@ jobs:
       - run: |
           npm run all
   test: # make sure the action works on a clean machine without building
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
+      - run: |
+          cd DemoSwiftPackage 
+          swift build --target DemoSwiftPackage -Xswiftc -emit-symbol-graph -Xswiftc -emit-symbol-graph-dir -Xswiftc .build
       - uses: ./
         with:
-          milliseconds: 1000
+          path: DemoSwiftPackage/Sources/DemoSwiftPackage/DemoSwiftPackage.docc
+          additional-symbol-graph-dir: DemoSwiftPackage/.build
+
