@@ -12,21 +12,28 @@ async function run(): Promise<void> {
     console.log(
       `Polling url ${url} for ${attempts} attempts with a delay of ${interval}`
     )
+    console.log('Awaiting specified content: ' + expectedContent)
+
     let currentAttempt = 1
 
     while (currentAttempt <= attempts) {
-      console.log('attempt ' + currentAttempt)
       const response = await axios.get(url, {timeout: interval})
       if (response.data === expectedContent) {
-        process.exit(0);
+        process.exit(0)
       }
+
+      console.log(
+        `attempt ${currentAttempt} gave code: ${response.status} with content: ${response.data}`
+      )
 
       await wait(interval)
 
       currentAttempt++
     }
 
-    throw new Error(`Error: Failed to receive expected content within specified attempts/interval.`);
+    throw new Error(
+      `Error: Failed to receive expected content within specified attempts/interval.`
+    )
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
