@@ -49,8 +49,8 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const url = core.getInput('url', { required: true });
-            const attempts = parseInt(core.getInput('attempts'), 100);
-            const interval = parseInt(core.getInput('interval'), 1000); // millieseconds
+            const attempts = parseInt(core.getInput('attempts') || '100', 10);
+            const interval = parseInt(core.getInput('interval') || '1000', 10); // millieseconds
             const expectedContent = core.getInput('expectedContent');
             console.log(`Polling url ${url} for ${attempts} attempts with a delay of ${interval}`);
             let currentAttempt = 1;
