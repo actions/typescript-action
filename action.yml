@@ -1,11 +1,21 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Daniel Genis'
+description: 'GH actions plugin to poll an url until the expected response is present'
+author: 'Gynzy BV'
 inputs:
-  milliseconds: # change this
+  url:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'URL to poll. i.e.: https://example.com/test.txt'
+  attempts:
+    required: true
+    description: 'how many retries should we do? i.e. 100'
+    default: '100'
+  interval:
+    required: false
+    description: 'how quickly should we poll? in millieseconds'
+    default: '1'
+  expectedContent:
+    required: true
+    description: 'the response content which we expect'
 runs:
   using: 'node16'
   main: 'dist/index.js'
