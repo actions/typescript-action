@@ -56,11 +56,20 @@ function run() {
             console.log('Awaiting specified content: ' + expectedContent);
             let currentAttempt = 1;
             while (currentAttempt <= attempts) {
-                const response = yield axios_1.default.get(url, { timeout: interval });
-                if (response.data === expectedContent) {
+                let response;
+                try {
+                    response = yield axios_1.default.get(url, { timeout: interval });
+                }
+                catch (error) {
+                    console.log(`attempt ${currentAttempt} threw error: ${error}`);
+                    yield (0, wait_1.wait)(interval);
+                    currentAttempt++;
+                    continue; // skip rest of current iteration
+                }
+                if ((response === null || response === void 0 ? void 0 : response.data) === expectedContent) {
                     process.exit(0);
                 }
-                console.log(`attempt ${currentAttempt} gave code: ${response.status} with content: ${response.data}`);
+                console.log(`attempt ${currentAttempt} gave code: ${response === null || response === void 0 ? void 0 : response.status} with content: ${response === null || response === void 0 ? void 0 : response.data}`);
                 yield (0, wait_1.wait)(interval);
                 currentAttempt++;
             }

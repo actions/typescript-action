@@ -17,17 +17,25 @@ async function run(): Promise<void> {
     let currentAttempt = 1
 
     while (currentAttempt <= attempts) {
-      const response = await axios.get(url, {timeout: interval})
-      if (response.data === expectedContent) {
+      let response;
+      try {
+        response = await axios.get(url, {timeout: interval})
+      } catch (error) {
+        console.log(`attempt ${currentAttempt} threw error: ${error}`);
+        await wait(interval)
+        currentAttempt++
+        continue; // skip rest of current iteration
+      }
+
+      if (response?.data === expectedContent) {
         process.exit(0)
       }
 
       console.log(
-        `attempt ${currentAttempt} gave code: ${response.status} with content: ${response.data}`
+        `attempt ${currentAttempt} gave code: ${response?.status} with content: ${response?.data}`
       )
 
       await wait(interval)
-
       currentAttempt++
     }
 
