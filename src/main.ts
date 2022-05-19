@@ -1,16 +1,32 @@
 import * as core from '@actions/core'
 import {wait} from './wait'
+import axios from 'axios'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const url: string = core.getInput('url', {required: true})
+    const attempts: number = parseInt(core.getInput('attempts'), 100)
+    const interval: number = parseInt(core.getInput('interval'), 1000) // millieseconds
+    const expectedContent: string = core.getInput('expectedContent')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    console.log(
+      `Polling url ${url} for ${attempts} attempts with a delay of ${interval}`
+    )
+    let currentAttempt = 1
 
-    core.setOutput('time', new Date().toTimeString())
+    while (currentAttempt <= attempts) {
+      console.log('attempt ' + currentAttempt)
+      const response = await axios.get(url, {timeout: interval})
+      if (response.data === expectedContent) {
+        process.exit(0);
+      }
+
+      await wait(interval)
+
+      currentAttempt++
+    }
+
+    throw new Error(`Error: Failed to receive expected content within specified attempts/interval.`);
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
