@@ -100,6 +100,10 @@ with:
 
 See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
 
+## Testing
+
+To correct receive the variables values when using [`core.getInput('milliseconds')`](https://github.com/actions/typescript-action/blob/569d7856399fccb879d5c13a5407ca2ae89ce047/src/main.ts#L6) on tests you need to add `INPUT_` as preffix on the name and use UPPERCASE string with `process.env`, [like this](https://github.com/actions/typescript-action/blob/569d7856399fccb879d5c13a5407ca2ae89ce047/__tests__/main.test.ts#L22).
+
 ## Usage:
 
 After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
