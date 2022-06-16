@@ -6,13 +6,13 @@ inputs:
     required: true
     description: 'URL to poll. i.e.: https://example.com/test.txt'
   attempts:
-    required: true
+    required: false
     description: 'how many retries should we do? i.e. 100'
-    default: '100'
+    default: '500'
   interval:
     required: false
-    description: 'how quickly should we poll? in millieseconds'
-    default: '1'
+    description: 'how long should we wait between polls? in millieseconds'
+    default: '1000'
   expectedContent:
     required: true
     description: 'the response content which we expect'
