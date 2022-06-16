@@ -5,7 +5,7 @@ import axios from 'axios'
 async function run(): Promise<void> {
   try {
     const url: string = core.getInput('url', {required: true})
-    const attempts: number = parseInt(core.getInput('attempts') || '100', 10)
+    const attempts: number = parseInt(core.getInput('attempts') || '500', 10)
     const interval: number = parseInt(core.getInput('interval') || '1000', 10) // millieseconds
     const expectedContent: string = core.getInput('expectedContent')
 
