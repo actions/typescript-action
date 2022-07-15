@@ -28,10 +28,11 @@
     "@actions/core": "^1.6.0"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.0",
     "@types/node": "^16.10.5",
     "@typescript-eslint/parser": "^5.8.1",
     "@vercel/ncc": "^0.31.1",
-    "eslint": "^7.32.0",
+    "eslint": "^8.0.1",
     "eslint-plugin-github": "^4.3.2",
     "eslint-plugin-jest": "^25.3.2",
     "jest": "^27.2.5",
