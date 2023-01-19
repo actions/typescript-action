@@ -12,7 +12,7 @@
     "eslint-comments/no-use": "off",
     "import/no-namespace": "off",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/explicit-member-accessibility": ["error", { "accessibility": "no-public" }],
     "@typescript-eslint/no-require-imports": "error",
     "@typescript-eslint/array-type": "error",
@@ -45,7 +45,9 @@
     "semi": "off",
     "@typescript-eslint/semi": ["error", "never"],
     "@typescript-eslint/type-annotation-spacing": "error",
-    "@typescript-eslint/unbound-method": "error"
+    "@typescript-eslint/unbound-method": "error",
+    "no-shadow": "off", // Disable the base rule as it can report incorrect errors
+    "@typescript-eslint/no-shadow": "warn"
   },
   "env": {
     "node": true,
