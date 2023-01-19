@@ -1,0 +1,9 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "conventionalCommits.emojiFormat": "emoji",
+  "conventionalCommits.gitmoji": true,
+  "conventionalCommits.promptBody": true,
+  "conventionalCommits.promptFooter": false,
+  "conventionalCommits.promptScopes": false,
+  "conventionalCommits.showEditor": false
+}
