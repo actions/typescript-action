@@ -4,6 +4,9 @@
   "private": true,
   "description": "TypeScript template action",
   "main": "lib/main.js",
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "build": "tsc",
     "format": "prettier --write '**/*.ts'",
