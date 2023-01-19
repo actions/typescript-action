@@ -5,7 +5,8 @@
   "description": "TypeScript template action",
   "main": "lib/main.js",
   "engines": {
-    "node": "16.14.0"
+    "node": "16.14.0",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "build": "tsc",
