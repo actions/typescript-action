@@ -1,0 +1,59 @@
+---
+
+name: Linting suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  super-linter:
+    name: Super Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@bb2d833b08b6c288608686672b93a8a4589cdc49
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          VALIDATE_TYPESCRIPT_STANDARD: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lint:
+    name: Linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@92a57f4a935efe978b0a4d8e5b19fb42658c7ef7
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Prettier
+        run: yarn run format-check
+
+      - name: ESLint
+        run: yarn run lint
+
+...

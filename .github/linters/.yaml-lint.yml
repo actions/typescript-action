@@ -1,0 +1,14 @@
+---
+
+extends: default
+
+rules:
+  brackets:
+    level: warning
+    max-spaces-inside: 1
+    max-spaces-inside-empty: 1
+  line-length: disable
+  truthy:
+    level: warning
+
+...

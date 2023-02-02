@@ -1,0 +1,15 @@
+# syntax - https://github.com/redhat-plumbers-in-action/advanced-issue-labeler#policy
+---
+
+policy:
+  - section:
+      - id: ['type']
+        block-list: ['other']
+        label:
+          - name: bug 🐛
+            keys: ['Bug Report']
+
+          - name: RFE 🎁
+            keys: ['Feature Request']
+
+...

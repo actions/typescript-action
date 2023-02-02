@@ -1,43 +1,50 @@
 {
   "name": "typescript-action",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "description": "TypeScript template action",
-  "main": "lib/main.js",
+  "main": "src/main.ts",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "test": "vitest run --coverage",
+    "update-snapshots": "vitest run --update",
+    "all": "yarn run build && yarn run format && yarn run lint && yarn run package && yarn test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/redhat-plumbers-in-action/typescript-action.git"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "",
+  "author": "jamacku@redhat.com",
   "license": "MIT",
+  "packageManager": "yarn@3.3.1",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "1.10.0",
+    "@octokit/rest": "19.0.7",
+    "@probot/adapter-github-actions": "3.1.3",
+    "class-validator": "^0.14.0"
   },
   "devDependencies": {
-    "@types/node": "^18.11.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "@vercel/ncc": "^0.31.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-github": "^4.3.2",
-    "eslint-plugin-jest": "^25.3.2",
-    "jest": "^27.2.5",
-    "js-yaml": "^4.1.0",
-    "prettier": "2.5.1",
-    "ts-jest": "^27.1.2",
-    "typescript": "^4.4.4"
+    "@actions/github": "5.1.1",
+    "@types/node": "18.11.18",
+    "@typescript-eslint/eslint-plugin": "5.50.0",
+    "@typescript-eslint/parser": "5.48.2",
+    "@vercel/ncc": "0.36.1",
+    "@vitest/coverage-c8": "0.26.3",
+    "eslint": "8.30.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "js-yaml": "4.1.0",
+    "nock": "13.2.9",
+    "prettier": "2.8.3",
+    "ts-node": "10.9.1",
+    "typescript": "4.9.4",
+    "vitest": "0.26.3"
   }
 }

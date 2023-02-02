@@ -1,0 +1,50 @@
+---
+
+name: Unit tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Unit Tests - Node.js
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 16.x, 18.x ]
+
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@92a57f4a935efe978b0a4d8e5b19fb42658c7ef7
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Install
+        run: yarn install
+
+      - name: Compile
+        run: yarn build
+
+      - name: Package
+        run: yarn run package
+
+      - name: Test
+        run: yarn test
+
+      - name: Codecov
+        if: ${{ matrix.node-version == '18.x' }}
+        uses: codecov/codecov-action@e0fbd592d323cb2991fb586fdd260734fcb41fcb
+
+...

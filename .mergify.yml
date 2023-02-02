@@ -1,0 +1,136 @@
+# doc: https://docs.mergify.com
+---
+
+pull_request_rules:
+
+  - name: Automatic merge (squash) on approval & CI pass
+    conditions:
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - check-success=check-dist
+      - check-success=CodeQL
+      - check-success=Linters
+      - check-success=Super Linter
+      - check-success=Unit Tests - Node.js (16.x)
+      - check-success=Unit Tests - Node.js (18.x)
+      - -draft
+      - label!=dont-merge
+      - "label!=merge-strategy: rebase"
+      - -title~=(?i)wip
+      - base=main
+    actions:
+      merge:
+        method: squash
+
+  - name: Automatic merge (rebase) on approval & CI pass
+    conditions:
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - check-success=check-dist
+      - check-success=CodeQL
+      - check-success=Linters
+      - check-success=Super Linter
+      - check-success=Unit Tests - Node.js (16.x)
+      - check-success=Unit Tests - Node.js (18.x)
+      - -draft
+      - label!=dont-merge
+      - "label=merge-strategy: rebase"
+      - -title~=(?i)wip
+      - base=main
+    actions:
+      merge:
+        method: rebase
+        rebase_fallback: none
+
+  - name: Delete head branch after merge
+    conditions:
+      - head!=main
+      - merged
+    actions:
+      delete_head_branch:
+
+  # --- --- Labels --- --- #
+
+  - name: Add source label
+    conditions:
+      - files~=^src/
+    actions:
+      label:
+        add:
+          - source
+
+  - name: Remove source label
+    conditions:
+      - -files~=^src/
+    actions:
+      label:
+        remove:
+          - source
+
+  # --- #
+
+  - name: Add configuration label
+    conditions:
+      - or:
+          - files~=\.yml$
+          - files~=\.json$
+          - files~=\.config.ts$
+    actions:
+      label:
+        add:
+          - configuration
+
+  - name: Remove configuration label
+    conditions:
+      - and:
+          - -files~=\.yml$
+          - -files~=\.json$
+          - -files~=\.config.ts$
+    actions:
+      label:
+        remove:
+          - configuration
+
+  # --- #
+
+  - name: Add documentation label
+    conditions:
+      - or:
+          - files~=\.md$
+          - files~=\.png$
+    actions:
+      label:
+        add:
+          - documentation
+
+  - name: Remove documentation label
+    conditions:
+      - and:
+          - -files~=\.md$
+          - -files~=\.png$
+    actions:
+      label:
+        remove:
+          - documentation
+
+  # --- #
+
+  - name: Add test label
+    conditions:
+      - files~=^test/
+    actions:
+      label:
+        add:
+          - test
+
+  - name: Remove test label
+    conditions:
+      - -files~=^test/
+    actions:
+      label:
+        remove:
+          - test
+
+...

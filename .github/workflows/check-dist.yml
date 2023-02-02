@@ -3,6 +3,8 @@
 # `index.js` is the code that will run.
 # For our project, we generate this file through a build process from other source files.
 # We need to make sure the checked-in `index.js` actually matches what we expect it to be.
+---
+
 name: Check dist/
 
 on:
@@ -16,25 +18,29 @@ on:
       - '**.md'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   check-dist:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
 
-      - name: Set Node.js 16.x
-        uses: actions/setup-node@v3.5.1
+      - name: Use Node.js 18
+        uses: actions/setup-node@92a57f4a935efe978b0a4d8e5b19fb42658c7ef7
         with:
-          node-version: 16.x
+          node-version: 18
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Rebuild the dist/ directory
         run: |
-          npm run build
-          npm run package
+          yarn run build
+          yarn run package
 
       - name: Compare the expected and actual dist/ directories
         run: |
@@ -46,8 +52,10 @@ jobs:
         id: diff
 
       # If index.js was different than expected, upload the expected version as an artifact
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb
         if: ${{ failure() && steps.diff.conclusion == 'failure' }}
         with:
           name: dist
           path: dist/
+
+...

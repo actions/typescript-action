@@ -1,105 +1,81 @@
+<!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
+  <img src="https://github.com/redhat-plumbers-in-action/team/blob/70f67465cc46e02febb16aaa1cace2ceb82e6e5c/members/black-plumber.png" width="100" />
+  <h1 align="center">TypeScript Action</h1>
 </p>
 
-# Create a JavaScript Action using TypeScript
+[![GitHub Marketplace][market-status]][market] [![Lint Code Base][linter-status]][linter] [![Unit Tests][test-status]][test] [![CodeQL][codeql-status]][codeql] [![Check dist/][check-dist-status]][check-dist]
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+[![codecov][codecov-status]][codecov] [![Mergify Status][mergify-status]][mergify]
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+<!-- Status links -->
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+[market]: https://github.com/marketplace/actions/typescript-action
+[market-status]: https://img.shields.io/badge/Marketplace-Typescript%20Action-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAM6wAADOsB5dZE0gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAERSURBVCiRhZG/SsMxFEZPfsVJ61jbxaF0cRQRcRJ9hlYn30IHN/+9iquDCOIsblIrOjqKgy5aKoJQj4O3EEtbPwhJbr6Te28CmdSKeqzeqr0YbfVIrTBKakvtOl5dtTkK+v4HfA9PEyBFCY9AGVgCBLaBp1jPAyfAJ/AAdIEG0dNAiyP7+K1qIfMdonZic6+WJoBJvQlvuwDqcXadUuqPA1NKAlexbRTAIMvMOCjTbMwl1LtI/6KWJ5Q6rT6Ht1MA58AX8Apcqqt5r2qhrgAXQC3CZ6i1+KMd9TRu3MvA3aH/fFPnBodb6oe6HM8+lYHrGdRXW8M9bMZtPXUji69lmf5Cmamq7quNLFZXD9Rq7v0Bpc1o/tp0fisAAAAASUVORK5CYII=
 
-## Create an action from this template
+[linter]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/lint.yml
+[linter-status]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/lint.yml/badge.svg
 
-Click the `Use this Template` and provide the new repo details for your action
+[test]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/unit-tests.yml
+[test-status]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/unit-tests.yml/badge.svg
 
-## Code in Main
+[codeql]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/codeql-analysis.yml
+[codeql-status]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/codeql-analysis.yml/badge.svg
 
-> First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
+[check-dist]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/check-dist.yml
+[check-dist-status]: https://github.com/redhat-plumbers-in-action/typescript-action/actions/workflows/check-dist.yml/badge.svg
 
-Install the dependencies  
-```bash
-$ npm install
+[codecov]: https://codecov.io/gh/redhat-plumbers-in-action/typescript-action
+[codecov-status]: https://codecov.io/gh/redhat-plumbers-in-action/typescript-action/branch/main/graph/badge.svg
+
+[mergify]: https://mergify.com
+[mergify-status]: https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/redhat-plumbers-in-action/typescript-action&style=flat
+
+<!-- -->
+
+> ...
+
+## How does it work
+
+> ...
+
+## Features
+
+> * ...
+
+## Usage
+
+> ...
+
+### Real-life examples
+
+> ...
+
+## Configuration options
+
+Action currently accepts the following options:
+
+```yml
+# ...
+
+- uses: redhat-plumbers-in-action/typescript-action@v1
+  with:
+    milliseconds: <number>
+
+# ...
 ```
 
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
-```
+### milliseconds
 
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
+> ...
 
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
+> * default value: `undefined`
+> * requirements: `required`
 
-...
-```
+## Policy
 
-## Change action.yml
+> ...
 
-The action.yml defines the inputs and output for your action.
+## Limitations
 
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Publish to a distribution branch
-
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
-
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+> ...

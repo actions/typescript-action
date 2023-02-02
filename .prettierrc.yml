@@ -1,0 +1,16 @@
+---
+
+semi: true
+overrides:
+  - files: '**/*.{ts,js}'
+    options:
+      trailingComma: 'es5'
+      tabWidth: 2
+      semi: true
+      singleQuote: true
+      quoteProps: 'as-needed'
+      bracketSpacing: true
+      bracketSameLine: true
+      arrowParens: 'avoid'
+
+...

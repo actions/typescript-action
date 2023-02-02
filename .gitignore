@@ -97,3 +97,15 @@ Thumbs.db
 # Ignore built ts files
 __tests__/runner/*
 lib/**/*
+
+# Ignore editor configs
+.vscode
+
+# yarn2 - https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

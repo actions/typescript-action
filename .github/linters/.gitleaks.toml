@@ -1,0 +1,5 @@
+title = "gitleaks config"
+
+[allowlist]
+    description = "Allowlisted files"
+    paths = ['''/github/workspace/dist/index.js''']
