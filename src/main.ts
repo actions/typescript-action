@@ -27,13 +27,13 @@ async function run(): Promise<void> {
         continue; // skip rest of current iteration
       }
 
-      if (response?.data === expectedContent) {
+      if (String(response?.data) === expectedContent) {
         console.log('expected content found... proceeding')
         process.exit(0)
       }
 
       console.log(
-        `attempt ${currentAttempt} gave code: ${response?.status} with content: ${response?.data}`
+        `attempt ${currentAttempt} gave code: ${response?.status} with content: ${String(response?.data)}`
       )
 
       await wait(interval)

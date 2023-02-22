@@ -66,11 +66,11 @@ function run() {
                     currentAttempt++;
                     continue; // skip rest of current iteration
                 }
-                if ((response === null || response === void 0 ? void 0 : response.data) === expectedContent) {
+                if (String(response === null || response === void 0 ? void 0 : response.data) === expectedContent) {
                     console.log('expected content found... proceeding');
                     process.exit(0);
                 }
-                console.log(`attempt ${currentAttempt} gave code: ${response === null || response === void 0 ? void 0 : response.status} with content: ${response === null || response === void 0 ? void 0 : response.data}`);
+                console.log(`attempt ${currentAttempt} gave code: ${response === null || response === void 0 ? void 0 : response.status} with content: ${String(response === null || response === void 0 ? void 0 : response.data)}`);
                 yield (0, wait_1.wait)(interval);
                 currentAttempt++;
             }
