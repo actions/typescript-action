@@ -17,8 +17,17 @@ jobs:
           npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
+    outputs:
+      time: ${{ steps.testActionStep.outputs.time }}
     steps:
       - uses: actions/checkout@v2
+        id: checkoutStep
       - uses: ./
+        id: testActionStep
         with:
           milliseconds: 1000
+  printOuput:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - run: echo "${{needs.test.outputs.time}}"
