@@ -6,6 +6,9 @@ inputs:
     required: true
     description: 'input description here'
     default: 'default value if applicable'
+outputs:
+  time: # output will be available to future steps
+    description: 'The current time after waiting'
 runs:
   using: 'node16'
   main: 'dist/index.js'
