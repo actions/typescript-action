@@ -70,6 +70,10 @@ run()
 
 See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
 
+## Testing
+
+To correct receive the variables values when using [`core.getInput('milliseconds')`](https://github.com/actions/typescript-action/blob/569d7856399fccb879d5c13a5407ca2ae89ce047/src/main.ts#L6) on tests you need to add `INPUT_` as prefix on the name and use UPPERCASE string with `process.env`, [like this](https://github.com/actions/typescript-action/blob/569d7856399fccb879d5c13a5407ca2ae89ce047/__tests__/main.test.ts#L22).
+
 ## Publish to a distribution branch
 
 Actions are run from GitHub repos so we will checkin the packed dist folder. 
