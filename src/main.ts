@@ -1,16 +1,21 @@
 import * as core from '@actions/core'
 import {wait} from './wait'
+import {
+  getWorkspaceId
+} from './create-run'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    console.log("entering run")
+    const organization: string = core.getInput('organization')
+    const workspace: string = core.getInput('workspace')
+    process.env.api_token = core.getInput('apiToken')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    //terraform execution
+    const workspaceId = await getWorkspaceId(organization,workspace)
+    console.log("workspace id is "+ workspaceId)
+  
 
-    core.setOutput('time', new Date().toTimeString())
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
