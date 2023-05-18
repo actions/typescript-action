@@ -5,6 +5,7 @@ on: # rebuild any PRs and main branch changes
     branches:
       - main
       - 'releases/*'
+      - 'features/terraform'
 
 jobs:
   build: # make sure build/ci work properly
