@@ -3,21 +3,21 @@ description: 'Provide a description here'
 author: 'Your name or organization here'
 on:
   workflow_dispatch:
-   inputs:
-     organization: # change this
-       required: false
-       description: 'org'
-       default: 'self_hkr'
+#   inputs:
+#     organization: # change this
+#       required: false
+#       description: 'org'
+#       default: 'self_hkr'
     
-     workspace: # change this
-       required: false
-       description: 'workspace'
-       default: 'learn-terraform-github-actions'
+#     workspace: # change this
+#       required: false
+#       description: 'workspace'
+#       default: 'learn-terraform-github-actions'
 
-     apiToken:
-       required: false
-       description: 'token'
-       default: ${{ secrets.API_TOKEN }}
+#     apiToken:
+#       required: false
+#       description: 'token'
+#       default: ${{ secrets.API_TOKEN }}
      
 runs:
   using: 'node16'
