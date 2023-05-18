@@ -1,7 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
 
-
-
 const baseUrl = 'https://terraform.io/api/v2'
 
 export async function getWorkspaceId(
