@@ -39,5 +39,9 @@
     "prettier": "^2.8.8",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/actions/typescript-action/issues"
+  },
+  "homepage": "https://github.com/actions/typescript-action#readme"
 }
