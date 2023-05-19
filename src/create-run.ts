@@ -14,7 +14,7 @@ export async function getWorkspaceId(
 
    const headers = {
     Authorization: `Bearer ${process.env.api_token}`,
-    'Content-Type': 'application/vjson',
+    'Content-Type': 'application/vnd.api+json',
 
    }
   

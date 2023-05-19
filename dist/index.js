@@ -29,7 +29,7 @@ function getWorkspaceId(organization, workspace) {
         const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions";
         const headers = {
             Authorization: `Bearer ${process.env.api_token}`,
-            'Content-Type': 'application/vjson',
+            'Content-Type': 'application/vnd.api+json',
         };
         try {
             const response = yield axios_1.default.get(
