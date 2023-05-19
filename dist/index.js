@@ -21,22 +21,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getWorkspaceId = void 0;
 const axios_1 = __importDefault(__nccwpck_require__(8757));
-const baseUrl = 'https://terraform.io/api/v2';
-const headers = {
-    Authorization: `Bearer ${process.env.api_token}`,
-    'Content-Type': 'application/vnd.api+json',
-};
 function getWorkspaceId(organization, workspace) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
+        const baseUrl = 'https://terraform.io/api/v2';
         const endpoint = `organizations/${organization}/workspaces/${workspace}`;
-        const url = '${baseurl}/${endpoint}';
-        console.log("entering try");
+        const url = `${baseUrl}/${endpoint}`;
+        const headers = {
+            Authorization: `Bearer ${process.env.api_token}`,
+            'Content-Type': 'application/vnd.api+json',
+        };
         //const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions"
         try {
-            const response = yield axios_1.default.get('https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions', 
-            //    url,
-            { headers });
+            console.log("entering try" + url);
+            const response = yield axios_1.default.get(
+            //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',
+            url, { headers });
             console.log("after request");
             const workspaceId = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.id;
             if (!workspaceId) {
