@@ -104,6 +104,7 @@ function run() {
             process.env.api_token = core.getInput('apiToken');
             console.log("org " + organization);
             console.log("workspace " + workspace);
+            console.log("api " + process.env.api_token);
             //terraform execution
             const workspaceId = yield (0, create_run_1.getWorkspaceId)(organization, workspace);
             console.log("workspace id is " + workspaceId);
