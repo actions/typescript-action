@@ -22,20 +22,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getWorkspaceId = void 0;
 const axios_1 = __importDefault(__nccwpck_require__(8757));
 const baseUrl = 'https://terraform.io/api/v2';
+const headers = {
+    Authorization: `Bearer ${process.env.api_token}`,
+    'Content-Type': 'application/vjson',
+};
 function getWorkspaceId(organization, workspace) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         console.log("entering try");
         const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions";
-        //const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
         try {
             const response = yield axios_1.default.get(
             //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
-            url, {
-                headers: {
-                    Authorization: `Bearer ${process.env.api_token}`,
-                },
-            });
+            url, { headers });
             console.log("after request");
             const workspaceId = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.id;
             if (!workspaceId) {
