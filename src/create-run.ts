@@ -47,6 +47,6 @@ try{
         console.error(error);
         throw error;
       }
-    }
+}
 
   
