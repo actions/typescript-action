@@ -14,6 +14,9 @@ export async function getWorkspaceId(
     'Content-Type': 'application/vnd.api+json'
   }
 try{
+    console.log("entering try block")
+    console.log("url value "+url)
+    console.log("headers "+headers)
     const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
         url,
         { headers}
