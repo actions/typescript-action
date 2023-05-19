@@ -38,7 +38,9 @@ function getWorkspaceId(organization, workspace) {
             'Content-Type': 'application/vnd.api+json'
         };
         try {
+            console.log("entering try");
             const response = yield axios_1.default.get(url, { headers });
+            console.log("after request");
             const workspaceId = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.id;
             if (!workspaceId) {
                 throw new Error('Failed to retrieve the workspace ID');

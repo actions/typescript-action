@@ -25,11 +25,12 @@ export async function getWorkspaceId(
     'Content-Type': 'application/vnd.api+json'
   }
 try{
-
+    console.log("entering try")
     const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
         url,
         { headers}
     )
+    console.log("after request")
     const workspaceId = response?.data?.data?.id
     if (!workspaceId) {
         throw new Error('Failed to retrieve the workspace ID')
