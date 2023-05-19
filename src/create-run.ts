@@ -6,6 +6,10 @@ export async function getWorkspaceId(
     organization: string, 
     workspace: string
 ): Promise<string> {
+
+  console.log("org value "+ organization)  
+  console.log("ws value "+ workspace) 
+
   const endpoint = 'organizations/${organization}/workspaces/${workspace}'
  
   console.log("end point "+ endpoint)
