@@ -29,8 +29,8 @@ try{
 
      
     const response: AxiosResponse = await axios.get(
-    //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
-        url,
+        'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',
+    //    url,
        { headers }
         
         
