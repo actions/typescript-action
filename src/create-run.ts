@@ -12,15 +12,15 @@ export async function getWorkspaceId(
    console.log("entering try")
    const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions"
 
- 
+   const headers = {
+    Authorization: `Bearer ${process.env.api_token}`,
+    'Content-Type': 'application/vjson',
+
+   }
   
 try{
 
-    const headers = {
-        Authorization: `Bearer ${process.env.api_token}`,
-        'Content-Type': 'application/vjson',
-    
-    };     
+     
     const response: AxiosResponse = await axios.get(
     //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
         url,
