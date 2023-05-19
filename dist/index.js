@@ -21,10 +21,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getWorkspaceId = void 0;
 const axios_1 = __importDefault(__nccwpck_require__(8757));
+const baseUrl = 'https://app.terraform.io/api/v2';
 function getWorkspaceId(organization, workspace) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
-        const baseUrl = 'https://app.terraform.io/api/v2';
         const endpoint = `organizations/${organization}/workspaces/${workspace}`;
         const url = `${baseUrl}/${endpoint}`;
         const headers = {
