@@ -39,6 +39,7 @@ function getWorkspaceId(organization, workspace) {
         };
         try {
             console.log("entering try");
+            //const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
             const response = yield axios_1.default.get(url, { headers });
             console.log("after request");
             const workspaceId = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.id;
