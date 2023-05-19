@@ -4,19 +4,26 @@ const baseUrl = 'https://terraform.io/api/v2'
 
 
 
-export async function getWorkspaceId(
-    organization: string, 
-    workspace: string
-): Promise<string> {
-   
-   console.log("entering try")
-   const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions"
-
    const headers = {
     Authorization: `Bearer ${process.env.api_token}`,
     'Content-Type': 'application/vnd.api+json',
 
    }
+
+
+export async function getWorkspaceId(
+    organization: string, 
+    workspace: string
+): Promise<string> {
+    
+    const endpoint = `organizations/${organization}/workspaces/${workspace}`
+    const url = '${baseurl}/${endpoint}'
+    
+
+   console.log("entering try")
+   //const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions"
+
+
   
 try{
 
