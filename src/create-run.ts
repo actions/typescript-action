@@ -10,7 +10,7 @@ export async function getWorkspaceId(
   console.log("org value "+ organization)  
   console.log("ws value "+ workspace) 
 
-  const endpoint = 'organizations/${organization}/workspaces/${workspace}'
+  const endpoint = "organizations/`${organization}`/workspaces/`${workspace}`"
  
   console.log("end point "+ endpoint)
 
