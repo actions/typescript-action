@@ -28,7 +28,7 @@ export async function getWorkspaceId(
 try{
 
     console.log("entering try"+url)  
-    const response: AxiosResponse = await axios.get(
+    const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
     //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',
         url,
        { headers }
