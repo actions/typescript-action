@@ -26,9 +26,12 @@ function getWorkspaceId(organization, workspace) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         console.log("entering try");
+        const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions";
         //const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
         try {
-            const response = yield axios_1.default.get('https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions', {
+            const response = yield axios_1.default.get(
+            //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
+            url, {
                 headers: {
                     Authorization: `Bearer ${process.env.api_token}`,
                 },

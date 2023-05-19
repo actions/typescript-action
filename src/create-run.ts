@@ -8,11 +8,13 @@ export async function getWorkspaceId(
 ): Promise<string> {
 
    console.log("entering try")
+   const url = "https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions"
     //const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
   try{
     const response: AxiosResponse = await axios.get(
-        'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
-         headers: {
+    //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
+        url,{
+        headers: {
             Authorization: `Bearer ${process.env.api_token}`,
           },
         
