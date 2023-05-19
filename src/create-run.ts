@@ -15,8 +15,8 @@ export async function getWorkspaceId(
   }
 try{
     console.log("entering try block")
-    console.log("url value "+url)
-    console.log("headers "+headers)
+    console.log("url value "+ '${url}')
+    console.log("headers "+ '${headers}')
     const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
         url,
         { headers}
