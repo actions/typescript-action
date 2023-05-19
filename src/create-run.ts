@@ -7,8 +7,13 @@ export async function getWorkspaceId(
     workspace: string
 ): Promise<string> {
   const endpoint = 'organizations/${organization}/workspaces/${workspace}'
+ 
+  console.log("end point "+ endpoint)
+
   const url = '${baseUrl}/${endpont}'
   
+  console.log("url value "+ url)
+
   const headers = {
     Authorization: 'Bearer ${process.env.api_token}',
     'Content-Type': 'application/vnd.api+json'

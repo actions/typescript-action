@@ -26,7 +26,9 @@ function getWorkspaceId(organization, workspace) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         const endpoint = 'organizations/${organization}/workspaces/${workspace}';
+        console.log("end point " + endpoint);
         const url = '${baseUrl}/${endpont}';
+        console.log("url value " + url);
         const headers = {
             Authorization: 'Bearer ${process.env.api_token}',
             'Content-Type': 'application/vnd.api+json'
