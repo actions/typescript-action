@@ -23,13 +23,14 @@ try{
     };     
     const response: AxiosResponse = await axios.get(
     //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
-        url,{
-            headers : {
-                Authorization: `Bearer ${process.env.api_token}`,
-                'Content-Type': 'application/vjson',
+        url,//{
+     //      headers : {
+     //          Authorization: `Bearer ${process.env.api_token}`,
+     //           'Content-Type': 'application/vjson',
             
-            },                
-        }
+           // },                
+       // }
+       { headers }
         
         
     );

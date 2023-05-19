@@ -34,12 +34,13 @@ function getWorkspaceId(organization, workspace) {
             };
             const response = yield axios_1.default.get(
             //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
-            url, {
-                headers: {
-                    Authorization: `Bearer ${process.env.api_token}`,
-                    'Content-Type': 'application/vjson',
-                },
-            });
+            url, //{
+            //      headers : {
+            //          Authorization: `Bearer ${process.env.api_token}`,
+            //           'Content-Type': 'application/vjson',
+            // },                
+            // }
+            { headers });
             console.log("after request");
             const workspaceId = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.id;
             if (!workspaceId) {
