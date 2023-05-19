@@ -30,16 +30,14 @@ function getWorkspaceId(organization, workspace) {
         // const endpoint = 'organizations/${organization}/workspaces/${workspace}'
         const endpoint = 'organizations/self_hkr/workspaces/learn-terraform-github-actions';
         console.log("end point " + endpoint);
-        const url = '${baseUrl}/${endpont}';
+        //const url = '${baseUrl}/${endpont}'
+        const url = 'https://terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions';
         console.log("url value " + url);
         const headers = {
             Authorization: 'Bearer ${process.env.api_token}',
             'Content-Type': 'application/vnd.api+json'
         };
         try {
-            console.log("entering try block");
-            console.log("url value " + '${url}');
-            console.log("headers " + '${headers}');
             const response = yield axios_1.default.get(url, { headers });
             const workspaceId = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.id;
             if (!workspaceId) {
