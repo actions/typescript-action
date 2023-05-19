@@ -7,40 +7,28 @@ export async function getWorkspaceId(
     workspace: string
 ): Promise<string> {
 
-  console.log("org value "+ organization)  
-  console.log("ws value "+ workspace) 
-
- // const endpoint = 'organizations/${organization}/workspaces/${workspace}'
-  const endpoint = 'organizations/self_hkr/workspaces/learn-terraform-github-actions'
-
- 
-  console.log("end point "+ endpoint)
-
-  //const url = '${baseUrl}/${endpont}'
-  const url = 'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions'
-  console.log("url value "+ url)
-
-  const headers = {
-    Authorization: 'Bearer ${process.env.api_token}',
-    'Content-Type': 'application/vnd.api+json'
-  }
-try{
-    console.log("entering try")
+   console.log("entering try")
     //const response: AxiosResponse<{data?: {id: string}}> = await axios.get(
-    const response: AxiosResponse<any> = await axios.get(
-        url,
-        { headers}
-    )
+  try{
+    const response: AxiosResponse = await axios.get(
+        'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
+         headers: {
+            Authorization: `Bearer ${process.env.api_token}`,
+          },
+        
+    });
+    
     console.log("after request")
     const workspaceId = response?.data?.data?.id
     if (!workspaceId) {
         throw new Error('Failed to retrieve the workspace ID')
     }
-    return workspaceId
-} catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+    return workspaceId  
+
+    }catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
 
   
