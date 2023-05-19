@@ -48,8 +48,9 @@ function getWorkspaceId(organization, workspace) {
             }
             return workspaceId;
         }
-        catch (_c) {
-            throw new Error('Failed in `getWorkspaceId()`');
+        catch (error) {
+            console.error(error);
+            throw error;
         }
     });
 }

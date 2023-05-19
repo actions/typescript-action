@@ -37,9 +37,10 @@ try{
         throw new Error('Failed to retrieve the workspace ID')
     }
     return workspaceId
-} catch {
-    throw new Error('Failed in `getWorkspaceId()`')
-}
+} catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
   
