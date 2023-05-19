@@ -24,7 +24,7 @@ const axios_1 = __importDefault(__nccwpck_require__(8757));
 function getWorkspaceId(organization, workspace) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
-        const baseUrl = 'https://terraform.io/api/v2';
+        const baseUrl = 'https://app.terraform.io/api/v2';
         const endpoint = `organizations/${organization}/workspaces/${workspace}`;
         const url = `${baseUrl}/${endpoint}`;
         const headers = {

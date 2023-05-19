@@ -11,7 +11,7 @@ export async function getWorkspaceId(
     organization: string, 
     workspace: string
 ): Promise<string> {
-    const baseUrl = 'https://terraform.io/api/v2'    
+    const baseUrl = 'https://app.terraform.io/api/v2'    
     const endpoint = `organizations/${organization}/workspaces/${workspace}`
     const url = `${baseUrl}/${endpoint}`
     
