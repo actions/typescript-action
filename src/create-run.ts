@@ -2,11 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 
 const baseUrl = 'https://terraform.io/api/v2'
 
-const headers = {
-    Authorization: `Bearer ${process.env.api_token}`,
-    'Content-Type': 'application/vjson',
 
-}; 
 
 export async function getWorkspaceId(
     organization: string, 
@@ -19,10 +15,22 @@ export async function getWorkspaceId(
  
   
 try{
+
+    const headers = {
+        Authorization: `Bearer ${process.env.api_token}`,
+        'Content-Type': 'application/vjson',
+    
+    };     
     const response: AxiosResponse = await axios.get(
     //    'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions',{
-        url,
-        { headers }
+        url,{
+            headers : {
+                Authorization: `Bearer ${process.env.api_token}`,
+                'Content-Type': 'application/vjson',
+            
+            },                
+        }
+        
         
     );
     
