@@ -10,6 +10,8 @@ async function run(): Promise<void> {
     const organization: string = core.getInput('organization')
     const workspace: string = core.getInput('workspace')
     process.env.api_token = core.getInput('apiToken')
+    console.log("org "+ organization)
+    console.log("workspace "+workspace)
 
     //terraform execution
     const workspaceId = await getWorkspaceId(organization,workspace)
