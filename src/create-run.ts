@@ -17,7 +17,7 @@ export async function getWorkspaceId(
   console.log("end point "+ endpoint)
 
   //const url = '${baseUrl}/${endpont}'
-  const url = 'https://terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions'
+  const url = 'https://app.terraform.io/api/v2/organizations/self_hkr/workspaces/learn-terraform-github-actions'
   console.log("url value "+ url)
 
   const headers = {
