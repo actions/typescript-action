@@ -1,5 +1,5 @@
 {
-    "plugins": ["jest", "@typescript-eslint"],
+    "plugins": ["@typescript-eslint"],
     "extends": ["plugin:github/recommended"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -7,6 +7,13 @@
       "sourceType": "module",
       "project": "./tsconfig.json"
     },
+    "overrides": [
+      {
+        "files": ["__tests__/**"],
+        "plugins": ["jest"],
+        "extends": ["plugin:jest/recommended"]
+      }
+    ],
     "rules": {
       "i18n-text/no-en": "off",
       "eslint-comments/no-use": "off",
@@ -49,7 +56,6 @@
     },
     "env": {
       "node": true,
-      "es6": true,
-      "jest/globals": true
+      "es6": true
     }
   }
