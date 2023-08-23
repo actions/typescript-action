@@ -30,6 +30,10 @@ jobs:
           node-version-file: .node-version
           cache: npm
 
+      - name: Install Dependencies
+        id: install
+        run: npm ci
+
       - name: Lint Code Base
         id: super-linter
         uses: super-linter/super-linter/slim@v5
