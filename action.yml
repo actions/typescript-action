@@ -1,11 +1,22 @@
+# When creating your own action from this template, update this file with
+# information about your action, such as the name, description, inputs, outputs,
+# and any other relevant details.
 name: 'Your name here'
 description: 'Provide a description here'
 author: 'Your name or organization here'
+
+# Define your inputs here.
 inputs:
-  milliseconds: # change this
+  milliseconds:
+    description: 'Your input description here'
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    default: '1000'
+
+# Define your outputs here.
+outputs:
+  time:
+    description: 'Your output description here'
+
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: node16
+  main: dist/index.js
