@@ -2,7 +2,6 @@ env:
   node: true
   es6: true
   jest: true
-  jest/globals: true
 
 globals:
   Atomics: readonly
@@ -12,6 +11,8 @@ ignorePatterns:
   - '!.*'
   - '**/node_modules/.*'
   - '**/dist/.*'
+  - '**/coverage/.*'
+  - '*.json'
 
 parser: '@typescript-eslint/parser'
 
@@ -19,18 +20,28 @@ parserOptions:
   ecmaVersion: 2023
   sourceType: module
   project:
+    - './.github/linters/tsconfig.json'
     - './tsconfig.json'
 
 plugins:
   - jest
   - '@typescript-eslint'
 
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/eslint-recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:github/recommended
+  - plugin:jest/recommended
+
 rules:
   {
     'camelcase': 'off',
     'eslint-comments/no-use': 'off',
+    'eslint-comments/no-unused-disable': 'off',
     'i18n-text/no-en': 'off',
     'import/no-namespace': 'off',
+    'no-console': 'off',
     'no-unused-vars': 'off',
     'prettier/prettier': 'error',
     'semi': 'off',
@@ -66,34 +77,7 @@ rules:
     '@typescript-eslint/require-array-sort-compare': 'error',
     '@typescript-eslint/restrict-plus-operands': 'error',
     '@typescript-eslint/semi': ['error', 'never'],
+    '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/type-annotation-spacing': 'error',
     '@typescript-eslint/unbound-method': 'error'
   }
-
-extends:
-  - eslint:recommended
-  - plugin:github/recommended
-  - plugin:jest/recommended
-
-overrides:
-  - files:
-      - '*.json'
-    extends:
-      - plugin:jsonc/recommended-with-json
-    parser: jsonc-eslint-parser
-    parserOptions:
-      jsonSyntax: JSON
-  - files:
-      - '*.jsonc'
-    extends:
-      - plugin:jsonc/recommended-with-jsonc
-    parser: jsonc-eslint-parser
-    parserOptions:
-      jsonSyntax: JSONC
-  - files:
-      - '*.json5'
-    extends:
-      - plugin:jsonc/recommended-with-json5
-    parser: jsonc-eslint-parser
-    parserOptions:
-      jsonSyntax: JSON5
