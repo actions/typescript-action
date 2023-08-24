@@ -18,6 +18,9 @@
     "setup"
   ],
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
