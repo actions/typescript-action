@@ -5,7 +5,7 @@ import { wait } from './wait'
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     const ms: string = core.getInput('milliseconds')
 

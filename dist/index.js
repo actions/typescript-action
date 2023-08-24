@@ -2751,6 +2751,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const wait_1 = __nccwpck_require__(259);
 /**
@@ -2775,6 +2776,7 @@ async function run() {
             core.setFailed(error.message);
     }
 }
+exports.run = run;
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 run();
 
