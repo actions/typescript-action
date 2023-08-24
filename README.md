@@ -66,8 +66,8 @@ The [`action.yml`](action.yml) file defines metadata about your action, such as
 input(s) and output(s). For details about this file, see
 [Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions).
 
-**TODO:** Update `action.yml` with the name, description, inputs, and outputs
-for your action.
+When you copy this repository, update `action.yml` with the name, description,
+inputs, and outputs for your action.
 
 ## Update the Action Code
 
