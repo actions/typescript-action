@@ -25,6 +25,7 @@
     "format:check": "prettier --check '**/*.ts'",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
     "package": "ncc build src/index.ts --license licenses.txt",
+    "package:watch": "npm run package -- --watch",
     "test": "(jest && make-coverage-badge --output-path ./badges/coverage.svg) || make-coverage-badge --output-path ./badges/coverage.svg",
     "all": "npm run format:write && npm run lint && npm run test && npm run package"
   },
