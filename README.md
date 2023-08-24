@@ -33,7 +33,7 @@ need to perform some initial setup steps before you can develop your action.
 > [Node.js](https://nodejs.org) handy. If you are using a version manager like
 > [`nodenv`](https://github.com/nodenv/nodenv), you can run `nodenv install` in
 > the root of your repository to install the version specified in
-> [`.node-version`](.node-version).
+> [`.node-version`](.node-version). Otherwise, 16.x or later should work!
 
 1. :hammer_and_wrench: Install the dependencies
 
