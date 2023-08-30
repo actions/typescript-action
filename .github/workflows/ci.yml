@@ -58,3 +58,16 @@ jobs:
       - name: Print Output
         id: output
         run: echo "${{ steps.test-action.outputs.time }}"
+
+  validate-typings:
+    name: Validate action typings
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v3
+
+      - name: Validate
+        id: validate
+        uses: typesafegithub/github-actions-typing@v1
