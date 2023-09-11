@@ -34,7 +34,7 @@ need to perform some initial setup steps before you can develop your action.
 > [`nodenv`](https://github.com/nodenv/nodenv) or
 > [`nvm`](https://github.com/nvm-sh/nvm), you can run `nodenv install` in the
 > root of your repository to install the version specified in
-> [`package.json`](./package.json). Otherwise, 16.x or later should work!
+> [`package.json`](./package.json). Otherwise, 20.x or later should work!
 
 1. :hammer_and_wrench: Install the dependencies
 
