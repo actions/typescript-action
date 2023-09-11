@@ -15,5 +15,5 @@ outputs:
     description: 'Your output description here'
 
 runs:
-  using: node16
+  using: node20
   main: dist/index.js
