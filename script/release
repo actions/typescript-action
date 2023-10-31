@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Usage:
+# script/release
+
+# COLORS
+OFF='\033[0m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+
+latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+echo -e "The latest release tag is: ${BLUE}${latest_tag}${OFF}"
+read -p 'New Release Tag (vX.X.X format): ' new_tag
+
+tag_regex='^v\d\.\d\.\d$'
+echo "$new_tag" | grep -P -q $tag_regex
+
+if [[ $? -ne 0 ]]; then
+    echo "Tag: $new_tag is valid"
+fi
+
+git tag -a $new_tag -m "$new_tag Release"
+
+echo -e "${GREEN}OK${OFF} - Tagged: $new_tag"
+
+git push --tags
+
+echo -e "${GREEN}OK${OFF} - Tags pushed to remote!"
+echo -e "${GREEN}DONE${OFF}"
