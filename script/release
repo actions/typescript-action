@@ -19,6 +19,13 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 
 latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+
+# if the latest_tag is empty, then there are no tags - let the user know
+if [[ -z "$latest_tag" ]]; then
+    echo -e "No tags found (yet) - continue to create your first tag and push it"
+    latest_tag="[unknown]"
+fi
+
 echo -e "The latest release tag is: ${BLUE}${latest_tag}${OFF}"
 read -p 'New Release Tag (vX.X.X format): ' new_tag
 
