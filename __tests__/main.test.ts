@@ -24,6 +24,11 @@ const timeRegex = /^\d{2}:\d{2}:\d{2}/
 describe('action', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    jest.spyOn(core, 'debug').mockImplementation()
+    jest.spyOn(core, 'error').mockImplementation()
+    jest.spyOn(core, 'getInput').mockImplementation()
+    jest.spyOn(core, 'setFailed').mockImplementation()
+    jest.spyOn(core, 'setOutput').mockImplementation()
   })
 
   it('sets the time output', async () => {
