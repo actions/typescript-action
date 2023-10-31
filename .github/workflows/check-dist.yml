@@ -12,21 +12,16 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - '**.md'
   pull_request:
-    paths-ignore:
-      - '**.md'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   check-dist:
     name: Check dist/
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      statuses: write
 
     steps:
       - name: Checkout
@@ -36,7 +31,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version-file: .node-version
           cache: npm
 
       - name: Install Dependencies

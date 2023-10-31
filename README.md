@@ -37,6 +37,10 @@ need to perform some initial setup steps before you can develop your action.
 > [`nvm`](https://github.com/nvm-sh/nvm), you can run `nodenv install` in the
 > root of your repository to install the version specified in
 > [`package.json`](./package.json). Otherwise, 20.x or later should work!
+> This template has a `.node-version` file at the root of the repository that
+> will be used by `nodenv` or `nvm` to automatically switch to the correct
+> version of Node.js when you `cd` into the repository. Additionally, this
+> `.node-version` file is used by GitHub Actions in a few CI jobs.
 
 1. :hammer_and_wrench: Install the dependencies
 
@@ -44,13 +48,13 @@ need to perform some initial setup steps before you can develop your action.
    npm install
    ```
 
-1. :building_construction: Package the TypeScript for distribution
+2. :building_construction: Package the TypeScript for distribution
 
    ```bash
    npm run bundle
    ```
 
-1. :white_check_mark: Run the tests
+3. :white_check_mark: Run the tests
 
    ```bash
    $ npm test
