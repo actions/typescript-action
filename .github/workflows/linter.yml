@@ -5,18 +5,16 @@ on:
     branches:
       - main
   push:
-    branches-ignore:
+    branches:
       - main
+
+permissions:
+  contents: read
 
 jobs:
   lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
 
     steps:
       - name: Checkout

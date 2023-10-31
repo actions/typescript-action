@@ -7,6 +7,9 @@ on:
       - main
       - 'releases/*'
 
+permissions:
+  contents: read
+
 jobs:
   test-typescript:
     name: TypeScript Tests
