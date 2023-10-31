@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# About:
+# This is a helper script to tag and push a new release.
+# GitHub Actions use release tags to allow users to select a specific version of the action to use.
+# This script will do the following:
+# 1. Get the latest release tag
+# 2. Prompt the user for a new release tag (while displaying the latest release tag, and a regex to validate the new tag)
+# 3. Tag the new release
+# 4. Push the new tag to the remote
+
 # Usage:
 # script/release
 
