@@ -14,7 +14,7 @@
 
 # COLORS
 OFF='\033[0m'
-# RED='\033[0;31m'
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 
@@ -27,16 +27,17 @@ if [[ -z "$latest_tag" ]]; then
 fi
 
 echo -e "The latest release tag is: ${BLUE}${latest_tag}${OFF}"
-read -p 'New Release Tag (vX.X.X format): ' new_tag
+read -r -p 'New Release Tag (vX.X.X format): ' new_tag
 
-tag_regex='^v\d\.\d\.\d$'
-echo "$new_tag" | grep -P -q $tag_regex
-
-if [[ $? -ne 0 ]]; then
-    echo "Tag: $new_tag is valid"
+tag_regex='v[0-9]+\.[0-9]+\.[0-9]+$'
+if echo "$new_tag" | grep -q -E "$tag_regex"; then
+    echo -e "Tag: ${BLUE}$new_tag${OFF} is valid"
+else
+    echo -e "Tag: ${BLUE}$new_tag${OFF} is ${RED}not valid${OFF} (must be in vX.X.X format)"
+    exit 1
 fi
 
-git tag -a $new_tag -m "$new_tag Release"
+git tag -a "$new_tag" -m "$new_tag Release"
 
 echo -e "${GREEN}OK${OFF} - Tagged: $new_tag"
 
