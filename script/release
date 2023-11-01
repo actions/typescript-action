@@ -14,11 +14,11 @@
 
 # COLORS
 OFF='\033[0m'
-RED='\033[0;31m'
+# RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 
-latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
 
 # if the latest_tag is empty, then there are no tags - let the user know
 if [[ -z "$latest_tag" ]]; then
