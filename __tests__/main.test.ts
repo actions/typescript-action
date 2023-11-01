@@ -9,26 +9,28 @@
 import * as core from '@actions/core'
 import * as main from '../src/main'
 
-// Mock the GitHub Actions core library
-const debugMock = jest.spyOn(core, 'debug')
-const getInputMock = jest.spyOn(core, 'getInput')
-const setFailedMock = jest.spyOn(core, 'setFailed')
-const setOutputMock = jest.spyOn(core, 'setOutput')
-
 // Mock the action's main function
 const runMock = jest.spyOn(main, 'run')
 
 // Other utilities
 const timeRegex = /^\d{2}:\d{2}:\d{2}/
 
+// Mock the GitHub Actions core library
+let debugMock: jest.SpyInstance
+let errorMock: jest.SpyInstance
+let getInputMock: jest.SpyInstance
+let setFailedMock: jest.SpyInstance
+let setOutputMock: jest.SpyInstance
+
 describe('action', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.spyOn(core, 'debug').mockImplementation()
-    jest.spyOn(core, 'error').mockImplementation()
-    jest.spyOn(core, 'getInput').mockImplementation()
-    jest.spyOn(core, 'setFailed').mockImplementation()
-    jest.spyOn(core, 'setOutput').mockImplementation()
+
+    debugMock = jest.spyOn(core, 'debug').mockImplementation()
+    errorMock = jest.spyOn(core, 'error').mockImplementation()
+    getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
+    setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
+    setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
   })
 
   it('sets the time output', async () => {
@@ -60,6 +62,7 @@ describe('action', () => {
       'time',
       expect.stringMatching(timeRegex)
     )
+    expect(errorMock).not.toHaveBeenCalled()
   })
 
   it('sets a failed status', async () => {
@@ -81,5 +84,6 @@ describe('action', () => {
       1,
       'milliseconds not a number'
     )
+    expect(errorMock).not.toHaveBeenCalled()
   })
 })
