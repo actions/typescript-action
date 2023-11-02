@@ -7,6 +7,9 @@ on:
       - main
       - 'releases/*'
 
+permissions:
+  contents: read
+
 jobs:
   test-typescript:
     name: TypeScript Tests
@@ -21,7 +24,7 @@ jobs:
         id: setup-node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version-file: .node-version
           cache: npm
 
       - name: Install Dependencies

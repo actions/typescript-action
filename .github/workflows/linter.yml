@@ -5,18 +5,17 @@ on:
     branches:
       - main
   push:
-    branches-ignore:
+    branches:
       - main
+
+permissions:
+  contents: read
+  statuses: write
 
 jobs:
   lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
 
     steps:
       - name: Checkout
@@ -27,7 +26,7 @@ jobs:
         id: setup-node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version-file: .node-version
           cache: npm
 
       - name: Install Dependencies
