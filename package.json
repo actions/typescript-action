@@ -82,7 +82,7 @@
     "jest": "^29.7.0",
     "js-yaml": "^4.1.0",
     "make-coverage-badge": "^1.2.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.0",
     "prettier-eslint": "^16.1.2",
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
