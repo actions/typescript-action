@@ -1,19 +1,19 @@
-# In TypeScript actions, `dist/index.js` is a special file. When you reference
-# an action with `uses:`, `dist/index.js` is the code that will be run. For this
-# project, the `dist/index.js` file is generated from other source files through
-# the build process. We need to make sure that the checked-in `dist/index.js`
-# file matches what is expected from the build.
+# In TypeScript actions, `dist/` is a special directory. When you reference
+# an action with the `uses:` property, `dist/index.js` is the code that will be
+# run. For this project, the `dist/index.js` file is transpiled from other
+# source files. This workflow ensures the `dist/` directory contains the
+# expected transpiled code.
 #
-# This workflow will fail if the checked-in `dist/index.js` file does not match
-# what is expected from the build.
-name: Check dist/
+# If this workflow is run from a feature branch, it will act as an additional CI
+# check and fail if the checked-in `dist/` directory does not match what is
+# expected from the build.
+name: Check Transpiled JavaScript
 
 on:
   push:
     branches:
       - main
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,6 +29,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
+        id: setup-node
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
@@ -42,7 +43,8 @@ jobs:
         id: build
         run: npm run bundle
 
-      - name: Compare Expected and Actual Directories
+      # This will fail the workflow if the PR wasn't created by Dependabot.
+      - name: Compare Directories
         id: diff
         run: |
           if [ "$(git diff --ignore-space-at-eol --text dist/ | wc -l)" -gt "0" ]; then
@@ -51,10 +53,12 @@ jobs:
             exit 1
           fi
 
-      # If index.js was different than expected, upload the expected version as
-      # a workflow artifact.
-      - uses: actions/upload-artifact@v3
-        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
+      # If `dist/` was different than expected, and this was not a Dependabot
+      # PR, upload the expected version as a workflow artifact.
+      - if: ${{ failure() && steps.diff.outcome == 'failure' }}
+        name: Upload Artifact
+        id: upload
+        uses: actions/upload-artifact@v3
         with:
           name: dist
           path: dist/
