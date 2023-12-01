@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - 'releases/*'
 
 permissions:
   contents: read
@@ -56,7 +55,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 1000
+          milliseconds: 2000
 
       - name: Print Output
         id: output
