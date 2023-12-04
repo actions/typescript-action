@@ -70,11 +70,11 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.10",
-    "@types/node": "^20.10.1",
+    "@types/node": "^20.10.3",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "@vercel/ncc": "^0.38.1",
-    "eslint": "^8.54.0",
+    "eslint": "^8.55.0",
     "eslint-plugin-github": "^4.10.1",
     "eslint-plugin-jest": "^27.6.0",
     "eslint-plugin-jsonc": "^2.10.0",
