@@ -1,16 +1,16 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "git-branch-strategy-action",
+  "description": "GitHub Actions workflow for custom git branch strategy",
   "version": "0.0.0",
-  "author": "",
+  "author": "Jeongseok Kang <piono623@naver.com>",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/rapsealk/git-branch-strategy-action",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/rapsealk/git-branch-strategy-action.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/rapsealk/git-branch-strategy-action/issues"
   },
   "keywords": [
     "actions",
