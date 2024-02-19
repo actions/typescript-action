@@ -1,23 +1,45 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: git-branch-strategy-action
+description: Automates custom git branch strategy action.
+author: Jeongseok Kang
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: git-pull-request
+  color: green
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  github-token:
+    description: GitHub personal access token with privilege.
     required: true
-    default: '1000'
+  main-branch:
+    description: GitHub main branch.
+    required: true
+    type: choice
+    options:
+      - main
+      - master  # legacy
+  release-branch:
+    description: GitHub branch to release. Allows a regex.
+    default: null
+  deploy-branch:
+    description: Git branch to deploy service to cloud.
+    default: null
+  label:
+    description: GitHub label for a pull request.
+    default: gitflow
+  # auto-merge:
+  #   description: Automates pull request merge.
+  #   type: boolean
+  #   default: true
+  # require-merge:
+  #   description: Assert
+  #   type: boolean
+  #   default: false
 
 # Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+# outputs:
+#   time:
+#     description: 'Your output description here'
 
 runs:
   using: node20

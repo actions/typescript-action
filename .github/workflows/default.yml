@@ -1,0 +1,25 @@
+name: default
+
+on:
+  pull_request: # To merge pull requests if not possible during the push run.
+  push: # To create pull requests.
+  check_run:
+    types: [ completed ]
+
+permissions:
+  contents: read
+  pull-requests: write
+  repository-projects: write  
+
+jobs:
+  default:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rapsealk/git-branch-strategy-action@branch-strategy-workflow
+        with:
+          github-token: ${{ secrets.PAT }}
+          main-branch: main
+          # release-branch: /^v\d+\.\d+$/  # v1.0, v1.1, ...
+          # deploy-branch: cloud
+          # hotfix-branch: ^hotfix/(.*)
+          label: gitflow
