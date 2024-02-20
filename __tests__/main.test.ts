@@ -16,11 +16,11 @@ const runMock = jest.spyOn(main, 'run')
 const timeRegex = /^\d{2}:\d{2}:\d{2}/
 
 // Mock the GitHub Actions core library
-let debugMock: jest.SpyInstance
-let errorMock: jest.SpyInstance
-let getInputMock: jest.SpyInstance
-let setFailedMock: jest.SpyInstance
-let setOutputMock: jest.SpyInstance
+let debugMock: jest.SpiedFunction<typeof core.debug>
+let errorMock: jest.SpiedFunction<typeof core.error>
+let getInputMock: jest.SpiedFunction<typeof core.getInput>
+let setFailedMock: jest.SpiedFunction<typeof core.setFailed>
+let setOutputMock: jest.SpiedFunction<typeof core.setOutput>
 
 describe('action', () => {
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('action', () => {
 
   it('sets the time output', async () => {
     // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation((name: string): string => {
+    getInputMock.mockImplementation(name => {
       switch (name) {
         case 'milliseconds':
           return '500'
@@ -67,7 +67,7 @@ describe('action', () => {
 
   it('sets a failed status', async () => {
     // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation((name: string): string => {
+    getInputMock.mockImplementation(name => {
       switch (name) {
         case 'milliseconds':
           return 'this is not a number'
