@@ -1,25 +1,25 @@
 name: CodeQL
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-  pull_request:
+  push:
     branches:
       - main
   schedule:
     - cron: '31 7 * * 3'
 
+permissions:
+  actions: read
+  checks: write
+  contents: read
+  security-events: write
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-
-    permissions:
-      actions: read
-      checks: write
-      contents: read
-      security-events: write
 
     strategy:
       fail-fast: false
