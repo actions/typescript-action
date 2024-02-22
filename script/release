@@ -28,9 +28,9 @@ BLUE='\033[0;34m'
 latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
 
 if [[ -z "$latest_tag" ]]; then
-    # There are no existing release tags
-    echo -e "No tags found (yet) - Continue to create and push your first tag"
-    latest_tag="[unknown]"
+	# There are no existing release tags
+	echo -e "No tags found (yet) - Continue to create and push your first tag"
+	latest_tag="[unknown]"
 fi
 
 # Display the latest release tag
@@ -42,11 +42,11 @@ read -r -p 'Enter a new release tag (vX.X.X format): ' new_tag
 # Validate the new release tag
 tag_regex='v[0-9]+\.[0-9]+\.[0-9]+$'
 if echo "$new_tag" | grep -q -E "$tag_regex"; then
-    echo -e "Tag: ${BLUE}$new_tag${OFF} is valid"
+	echo -e "Tag: ${BLUE}$new_tag${OFF} is valid"
 else
-    # Release tag is not `vX.X.X` format
-    echo -e "Tag: ${BLUE}$new_tag${OFF} is ${RED}not valid${OFF} (must be in vX.X.X format)"
-    exit 1
+	# Release tag is not `vX.X.X` format
+	echo -e "Tag: ${BLUE}$new_tag${OFF} is ${RED}not valid${OFF} (must be in vX.X.X format)"
+	exit 1
 fi
 
 # Tag the new release
