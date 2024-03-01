@@ -1,23 +1,34 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: "Require All Codeowners"
+description: "Ensures all code owners have approved."
+author: "John McCall"
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: "user-check"
+  color: "green"
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  pr-number:
+    description: "The number of the pull request."
     required: true
-    default: '1000'
+    default: "999"
+  token:
+    description: "Github token for authentication."
+    required: false
+    default: ${{ secets.GITHUB_TOKEN }}
+  repository:
+    description: "owner/repository of pull request."
+    required: false
+    default: ${{ github.repository }}
 
-# Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  approved:
+    description: "Code owners who have approved the pull request."
+  approved-count:
+    description: "Number of approved code owners."
+  pending:
+    description: "Code owners who have not approved the pull request."
+  pending-count:
+    description: "Number of pending code owners."
 
 runs:
   using: node20
