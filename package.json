@@ -2,7 +2,7 @@
   "name": "typescript-action",
   "description": "GitHub Actions TypeScript template",
   "version": "0.0.0",
-  "author": "",
+  "author": "woodi97",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",
   "repository": {
