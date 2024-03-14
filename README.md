@@ -124,8 +124,6 @@ So, what are you waiting for? Go ahead and start customizing your action!
    npm run all
    ```
 
-   > [!WARNING]
-   >
    > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
    > to build the final JavaScript action code with all dependencies included.
    > If you do not run this step, your action will not work correctly when it is
