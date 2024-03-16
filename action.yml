@@ -10,7 +10,7 @@ inputs:
   pr-number:
     description: "The number of the pull request."
     required: true
-    default: "999"
+    default: ${{ github.event.number }}
   repo-token:
     description: "Github token for authentication."
     required: false
