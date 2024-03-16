@@ -6,14 +6,21 @@ import axios from 'axios';
  * @param prNumber The number of the pull request.
  * @returns {Promise<axios.AxiosResponse>}
  */
-export async function fetchPullRequest(repository: string, prNumber: number): Promise<axios.AxiosResponse> {
+export async function fetchPullRequest(repository: string, prNumber: number, token: string): Promise<axios.AxiosResponse> {
     if (isNaN(prNumber)) {
-        throw new Error(`Pull request number input is not a number.`)
+        throw new Error(`Pull request input is not a number.`)
     }
-    const url: string = `https://github.com/${repository}/pull/${prNumber}`;
-    let res = await axios.get(url)
-    if (res.status != 200) {
-        throw new Error(`Unable to access '${url}' - make sure you are authorized.`)
+    const axiosInstance = axios.create({
+        baseURL: 'https://github.com/',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    try {
+        let response = await axiosInstance.get(`/${repository}/pull/${prNumber}`);
+        return response
     }
-    return res
+    catch (err) {
+        throw new Error(`${err}`)
+    }
 }

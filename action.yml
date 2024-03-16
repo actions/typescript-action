@@ -11,10 +11,10 @@ inputs:
     description: "The number of the pull request."
     required: true
     default: "999"
-  token:
+  repo-token:
     description: "Github token for authentication."
     required: false
-    default: ${{ secets.GITHUB_TOKEN }}
+    default: ${{ github.token }}
   repository:
     description: "owner/repository of pull request."
     required: false
