@@ -45,7 +45,8 @@ jobs:
         id: build
         run: npm run bundle
 
-      # This will fail the workflow if the PR wasn't created by Dependabot.
+      # This will fail the workflow if the `dist/` directory is different than
+      # expected.
       - name: Compare Directories
         id: diff
         run: |
@@ -55,8 +56,8 @@ jobs:
             exit 1
           fi
 
-      # If `dist/` was different than expected, and this was not a Dependabot
-      # PR, upload the expected version as a workflow artifact.
+      # If `dist/` was different than expected, upload the expected version as a
+      # workflow artifact.
       - if: ${{ failure() && steps.diff.outcome == 'failure' }}
         name: Upload Artifact
         id: upload
