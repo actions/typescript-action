@@ -31,6 +31,8 @@ OFF='\033[0m'
 BOLD_RED='\033[1;31m'
 BOLD_GREEN='\033[1;32m'
 BOLD_BLUE='\033[1;34m'
+BOLD_PURPLE='\033[1;35m'
+BOLD_UNDERLINED='\033[1;4m'
 
 # Get the latest release tag
 if ! latest_tag=$(git describe --abbrev=0 --match="$tag_glob"); then
@@ -51,6 +53,16 @@ if echo "$new_tag" | grep -q -E "$tag_regex"; then
 else
 	# Release tag is not `vX.X.X` format
 	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is ${BOLD_RED}not valid${OFF} (must be in vX.X.X format)"
+	exit 1
+fi
+
+# Remind user to update the version field in package.json
+echo -e -n "Make sure the version field in package.json is ${BOLD_BLUE}$new_tag${OFF}. Yes? [Y/${BOLD_UNDERLINED}n${OFF}] "
+read -r YN
+
+if [[ ! ($YN == "y" || $YN == "Y") ]]; then
+	# Package.json version field is not up to date
+	echo -e "Please update the package.json version to ${BOLD_PURPLE}$new_tag${OFF} and commit your changes"
 	exit 1
 fi
 
