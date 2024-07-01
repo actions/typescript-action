@@ -13,10 +13,16 @@ set -e
 #
 # This script will do the following:
 #
-# 1. Get the latest release tag
-# 2. Prompt the user for a new release tag
-# 3. Tag the new release
-# 4. Push the new tag to the remote
+# 1. Retrieve the latest release tag
+# 2. Display the latest release tag
+# 3. Prompt the user for a new release tag
+# 4. Validate the new release tag
+# 5. Remind user to update the version field in package.json
+# 6. Tag a new release
+# 7. Set 'is_major_release' variable
+# 8. Point separate major release tag (e.g. v1, v2) to the new release
+# 9. Push the new tags (with commits, if any) to remote
+# 10. If this is a major release, create a 'releases/(latest_major_tag)' branch and push
 #
 # Usage:
 #
@@ -37,20 +43,20 @@ BOLD_PURPLE='\033[1;35m'
 BOLD_UNDERLINED='\033[1;4m'
 BOLD='\033[1m'
 
-# Get the latest release tag
+# 1. Retrieve the latest release tag
 if ! latest_tag=$(git describe --abbrev=0 --match="$tag_glob"); then
 	# There are no existing release tags
 	echo -e "No tags found (yet) - Continue to create and push your first tag"
 	latest_tag="[unknown]"
 fi
 
-# Display the latest release tag
+# 2. Display the latest release tag
 echo -e "The latest release tag is: ${BOLD_BLUE}${latest_tag}${OFF}"
 
-# Prompt the user for the new release tag
+# 3. Prompt the user for a new release tag
 read -r -p 'Enter a new release tag (vX.X.X format): ' new_tag
 
-# Validate the new release tag
+# 4. Validate the new release tag
 if echo "$new_tag" | grep -q -E "$tag_regex"; then
 	# Release tag is valid
 	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is valid syntax"
@@ -60,7 +66,7 @@ else
 	exit 1
 fi
 
-# Remind user to update the version field in package.json
+# 5. Remind user to update the version field in package.json
 echo -e -n "Make sure the version field in package.json is ${BOLD_BLUE}$new_tag${OFF}. Yes? [Y/${BOLD_UNDERLINED}n${OFF}] "
 read -r YN
 
@@ -70,11 +76,11 @@ if [[ ! ($YN == "y" || $YN == "Y") ]]; then
 	exit 1
 fi
 
-# Tag the new release
+# 6. Tag a new release
 git tag "$new_tag" --annotate --message "$new_tag Release"
 echo -e "Tagged: ${BOLD_GREEN}$new_tag${OFF}"
 
-# Set 'is_major_release' variable
+# 7. Set 'is_major_release' variable
 latest_major_tag=$(expr "$latest_tag" : "$major_tag_regex")
 new_major_tag=$(expr "$new_tag" : "$major_tag_regex")
 
@@ -84,7 +90,7 @@ else
 	is_major_release='no'
 fi
 
-# Point major release tag (e.g. v1, v2) to this release
+# 8. Point separate major release tag (e.g. v1, v2) to the new release
 if [ $is_major_release = 'yes' ]; then
 	# Create a new major verison tag and point to this release
 	git tag "$new_major_tag" --annotate --message "$new_major_tag Release"
@@ -95,7 +101,7 @@ else
 	echo -e "Synced ${BOLD_GREEN}$latest_major_tag${OFF} with ${BOLD_GREEN}$new_tag${OFF}"
 fi
 
-# Push the new tags (with commits, if any) to remote
+# 9. Push the new tags (with commits, if any) to remote
 git push --follow-tags
 
 if [ $is_major_release = 'yes' ]; then
@@ -107,7 +113,7 @@ else
 	echo -e "Tags: ${BOLD_GREEN}$latest_major_tag${OFF} and ${BOLD_GREEN}$new_tag${OFF} pushed to remote"
 fi
 
-# If this is a major release, create a 'releases/(latest_major_tag)' branch and push
+# 10. If this is a major release, create a 'releases/(latest_major_tag)' branch and push
 if [ $is_major_release = 'yes' ]; then
 	git branch "releases/$latest_major_tag" "$latest_major_tag"
 	echo -e "Branch: ${BOLD_BLUE}releases/$latest_major_tag${OFF} created from ${BOLD_BLUE}$latest_major_tag${OFF} tag"
