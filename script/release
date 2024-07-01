@@ -69,7 +69,7 @@ if [[ ! ($YN == "y" || $YN == "Y") ]]; then
 fi
 
 # Tag the new release
-git tag -a "$new_tag" -m "$new_tag Release"
+git tag "$new_tag" --annotate --message "$new_tag Release"
 echo -e "Tagged: ${BOLD_GREEN}$new_tag${OFF}"
 
 # Push the new tag to the remote
