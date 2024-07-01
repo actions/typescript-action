@@ -33,6 +33,7 @@ BOLD_GREEN='\033[1;32m'
 BOLD_BLUE='\033[1;34m'
 BOLD_PURPLE='\033[1;35m'
 BOLD_UNDERLINED='\033[1;4m'
+BOLD='\033[1m'
 
 # Get the latest release tag
 if ! latest_tag=$(git describe --abbrev=0 --match="$tag_glob"); then
@@ -49,10 +50,11 @@ read -r -p 'Enter a new release tag (vX.X.X format): ' new_tag
 
 # Validate the new release tag
 if echo "$new_tag" | grep -q -E "$tag_regex"; then
-	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is valid"
+	# Release tag is valid
+	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is valid syntax"
 else
 	# Release tag is not `vX.X.X` format
-	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is ${BOLD_RED}not valid${OFF} (must be in vX.X.X format)"
+	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is ${BOLD_RED}not valid${OFF} (must be in ${BOLD}vX.X.X${OFF} format)"
 	exit 1
 fi
 
@@ -68,9 +70,9 @@ fi
 
 # Tag the new release
 git tag -a "$new_tag" -m "$new_tag Release"
-echo -e "${BOLD_GREEN}Tagged: $new_tag${OFF}"
+echo -e "Tagged: ${BOLD_GREEN}$new_tag${OFF}"
 
 # Push the new tag to the remote
 git push --follow-tags
-echo -e "${BOLD_GREEN}Release tag pushed to remote${OFF}"
+echo -e "Tags: ${BOLD_GREEN}$new_tag${OFF} pushed to remote"
 echo -e "${BOLD_GREEN}Done!${OFF}"
