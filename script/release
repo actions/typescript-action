@@ -55,7 +55,7 @@ if echo "$new_tag" | grep -q -E "$tag_regex"; then
 	# Release tag is valid
 	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is valid syntax"
 else
-	# Release tag is not `vX.X.X` format
+	# Release tag is not in `vX.X.X` format
 	echo -e "Tag: ${BOLD_BLUE}$new_tag${OFF} is ${BOLD_RED}not valid${OFF} (must be in ${BOLD}vX.X.X${OFF} format)"
 	exit 1
 fi
