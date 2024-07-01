@@ -25,6 +25,8 @@ set -e
 # Variables
 tag_regex='v[0-9]+\.[0-9]+\.[0-9]+$'
 tag_glob='v[0-9].[0-9].[0-9]*'
+git_remote='origin'
+major_tag_regex='\(v[0-9]*\)'
 
 # Terminal colors
 OFF='\033[0m'
@@ -75,4 +77,20 @@ echo -e "Tagged: ${BOLD_GREEN}$new_tag${OFF}"
 # Push the new tag to the remote
 git push --follow-tags
 echo -e "Tags: ${BOLD_GREEN}$new_tag${OFF} pushed to remote"
+
+# Check if the latest major release tag and the new major release tag are the same
+latest_major_tag=$(expr "$latest_tag" : "$major_tag_regex")
+new_major_tag=$(expr "$new_tag" : "$major_tag_regex")
+
+if [[ "$new_major_tag" = "$latest_major_tag" ]]; then
+	# This is a minor or patch release
+	# Point major release tag (e.g. v1, v2) to this release
+	git tag "$latest_major_tag" --force --annotate --message "Sync $latest_major_tag tag with $new_tag"
+	echo -e "Synced ${BOLD_GREEN}$latest_major_tag${OFF} with ${BOLD_GREEN}$new_tag${OFF}"
+	# Push major tag to remote
+	git push $git_remote "$latest_major_tag" --force
+	echo -e "Tags: ${BOLD_GREEN}$latest_major_tag${OFF} pushed to remote"
+fi
+
+# Completed
 echo -e "${BOLD_GREEN}Done!${OFF}"
