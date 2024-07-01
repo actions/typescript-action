@@ -230,4 +230,6 @@ following steps:
    script auto-detects this and creates a `releases/v#` branch for the previous
    major version.
 1. **Pushing changes to remote:** Finally, the script pushes the necessary
-   commits, tags and branches to the remote repository.
+   commits, tags and branches to the remote repository. From here, you will
+   need to create a new release in GitHub so users can easily reference the
+   new tags in their workflows.
