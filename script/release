@@ -20,6 +20,7 @@
 
 # Variables
 tag_regex='v[0-9]+\.[0-9]+\.[0-9]+$'
+tag_glob='v[0-9].[0-9].[0-9]*'
 
 # Terminal colors
 OFF='\033[0m'
@@ -28,7 +29,7 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 
 # Get the latest release tag
-latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+latest_tag=$(git describe --abbrev=0 --match="$tag_glob")
 
 if [[ -z "$latest_tag" ]]; then
 	# There are no existing release tags
