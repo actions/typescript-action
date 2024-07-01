@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Exit early
+# See: https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#The-Set-Builtin
+set -e
+
 # About:
 #
 # This is a helper script to tag and push a new release. GitHub Actions use
@@ -29,9 +33,7 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 
 # Get the latest release tag
-latest_tag=$(git describe --abbrev=0 --match="$tag_glob")
-
-if [[ -z "$latest_tag" ]]; then
+if ! latest_tag=$(git describe --abbrev=0 --match="$tag_glob"); then
 	# There are no existing release tags
 	echo -e "No tags found (yet) - Continue to create and push your first tag"
 	latest_tag="[unknown]"
