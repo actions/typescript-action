@@ -74,22 +74,45 @@ fi
 git tag "$new_tag" --annotate --message "$new_tag Release"
 echo -e "Tagged: ${BOLD_GREEN}$new_tag${OFF}"
 
-# Push the new tag to the remote
-git push --follow-tags
-echo -e "Tags: ${BOLD_GREEN}$new_tag${OFF} pushed to remote"
-
-# Check if the latest major release tag and the new major release tag are the same
+# Set 'is_major_release' variable
 latest_major_tag=$(expr "$latest_tag" : "$major_tag_regex")
 new_major_tag=$(expr "$new_tag" : "$major_tag_regex")
 
-if [[ "$new_major_tag" = "$latest_major_tag" ]]; then
-	# This is a minor or patch release
-	# Point major release tag (e.g. v1, v2) to this release
+if ! [[ "$new_major_tag" = "$latest_major_tag" ]]; then
+	is_major_release='yes'
+else
+	is_major_release='no'
+fi
+
+# Point major release tag (e.g. v1, v2) to this release
+if [ $is_major_release = 'yes' ]; then
+	# Create a new major verison tag and point to this release
+	git tag "$new_major_tag" --annotate --message "$new_major_tag Release"
+	echo -e "New major version tag: ${BOLD_GREEN}$new_major_tag${OFF}"
+else
+	# Update the major verison tag to point to this release
 	git tag "$latest_major_tag" --force --annotate --message "Sync $latest_major_tag tag with $new_tag"
 	echo -e "Synced ${BOLD_GREEN}$latest_major_tag${OFF} with ${BOLD_GREEN}$new_tag${OFF}"
-	# Push major tag to remote
+fi
+
+# Push the new tags (with commits, if any) to remote
+git push --follow-tags
+
+if [ $is_major_release = 'yes' ]; then
+	# New major version tag is pushed with the '--follow-tags' flags
+	echo -e "Tags: ${BOLD_GREEN}$new_major_tag${OFF} and ${BOLD_GREEN}$new_tag${OFF} pushed to remote"
+else
+	# Force push the updated major version tag
 	git push $git_remote "$latest_major_tag" --force
-	echo -e "Tags: ${BOLD_GREEN}$latest_major_tag${OFF} pushed to remote"
+	echo -e "Tags: ${BOLD_GREEN}$latest_major_tag${OFF} and ${BOLD_GREEN}$new_tag${OFF} pushed to remote"
+fi
+
+# If this is a major release, create a 'releases/(latest_major_tag)' branch and push
+if [ $is_major_release = 'yes' ]; then
+	git branch "releases/$latest_major_tag" "$latest_major_tag"
+	echo -e "Branch: ${BOLD_BLUE}releases/$latest_major_tag${OFF} created from ${BOLD_BLUE}$latest_major_tag${OFF} tag"
+	git push --set-upstream $git_remote "releases/$latest_major_tag"
+	echo -e "Branch: ${BOLD_GREEN}releases/$latest_major_tag${OFF} pushed to remote"
 fi
 
 # Completed
