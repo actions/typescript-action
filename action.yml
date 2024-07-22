@@ -1,6 +1,6 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'helmut.cloud catalog upload'
+description: 'Upload a helmut.cloud node catalog to a S3 object storage'
+author: 'MoovIT Software Products GmbH'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
@@ -9,15 +9,71 @@ branding:
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  token:
+    description: 'Authentication token for the helmut.cloud platform'
     required: true
-    default: '1000'
+  endpoint:
+    description: 'S3 object storage endpoint'
+    required: true
+  region:
+    description: 'S3 object storage region'
+    required: false
+    default: ''
+  bucket:
+    description: 'S3 object storage bucket'
+    required: true
+  access_key_id:
+    description: 'Access key ID for the S3 object storage'
+    required: true
+  secret_access_key:
+    description: 'Secret Access key for the S3 object storage'
+    required: true
+  dest_dir:
+    description: 'Destination directory in the object storage'
+    required: true
+  source_dir:
+    description: 'Source directory to be uploaded'
+    required: true
+  name:
+    description: 'Name of the catalog'
+    required: true
+  description:
+    description: 'Description of the catalog'
+    required: true
+  logo:
+    description: 'URL to the logo of the catalog'
+    required: true
+  server:
+    description:
+      'Hostname to the hcloud.backend to use. E.g
+      https://eu-central-1.app.helmut.cloud'
+    required: true
+  org_name:
+    description: 'Name of the organization'
+    required: true
+  space_name:
+    description: 'Name of the space the catalog will be added to'
+    required: true
+  version:
+    description: 'Version of the new catalog'
+    required: true
+  url:
+    description: 'URL for the new catalog'
+    required: true
+  changelog:
+    description: 'Changelog with the changes in the new catalog version'
+    required: true
+  dev:
+    description: 'Flag to mark the catalog as a dev release'
+    required: false
+  on_fail:
+    description:
+      'Action to take on cleanup on the upload fails. Use "delete" or leave
+      empty'
+    required: false
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
 
 runs:
   using: node20

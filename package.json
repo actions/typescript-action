@@ -32,7 +32,7 @@
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
     "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
     "package:watch": "npm run package -- --watch",
-    "test": "npx jest",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
   "license": "MIT",
@@ -63,10 +63,18 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "catalog.ts",
+      "index.ts"
     ]
   },
   "dependencies": {
-    "@actions/core": "^1.10.1"
+    "@actions/core": "^1.10.1",
+    "@aws-sdk/client-s3": "^3.614.0",
+    "@moovit-sp-gmbh/hcloud-sdk": "^13.7.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
@@ -84,6 +92,7 @@
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
+    "testcontainers": "^10.10.4",
     "ts-jest": "^29.2.3",
     "typescript": "^5.5.3"
   }
