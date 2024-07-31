@@ -60,6 +60,8 @@ inputs:
 
 # Define your outputs here.
 outputs:
+  url:
+    description: 'URL that can be used to add the catalog to a space'
 
 runs:
   using: node20

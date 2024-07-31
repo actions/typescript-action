@@ -85,6 +85,8 @@ async function main(): Promise<void> {
         { name, description, logo },
         catalog
       )
+
+      core.setOutput('url', joinPath(endpoint, bucket, destDir))
     } catch (err) {
       if (onFail === 'delete') {
         await s3.deleteObjects({
