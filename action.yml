@@ -9,9 +9,6 @@ branding:
 
 # Define your inputs here.
 inputs:
-  token:
-    description: 'Authentication token for the helmut.cloud platform'
-    required: true
   endpoint:
     description: 'S3 object storage endpoint'
     required: true
@@ -42,17 +39,6 @@ inputs:
     required: true
   logo:
     description: 'URL to the logo of the catalog'
-    required: true
-  server:
-    description:
-      'Hostname to the hcloud.backend to use. E.g
-      https://eu-central-1.app.helmut.cloud'
-    required: true
-  org_name:
-    description: 'Name of the organization'
-    required: true
-  space_name:
-    description: 'Name of the space the catalog will be added to'
     required: true
   version:
     description: 'Version of the new catalog'
