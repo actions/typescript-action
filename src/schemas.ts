@@ -131,6 +131,6 @@ export const nodeSpecificationSchema = z.discriminatedUnion('specVersion', [
 
 export const specificationSchema = z.object({
   nodes: z.array(nodeSpecificationSchema),
-  engineVersion: z.string(),
+  engineVersion: z.string().optional(),
   specVersion: z.number()
 })
