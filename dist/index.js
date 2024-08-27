@@ -62489,14 +62489,12 @@ exports.nodeSpecificationSchemaV1 = zod_1.z.object({
     specVersion: zod_1.z.literal(1),
     name: zod_1.z.string(),
     description: zod_1.z.string(),
-    documentation: zod_1.z.string(),
     type: exports.StreamNodeSpecificationType,
     package: exports.StreamNodeSpecificationPackage,
     category: zod_1.z.string(),
     version: exports.StreamSemanticVersion,
     author: exports.StreamNodeSpecificationAuthor,
     tag: exports.StreamNodeSpecificationTag.optional(),
-    requireSdk: zod_1.z.boolean().optional(),
     inputs: zod_1.z.array(exports.StreamNodeSpecificationInput).optional(),
     outputs: zod_1.z.array(exports.StreamNodeSpecificationOutput).optional(),
     additionalConnectors: zod_1.z
@@ -62510,7 +62508,7 @@ exports.nodeSpecificationSchema = zod_1.z.discriminatedUnion('specVersion', [
 ]);
 exports.specificationSchema = zod_1.z.object({
     nodes: zod_1.z.array(exports.nodeSpecificationSchema),
-    engineVersion: zod_1.z.string(),
+    engineVersion: zod_1.z.string().optional(),
     specVersion: zod_1.z.number()
 });
 
