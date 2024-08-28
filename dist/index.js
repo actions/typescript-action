@@ -62293,8 +62293,8 @@ async function main() {
             dev
         };
         try {
-            await writeFileTo(s3, bucket, (0, util_1.joinPath)(destDir, 'specification.json'))((0, util_1.joinPath)(srcDir, 'specification.json'));
-            await writeFileTo(s3, bucket, (0, util_1.joinPath)(destDir, 'bundle.js'))((0, util_1.joinPath)(srcDir, 'bundle.js'));
+            await writeFileTo(s3, bucket, (0, util_1.joinPath)(destDir, version, 'specification.json'))((0, util_1.joinPath)(srcDir, 'specification.json'));
+            await writeFileTo(s3, bucket, (0, util_1.joinPath)(destDir, version, 'bundle.js'))((0, util_1.joinPath)(srcDir, 'bundle.js'));
             await (0, registry_1.updateRegistry)(readFrom(s3, bucket, (0, util_1.joinPath)(destDir, 'index.json')), writeTo(s3, bucket, (0, util_1.joinPath)(destDir, 'index.json')), { name, description, logo }, catalog);
             core.setOutput('url', (0, util_1.joinPath)(endpoint, bucket, destDir));
         }
@@ -62305,10 +62305,10 @@ async function main() {
                     Delete: {
                         Objects: [
                             {
-                                Key: (0, util_1.joinPath)(destDir, 'bundle.js')
+                                Key: (0, util_1.joinPath)(destDir, version, 'bundle.js')
                             },
                             {
-                                Key: (0, util_1.joinPath)(destDir, 'specification.json')
+                                Key: (0, util_1.joinPath)(destDir, version, 'specification.json')
                             }
                         ]
                     }

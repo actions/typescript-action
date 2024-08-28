@@ -68,13 +68,13 @@ async function main(): Promise<void> {
       await writeFileTo(
         s3,
         bucket,
-        joinPath(destDir, 'specification.json')
+        joinPath(destDir, version, 'specification.json')
       )(joinPath(srcDir, 'specification.json'))
 
       await writeFileTo(
         s3,
         bucket,
-        joinPath(destDir, 'bundle.js')
+        joinPath(destDir, version, 'bundle.js')
       )(joinPath(srcDir, 'bundle.js'))
 
       await updateRegistry(
@@ -92,10 +92,10 @@ async function main(): Promise<void> {
           Delete: {
             Objects: [
               {
-                Key: joinPath(destDir, 'bundle.js')
+                Key: joinPath(destDir, version, 'bundle.js')
               },
               {
-                Key: joinPath(destDir, 'specification.json')
+                Key: joinPath(destDir, version, 'specification.json')
               }
             ]
           }
