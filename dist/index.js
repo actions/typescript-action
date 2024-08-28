@@ -62572,7 +62572,10 @@ async function validateSchema(dir) {
     }
     // bundle.js
     try {
-        const catalogBundle = await __nccwpck_require__(7070)(path_1.default.join(dir, 'bundle.js'));
+        // we need to force a relative path
+        const catalogBundle = await __nccwpck_require__(7070)(dir.startsWith('/')
+            ? path_1.default.join(dir, 'bundle.js')
+            : `.${path_1.default.sep}${path_1.default.join(dir, 'bundle.js')}`);
         const catalog = catalogBundle.Catalog;
         if (typeof catalog !== 'function') {
             throw new Error(`bundle.js does default export is not a catalog constructor`);

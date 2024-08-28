@@ -16,7 +16,12 @@ export async function validateSchema(dir: string): Promise<void> {
   }
   // bundle.js
   try {
-    const catalogBundle = await import(path.join(dir, 'bundle.js'))
+    // we need to force a relative path
+    const catalogBundle = await import(
+      dir.startsWith('/')
+        ? path.join(dir, 'bundle.js')
+        : `.${path.sep}${path.join(dir, 'bundle.js')}`
+    )
 
     const catalog = catalogBundle.Catalog
 
