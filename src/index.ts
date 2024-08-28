@@ -136,8 +136,12 @@ function readFrom(
   location: string
 ): () => Promise<string | undefined> {
   return async function () {
-    const result = await s3.getObject({ Bucket: bucket, Key: location })
-    return result.Body?.transformToString('utf-8')
+    try {
+      const result = await s3.getObject({ Bucket: bucket, Key: location })
+      return result.Body?.transformToString('utf-8')
+    } catch (err) {
+      return undefined
+    }
   }
 }
 

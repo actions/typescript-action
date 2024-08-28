@@ -62338,8 +62338,13 @@ function writeFileTo(s3, bucket, location) {
 }
 function readFrom(s3, bucket, location) {
     return async function () {
-        const result = await s3.getObject({ Bucket: bucket, Key: location });
-        return result.Body?.transformToString('utf-8');
+        try {
+            const result = await s3.getObject({ Bucket: bucket, Key: location });
+            return result.Body?.transformToString('utf-8');
+        }
+        catch (err) {
+            return undefined;
+        }
     };
 }
 main();
