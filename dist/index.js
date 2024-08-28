@@ -62272,7 +62272,6 @@ async function main() {
         const logo = core.getInput(inputs.logo, { required: true });
         const destDir = core.getInput(inputs.destDir, { required: true });
         const version = core.getInput(inputs.version, { required: true });
-        const url = core.getInput(inputs.url, { required: true });
         const changelog = core.getMultilineInput(inputs.changelog, {
             required: true
         });
@@ -62286,6 +62285,7 @@ async function main() {
                 secretAccessKey
             }
         });
+        const url = (0, util_1.joinPath)(endpoint, bucket, destDir, version);
         const catalog = {
             version,
             url,

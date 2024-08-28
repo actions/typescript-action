@@ -43,9 +43,6 @@ inputs:
   version:
     description: 'Version of the new catalog'
     required: true
-  url:
-    description: 'URL for the new catalog'
-    required: true
   changelog:
     description: 'Changelog with the changes in the new catalog version'
     required: true
