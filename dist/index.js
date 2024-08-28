@@ -62316,12 +62316,14 @@ async function main() {
                     }
                 });
             }
+            throw err;
         }
         finally {
             s3.destroy();
         }
     }
     catch (error) {
+        console.error(error);
         core.setFailed(error.message);
     }
 }
