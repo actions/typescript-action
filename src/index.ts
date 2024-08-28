@@ -31,7 +31,7 @@ async function main(): Promise<void> {
 
     const endpoint = core.getInput(inputs.endpoint, { required: true })
     const bucket = core.getInput(inputs.bucket, { required: true })
-    const region = core.getInput(inputs.region, { required: true })
+    const region = core.getInput(inputs.region, { required: false }) ?? ''
     const accessKeyId = core.getInput(inputs.accessKeyId, { required: true })
     const secretAccessKey = core.getInput(inputs.secretAccessKey, {
       required: true

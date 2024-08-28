@@ -15,7 +15,7 @@ inputs:
   region:
     description: 'S3 object storage region'
     required: false
-    default: ''
+    default: 'auto'
   bucket:
     description: 'S3 object storage bucket'
     required: true
