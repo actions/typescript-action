@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
-export const StreamCustomNodeSpecification = z.object({
+const StreamCustomNodeSpecification = z.object({
   _id: z.string(),
   color: z.string().optional()
 })
 
-export const StreamSemanticVersion = z.object({
+const StreamSemanticVersion = z.object({
   /**
    * changes effecting the user and are not backwards compatible (parameter changes)
    */
@@ -24,12 +24,12 @@ export const StreamSemanticVersion = z.object({
   changelog: z.array(z.string())
 })
 
-export const StreamNodeSpecificationAdditionalConnector = z.object({
+const StreamNodeSpecificationAdditionalConnector = z.object({
   name: z.string(),
   description: z.string()
 })
 
-export const StreamNodeSpecificationInputType = z.enum([
+const StreamNodeSpecificationInputType = z.enum([
   'STRING',
   'STRING_LONG',
   'STRING_LIST',
@@ -42,7 +42,7 @@ export const StreamNodeSpecificationInputType = z.enum([
   'ANY'
 ])
 
-export const StreamNodeSpecificationInput = z.intersection(
+const StreamNodeSpecificationInput = z.intersection(
   z.object({
     name: z.string(),
     description: z.string(),
@@ -62,7 +62,7 @@ export const StreamNodeSpecificationInput = z.intersection(
   ])
 )
 
-export const StreamNodeSpecificationOutputType = z.nativeEnum({
+const StreamNodeSpecificationOutputType = z.nativeEnum({
   STRING: 'STRING',
   STRING_LONG: 'STRING_LONG',
   STRING_LIST: 'STRING_LIST',
@@ -74,7 +74,7 @@ export const StreamNodeSpecificationOutputType = z.nativeEnum({
   JSON: 'JSON'
 })
 
-export const StreamNodeSpecificationOutput = z.object({
+const StreamNodeSpecificationOutput = z.object({
   name: z.string(),
   description: z.string(),
   type: StreamNodeSpecificationOutputType,
@@ -82,31 +82,31 @@ export const StreamNodeSpecificationOutput = z.object({
   howToAccess: z.array(z.string())
 })
 
-export const StreamNodeSpecificationAuthor = z.object({
+const StreamNodeSpecificationAuthor = z.object({
   name: z.string(),
   company: z.string(),
   email: z.string()
 })
 
-export const StreamNodeSpecificationType = z.nativeEnum({
+const StreamNodeSpecificationType = z.nativeEnum({
   TRIGGER: 'TRIGGER',
   ACTION: 'ACTION',
   CONDITION: 'CONDITION'
 })
 
-export const StreamNodeSpecificationTag = z.nativeEnum({
+const StreamNodeSpecificationTag = z.nativeEnum({
   PREVIEW: 'PREVIEW',
   EXPERIMENTAL: 'EXPERIMENTAL'
 })
 
-export const StreamNodeSpecificationPackage = z.nativeEnum({
+const StreamNodeSpecificationPackage = z.nativeEnum({
   CORE: 'CORE',
   DEV: 'DEV',
   THIRD_PARTY: 'THIRD_PARTY',
   CUSTOM: 'CUSTOM'
 })
 
-export const nodeSpecificationSchemaV1 = z.object({
+const nodeSpecificationSchemaV1 = z.object({
   specVersion: z.literal(1),
   name: z.string(),
   description: z.string(),
@@ -125,7 +125,7 @@ export const nodeSpecificationSchemaV1 = z.object({
   customNode: StreamCustomNodeSpecification.optional()
 })
 
-export const nodeSpecificationSchema = z.discriminatedUnion('specVersion', [
+const nodeSpecificationSchema = z.discriminatedUnion('specVersion', [
   nodeSpecificationSchemaV1
 ])
 
@@ -133,4 +133,14 @@ export const specificationSchema = z.object({
   nodes: z.array(nodeSpecificationSchema),
   engineVersion: z.string().optional(),
   specVersion: z.number()
+})
+
+const nodeConstructorSchema = z.function()
+
+export const catalogSchema = z.object({
+  name: z.string(),
+  logoUrl: z.string(),
+  description: z.string(),
+  nodes: z.array(nodeConstructorSchema),
+  nodeCatalog: z.record(nodeConstructorSchema)
 })

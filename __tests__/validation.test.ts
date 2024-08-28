@@ -106,47 +106,29 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// node_modules/hcloud-sdk/lib/interfaces/high5/space/index.js
-var require_space = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/space/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.High5SpacePermission = void 0;
-    var High5SpacePermission;
-    (function(High5SpacePermission2) {
-      High5SpacePermission2["NONE"] = "NONE";
-      High5SpacePermission2["READ"] = "READ";
-      High5SpacePermission2["EXECUTE"] = "EXECUTE";
-      High5SpacePermission2["WRITE"] = "WRITE";
-      High5SpacePermission2["MANAGE"] = "MANAGE";
-      High5SpacePermission2["OWNER"] = "OWNER";
-    })(High5SpacePermission = exports2.High5SpacePermission || (exports2.High5SpacePermission = {}));
-  }
-});
-
 // node_modules/hcloud-sdk/lib/interfaces/high5/wave/index.js
 var require_wave = __commonJS({
   "node_modules/hcloud-sdk/lib/interfaces/high5/wave/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.StreamNodeSpecificationPackage = exports2.StreamNodeSpecificationTag = exports2.StreamNodeSpecificationType = exports2.StreamNodeSpecificationOutputType = exports2.StreamNodeSpecificationInputType = exports2.isStreamNodeSpecificationV1 = void 0;
+    exports2.StreamNodeSpecificationPackage = exports2.StreamNodeSpecificationTag = exports2.StreamNodeSpecificationType = exports2.StreamNodeSpecificationOutputType = exports2.StreamNodeSpecificationInputType = void 0;
+    exports2.isStreamNodeSpecificationV1 = isStreamNodeSpecificationV1;
     function isStreamNodeSpecificationV1(s) {
       return s.specVersion === 1;
     }
-    exports2.isStreamNodeSpecificationV1 = isStreamNodeSpecificationV1;
-    var StreamNodeSpecificationInputType2;
-    (function(StreamNodeSpecificationInputType3) {
-      StreamNodeSpecificationInputType3["STRING"] = "STRING";
-      StreamNodeSpecificationInputType3["STRING_LONG"] = "STRING_LONG";
-      StreamNodeSpecificationInputType3["STRING_LIST"] = "STRING_LIST";
-      StreamNodeSpecificationInputType3["STRING_MAP"] = "STRING_MAP";
-      StreamNodeSpecificationInputType3["STRING_READONLY"] = "STRING_READONLY";
-      StreamNodeSpecificationInputType3["STRING_SELECT"] = "STRING_SELECT";
-      StreamNodeSpecificationInputType3["STRING_PASSWORD"] = "STRING_PASSWORD";
-      StreamNodeSpecificationInputType3["NUMBER"] = "NUMBER";
-      StreamNodeSpecificationInputType3["BOOLEAN"] = "BOOLEAN";
-      StreamNodeSpecificationInputType3["ANY"] = "ANY";
-    })(StreamNodeSpecificationInputType2 = exports2.StreamNodeSpecificationInputType || (exports2.StreamNodeSpecificationInputType = {}));
+    var StreamNodeSpecificationInputType;
+    (function(StreamNodeSpecificationInputType2) {
+      StreamNodeSpecificationInputType2["STRING"] = "STRING";
+      StreamNodeSpecificationInputType2["STRING_LONG"] = "STRING_LONG";
+      StreamNodeSpecificationInputType2["STRING_LIST"] = "STRING_LIST";
+      StreamNodeSpecificationInputType2["STRING_MAP"] = "STRING_MAP";
+      StreamNodeSpecificationInputType2["STRING_READONLY"] = "STRING_READONLY";
+      StreamNodeSpecificationInputType2["STRING_SELECT"] = "STRING_SELECT";
+      StreamNodeSpecificationInputType2["STRING_PASSWORD"] = "STRING_PASSWORD";
+      StreamNodeSpecificationInputType2["NUMBER"] = "NUMBER";
+      StreamNodeSpecificationInputType2["BOOLEAN"] = "BOOLEAN";
+      StreamNodeSpecificationInputType2["ANY"] = "ANY";
+    })(StreamNodeSpecificationInputType || (exports2.StreamNodeSpecificationInputType = StreamNodeSpecificationInputType = {}));
     var StreamNodeSpecificationOutputType2;
     (function(StreamNodeSpecificationOutputType3) {
       StreamNodeSpecificationOutputType3["STRING"] = "STRING";
@@ -158,267 +140,121 @@ var require_wave = __commonJS({
       StreamNodeSpecificationOutputType3["BOOLEAN"] = "BOOLEAN";
       StreamNodeSpecificationOutputType3["ANY"] = "ANY";
       StreamNodeSpecificationOutputType3["JSON"] = "JSON";
-    })(StreamNodeSpecificationOutputType2 = exports2.StreamNodeSpecificationOutputType || (exports2.StreamNodeSpecificationOutputType = {}));
+      StreamNodeSpecificationOutputType3["XML"] = "XML";
+      StreamNodeSpecificationOutputType3["HTML"] = "HTML";
+    })(StreamNodeSpecificationOutputType2 || (exports2.StreamNodeSpecificationOutputType = StreamNodeSpecificationOutputType2 = {}));
     var StreamNodeSpecificationType2;
     (function(StreamNodeSpecificationType3) {
       StreamNodeSpecificationType3["TRIGGER"] = "TRIGGER";
       StreamNodeSpecificationType3["ACTION"] = "ACTION";
       StreamNodeSpecificationType3["CONDITION"] = "CONDITION";
-    })(StreamNodeSpecificationType2 = exports2.StreamNodeSpecificationType || (exports2.StreamNodeSpecificationType = {}));
-    var StreamNodeSpecificationTag;
-    (function(StreamNodeSpecificationTag2) {
-      StreamNodeSpecificationTag2["PREVIEW"] = "PREVIEW";
-      StreamNodeSpecificationTag2["EXPERIMENTAL"] = "EXPERIMENTAL";
-    })(StreamNodeSpecificationTag = exports2.StreamNodeSpecificationTag || (exports2.StreamNodeSpecificationTag = {}));
+    })(StreamNodeSpecificationType2 || (exports2.StreamNodeSpecificationType = StreamNodeSpecificationType2 = {}));
+    var StreamNodeSpecificationTag2;
+    (function(StreamNodeSpecificationTag3) {
+      StreamNodeSpecificationTag3["PREVIEW"] = "PREVIEW";
+      StreamNodeSpecificationTag3["EXPERIMENTAL"] = "EXPERIMENTAL";
+    })(StreamNodeSpecificationTag2 || (exports2.StreamNodeSpecificationTag = StreamNodeSpecificationTag2 = {}));
     var StreamNodeSpecificationPackage2;
     (function(StreamNodeSpecificationPackage3) {
       StreamNodeSpecificationPackage3["CORE"] = "CORE";
       StreamNodeSpecificationPackage3["DEV"] = "DEV";
       StreamNodeSpecificationPackage3["THIRD_PARTY"] = "THIRD_PARTY";
       StreamNodeSpecificationPackage3["CUSTOM"] = "CUSTOM";
-    })(StreamNodeSpecificationPackage2 = exports2.StreamNodeSpecificationPackage || (exports2.StreamNodeSpecificationPackage = {}));
+    })(StreamNodeSpecificationPackage2 || (exports2.StreamNodeSpecificationPackage = StreamNodeSpecificationPackage2 = {}));
   }
 });
 
-// node_modules/hcloud-sdk/lib/interfaces/high5/space/event/index.js
-var require_event = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/space/event/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
+// index.ts
+var wave_nodes_catalog_test_exports = {};
+__export(wave_nodes_catalog_test_exports, {
+  default: () => wave_nodes_catalog_test_default
 });
+module.exports = __toCommonJS(wave_nodes_catalog_test_exports);
 
-// node_modules/hcloud-sdk/lib/interfaces/high5/space/webhook/index.js
-var require_webhook = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/space/webhook/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WebhookType = void 0;
-    var WebhookType;
-    (function(WebhookType2) {
-      WebhookType2["EVENT"] = "EVENT";
-      WebhookType2["SPACE"] = "SPACE";
-      WebhookType2["FRAME_IO"] = "FRAME_IO";
-    })(WebhookType = exports2.WebhookType || (exports2.WebhookType = {}));
-  }
-});
-
-// node_modules/hcloud-sdk/lib/interfaces/high5/space/secret/index.js
-var require_secret = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/space/secret/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// node_modules/hcloud-sdk/lib/interfaces/high5/space/event/stream/index.js
-var require_stream = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/space/event/stream/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.StreamPayloadType = exports2.MoveDirection = void 0;
-    var MoveDirection;
-    (function(MoveDirection2) {
-      MoveDirection2["UP"] = "UP";
-      MoveDirection2["DOWN"] = "DOWN";
-    })(MoveDirection = exports2.MoveDirection || (exports2.MoveDirection = {}));
-    var StreamPayloadType;
-    (function(StreamPayloadType2) {
-      StreamPayloadType2["JSON"] = "JSON";
-      StreamPayloadType2["GENERIC"] = "GENERIC";
-    })(StreamPayloadType = exports2.StreamPayloadType || (exports2.StreamPayloadType = {}));
-  }
-});
-
-// node_modules/hcloud-sdk/lib/interfaces/high5/space/event/stream/design/index.js
-var require_design = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/space/event/stream/design/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// node_modules/hcloud-sdk/lib/interfaces/high5/space/event/stream/node/index.js
-var require_node = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/space/event/stream/node/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.NodeCategory = void 0;
-    var NodeCategory;
-    (function(NodeCategory2) {
-      NodeCategory2["CUSTOM"] = "CUSTOM";
-    })(NodeCategory = exports2.NodeCategory || (exports2.NodeCategory = {}));
-  }
-});
-
-// node_modules/hcloud-sdk/lib/interfaces/high5/joinToken/index.js
-var require_joinToken = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/joinToken/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// node_modules/hcloud-sdk/lib/interfaces/high5/index.js
-var require_high5 = __commonJS({
-  "node_modules/hcloud-sdk/lib/interfaces/high5/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_space(), exports2);
-    __exportStar(require_wave(), exports2);
-    __exportStar(require_event(), exports2);
-    __exportStar(require_webhook(), exports2);
-    __exportStar(require_secret(), exports2);
-    __exportStar(require_stream(), exports2);
-    __exportStar(require_design(), exports2);
-    __exportStar(require_space(), exports2);
-    __exportStar(require_event(), exports2);
-    __exportStar(require_stream(), exports2);
-    __exportStar(require_design(), exports2);
-    __exportStar(require_node(), exports2);
-    __exportStar(require_webhook(), exports2);
-    __exportStar(require_secret(), exports2);
-    __exportStar(require_wave(), exports2);
-    __exportStar(require_joinToken(), exports2);
-  }
-});
-
-// src/catalog.ts
-var catalog_exports = {};
-__export(catalog_exports, {
-  Catalog: () => Catalog
-});
-module.exports = __toCommonJS(catalog_exports);
-
-// src/nodes/actions/ActionNode.ts
-var ActionNode = class extends function() {
-} {
-};
-
-// src/nodes/actions/high5/AddSecretAction.ts
-var import_high5 = __toESM(require_high5());
-var AddSecretAction = class extends ActionNode {
-  specification = {
-    specVersion: 1,
-    name: "Add Secret",
-    description: "Add a new secret to the High5 space secret store",
-    documentation: "Link to doc coming soon...",
-    type: import_high5.StreamNodeSpecificationType.ACTION,
-    package: import_high5.StreamNodeSpecificationPackage.CORE,
-    category: "High5" /* HIGH5 */,
-    version: {
-      major: 0,
-      minor: 0,
-      patch: 1,
-      changelog: []
-    },
-    author: {
-      name: "MoovIT GmbH",
-      company: "MoovIT GmbH",
-      email: "support@helmut.cloud"
-    },
-    requireSdk: true,
-    inputs: [
-      {
-        name: "Secret name" /* SECRET_NAME */,
-        description: "Enter the name of the secret",
-        type: import_high5.StreamNodeSpecificationInputType.STRING,
-        example: "helmut",
-        advanced: false,
-        mandatory: true
-      },
-      {
-        name: "Secret value" /* SECRET_VALUE */,
-        description: "Enter the value of the secret (max 1024 characters)",
-        type: import_high5.StreamNodeSpecificationInputType.STRING,
-        example: "cloud",
-        advanced: false,
-        mandatory: true
-      },
-      {
-        name: "Secret encrypted" /* SECRET_ENCRYPTED */,
-        description: "Specify if the secret value should be encrypted",
-        type: import_high5.StreamNodeSpecificationInputType.BOOLEAN,
-        defaultValue: false,
-        example: false,
-        advanced: false,
-        mandatory: true
-      }
-    ],
-    outputs: [
-      {
-        name: "Secret name" /* SECRET_NAME */,
-        description: "Returns the secret's name",
-        type: import_high5.StreamNodeSpecificationOutputType.STRING,
-        example: "helmut",
-        howToAccess: ["{{OUTPUT.<nodeUuid>.Secret name}}"]
-      },
-    ]
-  };
-  async execute() {
-    const startTime = performance.now();
-    const secret = await this.addSecret();
-    this.wave.outputs.setOutput("Secret name" /* SECRET_NAME */, secret.key);
-    this.wave.outputs.setOutput("Secret value" /* SECRET_VALUE */, secret.value);
-    this.wave.outputs.setOutput("Secret encrypted" /* SECRET_ENCRYPTED */, secret.encrypted);
-    this.wave.outputs.setOutput("Run time" /* DURATION */, performance.now() - startTime);
-  }
-  async addSecret() {
-    const key = this.wave.inputs.getInputByName("Secret name" /* SECRET_NAME */)?.value;
-    const value = this.wave.inputs.getInputByName("Secret value" /* SECRET_VALUE */)?.value;
-    if (value.length > 1024) throw new Error("The secret value must not exceed 1024 characters");
-    const encrypted = this.wave.inputs.getInputByName("Secret encrypted" /* SECRET_ENCRYPTED */)?.value;
-    let secret;
-    const hcl = this.wave.general.getHcloudClient();
-    try {
-      const orgName = this.wave.general.getOrgName();
-      const spaceName = this.wave.general.getSpaceName();
-      secret = await hcl.High5.space.secret.addSecret(orgName, spaceName, key, value, encrypted);
-    } catch (err) {
-      throw new Error(err);
-    }
-    return secret;
-  }
-};
-
-// src/nodes/conditions/ConditionNode.ts
-var ConditionNode = class extends function() {
-} {
-};
-
-// src/catalog.ts
+// lib/Catalog.ts
 var Catalog = class {
-  nodeCatalog;
-  constructor(engineNode) {
-    Object.setPrototypeOf(ActionNode, engineNode);
-    Object.setPrototypeOf(ActionNode.prototype, engineNode.prototype);
-    Object.setPrototypeOf(ConditionNode, engineNode);
-    Object.setPrototypeOf(ConditionNode.prototype, engineNode.prototype);
-    this.nodeCatalog = {
-      AddSecretAction
-    };
+  constructor(name, description, logoUrl, ...nodes) {
+    this.name = name;
+    this.description = description;
+    this.logoUrl = logoUrl;
+    this.nodes = nodes;
+    this.nodeCatalog = {};
+    for (const node of nodes) {
+      this.nodeCatalog[node.name] = node;
+    }
   }
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  Catalog
-});
+
+// lib/nodes/RonSwansonQuote.ts
+var import_wave = __toESM(require_wave());
+
+// lib/Node.ts
+var Node = class {
+  static {
+    this._isWaveNode = true;
+  }
+};
+
+// lib/nodes/RonSwansonQuote.ts
+var import_https = __toESM(require("https"));
+var RonSwansonQuote = class extends Node {
+  constructor() {
+    super(...arguments);
+    this.specification = {
+      specVersion: 1,
+      name: "RonSwansonQuote",
+      description: "Get a random Ron Swanson quote",
+      package: import_wave.StreamNodeSpecificationPackage.THIRD_PARTY,
+      type: import_wave.StreamNodeSpecificationType.ACTION,
+      category: "Meme",
+      tag: import_wave.StreamNodeSpecificationTag.EXPERIMENTAL,
+      version: {
+        major: 0,
+        minor: 0,
+        patch: 1,
+        changelog: []
+      },
+      author: {
+        name: "Jorge Brown",
+        company: "MoovIT SP",
+        email: "jorgepbrown@gmail.com"
+      },
+      inputs: [],
+      outputs: [{
+        name: "quote",
+        description: "a random quote from Ron Swanson",
+        example: "No home is complete without a proper toolbox. Here's April and Andy's: A hammer, a half eaten pretzel, a baseball card, some cartridge that says Sonic and Hedgehog, a scissor half, a flashlight filled with jellybeans.",
+        type: import_wave.StreamNodeSpecificationOutputType.STRING,
+        howToAccess: ["output.<nodeUUID>.quote"]
+      }],
+      additionalConnectors: []
+    };
+  }
+  static {
+    this.URL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+  }
+  async execute() {
+    const quote = await getQuote();
+    this.wave.outputs.setOutput("quote", quote);
+  }
+};
+async function getQuote() {
+  const body = await get(RonSwansonQuote.URL);
+  const quotes = JSON.parse(body);
+  return quotes[0] ?? "";
+}
+function get(url) {
+  return new Promise((resolve, reject) => {
+    import_https.default.get(url, (res) => {
+      let data = "";
+      res.on("data", (c) => data += c);
+      res.on("close", () => resolve(data));
+    }).on("error", reject);
+  });
+}
+
+// index.ts
+var wave_nodes_catalog_test_default = new Catalog("Quote catalog", "This is a test catalog to evaluate the workflow proposed by the catalog blueprint", "https://app.helmut.cloud/img/logo_white.webp", RonSwansonQuote);
 `
 
 const SAMPLE_NON_CTOR_BUNDLE = `"use strict";

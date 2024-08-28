@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs/promises'
-import { specificationSchema } from './schemas'
+import { catalogSchema, specificationSchema } from './schemas'
 
 export async function validateSchema(dir: string): Promise<void> {
   // specification.json
@@ -24,13 +24,10 @@ export async function validateSchema(dir: string): Promise<void> {
         : `.${path.sep}${path.join(dir, 'bundle.js')}`
     )
 
-    const catalog = catalogBundle.Catalog
+    const catalog =
+      catalogBundle['default']['default'] ?? catalogBundle['default']
 
-    if (typeof catalog !== 'function') {
-      throw new Error(
-        `bundle.js does default export is not a catalog constructor`
-      )
-    }
+    catalogSchema.parse(catalog)
   } catch (err: unknown) {
     throw new Error(
       `Failed to validate catalog Javascript bundle. Reason: ${(err as Error).message}`

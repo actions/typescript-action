@@ -62391,13 +62391,13 @@ async function updateRegistry(getRegistry, setRegistry, defaultRegistry, catalog
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.specificationSchema = exports.nodeSpecificationSchema = exports.nodeSpecificationSchemaV1 = exports.StreamNodeSpecificationPackage = exports.StreamNodeSpecificationTag = exports.StreamNodeSpecificationType = exports.StreamNodeSpecificationAuthor = exports.StreamNodeSpecificationOutput = exports.StreamNodeSpecificationOutputType = exports.StreamNodeSpecificationInput = exports.StreamNodeSpecificationInputType = exports.StreamNodeSpecificationAdditionalConnector = exports.StreamSemanticVersion = exports.StreamCustomNodeSpecification = void 0;
+exports.catalogSchema = exports.specificationSchema = void 0;
 const zod_1 = __nccwpck_require__(3301);
-exports.StreamCustomNodeSpecification = zod_1.z.object({
+const StreamCustomNodeSpecification = zod_1.z.object({
     _id: zod_1.z.string(),
     color: zod_1.z.string().optional()
 });
-exports.StreamSemanticVersion = zod_1.z.object({
+const StreamSemanticVersion = zod_1.z.object({
     /**
      * changes effecting the user and are not backwards compatible (parameter changes)
      */
@@ -62415,11 +62415,11 @@ exports.StreamSemanticVersion = zod_1.z.object({
      */
     changelog: zod_1.z.array(zod_1.z.string())
 });
-exports.StreamNodeSpecificationAdditionalConnector = zod_1.z.object({
+const StreamNodeSpecificationAdditionalConnector = zod_1.z.object({
     name: zod_1.z.string(),
     description: zod_1.z.string()
 });
-exports.StreamNodeSpecificationInputType = zod_1.z.enum([
+const StreamNodeSpecificationInputType = zod_1.z.enum([
     'STRING',
     'STRING_LONG',
     'STRING_LIST',
@@ -62431,7 +62431,7 @@ exports.StreamNodeSpecificationInputType = zod_1.z.enum([
     'BOOLEAN',
     'ANY'
 ]);
-exports.StreamNodeSpecificationInput = zod_1.z.intersection(zod_1.z.object({
+const StreamNodeSpecificationInput = zod_1.z.intersection(zod_1.z.object({
     name: zod_1.z.string(),
     description: zod_1.z.string(),
     defaultValue: zod_1.z.any().optional(),
@@ -62440,14 +62440,14 @@ exports.StreamNodeSpecificationInput = zod_1.z.intersection(zod_1.z.object({
     mandatory: zod_1.z.boolean().optional()
 }), zod_1.z.discriminatedUnion('type', [
     zod_1.z.object({
-        type: exports.StreamNodeSpecificationInputType.exclude(['STRING_SELECT'])
+        type: StreamNodeSpecificationInputType.exclude(['STRING_SELECT'])
     }),
     zod_1.z.object({
-        type: exports.StreamNodeSpecificationInputType.extract(['STRING_SELECT']),
+        type: StreamNodeSpecificationInputType.extract(['STRING_SELECT']),
         options: zod_1.z.record(zod_1.z.union([zod_1.z.string(), zod_1.z.number()]))
     })
 ]));
-exports.StreamNodeSpecificationOutputType = zod_1.z.nativeEnum({
+const StreamNodeSpecificationOutputType = zod_1.z.nativeEnum({
     STRING: 'STRING',
     STRING_LONG: 'STRING_LONG',
     STRING_LIST: 'STRING_LIST',
@@ -62458,58 +62458,66 @@ exports.StreamNodeSpecificationOutputType = zod_1.z.nativeEnum({
     ANY: 'ANY',
     JSON: 'JSON'
 });
-exports.StreamNodeSpecificationOutput = zod_1.z.object({
+const StreamNodeSpecificationOutput = zod_1.z.object({
     name: zod_1.z.string(),
     description: zod_1.z.string(),
-    type: exports.StreamNodeSpecificationOutputType,
+    type: StreamNodeSpecificationOutputType,
     example: zod_1.z.unknown(),
     howToAccess: zod_1.z.array(zod_1.z.string())
 });
-exports.StreamNodeSpecificationAuthor = zod_1.z.object({
+const StreamNodeSpecificationAuthor = zod_1.z.object({
     name: zod_1.z.string(),
     company: zod_1.z.string(),
     email: zod_1.z.string()
 });
-exports.StreamNodeSpecificationType = zod_1.z.nativeEnum({
+const StreamNodeSpecificationType = zod_1.z.nativeEnum({
     TRIGGER: 'TRIGGER',
     ACTION: 'ACTION',
     CONDITION: 'CONDITION'
 });
-exports.StreamNodeSpecificationTag = zod_1.z.nativeEnum({
+const StreamNodeSpecificationTag = zod_1.z.nativeEnum({
     PREVIEW: 'PREVIEW',
     EXPERIMENTAL: 'EXPERIMENTAL'
 });
-exports.StreamNodeSpecificationPackage = zod_1.z.nativeEnum({
+const StreamNodeSpecificationPackage = zod_1.z.nativeEnum({
     CORE: 'CORE',
     DEV: 'DEV',
     THIRD_PARTY: 'THIRD_PARTY',
     CUSTOM: 'CUSTOM'
 });
-exports.nodeSpecificationSchemaV1 = zod_1.z.object({
+const nodeSpecificationSchemaV1 = zod_1.z.object({
     specVersion: zod_1.z.literal(1),
     name: zod_1.z.string(),
     description: zod_1.z.string(),
-    type: exports.StreamNodeSpecificationType,
-    package: exports.StreamNodeSpecificationPackage,
+    type: StreamNodeSpecificationType,
+    package: StreamNodeSpecificationPackage,
     category: zod_1.z.string(),
-    version: exports.StreamSemanticVersion,
-    author: exports.StreamNodeSpecificationAuthor,
-    tag: exports.StreamNodeSpecificationTag.optional(),
-    inputs: zod_1.z.array(exports.StreamNodeSpecificationInput).optional(),
-    outputs: zod_1.z.array(exports.StreamNodeSpecificationOutput).optional(),
+    version: StreamSemanticVersion,
+    author: StreamNodeSpecificationAuthor,
+    tag: StreamNodeSpecificationTag.optional(),
+    inputs: zod_1.z.array(StreamNodeSpecificationInput).optional(),
+    outputs: zod_1.z.array(StreamNodeSpecificationOutput).optional(),
     additionalConnectors: zod_1.z
-        .array(exports.StreamNodeSpecificationAdditionalConnector)
+        .array(StreamNodeSpecificationAdditionalConnector)
         .optional(),
     path: zod_1.z.string().optional(),
-    customNode: exports.StreamCustomNodeSpecification.optional()
+    customNode: StreamCustomNodeSpecification.optional()
 });
-exports.nodeSpecificationSchema = zod_1.z.discriminatedUnion('specVersion', [
-    exports.nodeSpecificationSchemaV1
+const nodeSpecificationSchema = zod_1.z.discriminatedUnion('specVersion', [
+    nodeSpecificationSchemaV1
 ]);
 exports.specificationSchema = zod_1.z.object({
-    nodes: zod_1.z.array(exports.nodeSpecificationSchema),
+    nodes: zod_1.z.array(nodeSpecificationSchema),
     engineVersion: zod_1.z.string().optional(),
     specVersion: zod_1.z.number()
+});
+const nodeConstructorSchema = zod_1.z.function();
+exports.catalogSchema = zod_1.z.object({
+    name: zod_1.z.string(),
+    logoUrl: zod_1.z.string(),
+    description: zod_1.z.string(),
+    nodes: zod_1.z.array(nodeConstructorSchema),
+    nodeCatalog: zod_1.z.record(nodeConstructorSchema)
 });
 
 
@@ -62577,10 +62585,8 @@ async function validateSchema(dir) {
         const catalogBundle = await f(dir.startsWith('/')
             ? path_1.default.join(dir, 'bundle.js')
             : `.${path_1.default.sep}${path_1.default.join(dir, 'bundle.js')}`);
-        const catalog = catalogBundle.Catalog;
-        if (typeof catalog !== 'function') {
-            throw new Error(`bundle.js does default export is not a catalog constructor`);
-        }
+        const catalog = catalogBundle['default']['default'] ?? catalogBundle['default'];
+        schemas_1.catalogSchema.parse(catalog);
     }
     catch (err) {
         throw new Error(`Failed to validate catalog Javascript bundle. Reason: ${err.message}`);
