@@ -62572,8 +62572,9 @@ async function validateSchema(dir) {
     }
     // bundle.js
     try {
-        // we need to force a relative path
-        const catalogBundle = await __nccwpck_require__(7070)(dir.startsWith('/')
+        // we need to force a relative path and bypass the dynamic import removal by webpack
+        const f = new Function('p', 'return import(p)');
+        const catalogBundle = await f(dir.startsWith('/')
             ? path_1.default.join(dir, 'bundle.js')
             : `.${path_1.default.sep}${path_1.default.join(dir, 'bundle.js')}`);
         const catalog = catalogBundle.Catalog;
@@ -62586,25 +62587,6 @@ async function validateSchema(dir) {
     }
 }
 
-
-/***/ }),
-
-/***/ 7070:
-/***/ ((module) => {
-
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncaught exception popping up in devtools
-	return Promise.resolve().then(() => {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	});
-}
-webpackEmptyAsyncContext.keys = () => ([]);
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 7070;
-module.exports = webpackEmptyAsyncContext;
 
 /***/ }),
 
@@ -64546,11 +64528,6 @@ module.exports = JSON.parse('{"name":"@aws-sdk/client-sts","description":"AWS SD
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";

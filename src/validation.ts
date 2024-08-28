@@ -16,8 +16,9 @@ export async function validateSchema(dir: string): Promise<void> {
   }
   // bundle.js
   try {
-    // we need to force a relative path
-    const catalogBundle = await import(
+    // we need to force a relative path and bypass the dynamic import removal by webpack
+    const f = new Function('p', 'return import(p)')
+    const catalogBundle = await f(
       dir.startsWith('/')
         ? path.join(dir, 'bundle.js')
         : `.${path.sep}${path.join(dir, 'bundle.js')}`
