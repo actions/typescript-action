@@ -62278,16 +62278,14 @@ async function main() {
         });
         const dev = core.getBooleanInput(inputs.dev, { required: false }) ?? false;
         const onFail = core.getInput(inputs.onFail, { required: false });
-        const s3 = new client_s3_1.S3([
-            {
-                endpoint,
-                region,
-                credentials: {
-                    accessKeyId,
-                    secretAccessKey
-                }
+        const s3 = new client_s3_1.S3({
+            endpoint,
+            region,
+            credentials: {
+                accessKeyId,
+                secretAccessKey
             }
-        ]);
+        });
         const catalog = {
             version,
             url,

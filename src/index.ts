@@ -48,16 +48,14 @@ async function main(): Promise<void> {
     const dev = core.getBooleanInput(inputs.dev, { required: false }) ?? false
     const onFail = core.getInput(inputs.onFail, { required: false })
 
-    const s3 = new S3([
-      {
-        endpoint,
-        region,
-        credentials: {
-          accessKeyId,
-          secretAccessKey
-        }
+    const s3 = new S3({
+      endpoint,
+      region,
+      credentials: {
+        accessKeyId,
+        secretAccessKey
       }
-    ])
+    })
 
     const catalog = {
       version,
