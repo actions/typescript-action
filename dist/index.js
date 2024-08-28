@@ -62241,6 +62241,7 @@ const client_s3_1 = __nccwpck_require__(9250);
 const util_1 = __nccwpck_require__(2629);
 const inputs = {
     endpoint: 'endpoint',
+    publicEndpoint: 'public_endpoint',
     region: 'region',
     bucket: 'bucket',
     accessKeyId: 'access_key_id',
@@ -62261,6 +62262,9 @@ async function main() {
         const srcDir = core.getInput(inputs.sourceDir, { required: true });
         await (0, validation_1.validateSchema)(srcDir);
         const endpoint = core.getInput(inputs.endpoint, { required: true });
+        const publicEndpoint = core.getInput(inputs.publicEndpoint, {
+            required: true
+        });
         const bucket = core.getInput(inputs.bucket, { required: true });
         const region = core.getInput(inputs.region, { required: false }) ?? '';
         const accessKeyId = core.getInput(inputs.accessKeyId, { required: true });
@@ -62285,7 +62289,7 @@ async function main() {
                 secretAccessKey
             }
         });
-        const url = (0, util_1.joinPath)(endpoint, bucket, destDir, version);
+        const url = (0, util_1.joinPath)(publicEndpoint, destDir, version);
         const catalog = {
             version,
             url,
@@ -62296,7 +62300,7 @@ async function main() {
             await writeFileTo(s3, bucket, (0, util_1.joinPath)(destDir, version, 'specification.json'))((0, util_1.joinPath)(srcDir, 'specification.json'));
             await writeFileTo(s3, bucket, (0, util_1.joinPath)(destDir, version, 'bundle.js'))((0, util_1.joinPath)(srcDir, 'bundle.js'));
             await (0, registry_1.updateRegistry)(readFrom(s3, bucket, (0, util_1.joinPath)(destDir, 'index.json')), writeTo(s3, bucket, (0, util_1.joinPath)(destDir, 'index.json')), { name, description, logo }, catalog);
-            core.setOutput('url', (0, util_1.joinPath)(endpoint, bucket, destDir));
+            core.setOutput('url', (0, util_1.joinPath)(publicEndpoint, destDir));
         }
         catch (err) {
             if (onFail === 'delete') {

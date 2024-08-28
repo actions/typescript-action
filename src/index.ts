@@ -7,6 +7,7 @@ import { joinPath } from './util'
 
 const inputs = {
   endpoint: 'endpoint',
+  publicEndpoint: 'public_endpoint',
   region: 'region',
   bucket: 'bucket',
   accessKeyId: 'access_key_id',
@@ -30,6 +31,9 @@ async function main(): Promise<void> {
     await validateSchema(srcDir)
 
     const endpoint = core.getInput(inputs.endpoint, { required: true })
+    const publicEndpoint = core.getInput(inputs.publicEndpoint, {
+      required: true
+    })
     const bucket = core.getInput(inputs.bucket, { required: true })
     const region = core.getInput(inputs.region, { required: false }) ?? ''
     const accessKeyId = core.getInput(inputs.accessKeyId, { required: true })
@@ -56,7 +60,7 @@ async function main(): Promise<void> {
       }
     })
 
-    const url = joinPath(endpoint, bucket, destDir, version)
+    const url = joinPath(publicEndpoint, destDir, version)
 
     const catalog = {
       version,
@@ -85,7 +89,7 @@ async function main(): Promise<void> {
         catalog
       )
 
-      core.setOutput('url', joinPath(endpoint, bucket, destDir))
+      core.setOutput('url', joinPath(publicEndpoint, destDir))
     } catch (err) {
       if (onFail === 'delete') {
         await s3.deleteObjects({

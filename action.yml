@@ -12,6 +12,9 @@ inputs:
   endpoint:
     description: 'S3 object storage endpoint'
     required: true
+  public_endpoint:
+    description: 'S3 object storage public endpoint (read-only)'
+    required: true
   region:
     description: 'S3 object storage region'
     required: false
