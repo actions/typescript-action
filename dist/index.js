@@ -62289,7 +62289,7 @@ async function main() {
                 secretAccessKey
             }
         });
-        const url = (0, util_1.joinPath)(publicEndpoint, destDir, version);
+        const url = (0, util_1.joinPath)(publicEndpoint, destDir);
         const catalog = {
             version,
             url,

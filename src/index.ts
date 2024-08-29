@@ -60,7 +60,7 @@ async function main(): Promise<void> {
       }
     })
 
-    const url = joinPath(publicEndpoint, destDir, version)
+    const url = joinPath(publicEndpoint, destDir)
 
     const catalog = {
       version,
