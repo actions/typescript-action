@@ -18,10 +18,10 @@ const inputs = {
   description: 'description',
   logo: 'logo',
   version: 'version',
-  url: 'url',
   changelog: 'changelog',
   dev: 'dev',
-  onFail: 'on_fail'
+  onFail: 'on_fail',
+  minimumEngineVersion: 'minimum_engine_version'
 } as const
 
 async function main(): Promise<void> {
@@ -49,6 +49,9 @@ async function main(): Promise<void> {
       required: true
     })
     const dev = core.getBooleanInput(inputs.dev, { required: false }) ?? false
+    const minimumEngineVersion = core.getInput(inputs.minimumEngineVersion, {
+      required: true
+    })
     const onFail = core.getInput(inputs.onFail, { required: false })
 
     const s3 = new S3({
@@ -66,7 +69,8 @@ async function main(): Promise<void> {
       version,
       url,
       changelog,
-      dev
+      dev,
+      minimumEngineVersion
     }
 
     try {

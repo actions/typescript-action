@@ -62252,10 +62252,10 @@ const inputs = {
     description: 'description',
     logo: 'logo',
     version: 'version',
-    url: 'url',
     changelog: 'changelog',
     dev: 'dev',
-    onFail: 'on_fail'
+    onFail: 'on_fail',
+    minimumEngineVersion: 'minimum_engine_version'
 };
 async function main() {
     try {
@@ -62280,6 +62280,9 @@ async function main() {
             required: true
         });
         const dev = core.getBooleanInput(inputs.dev, { required: false }) ?? false;
+        const minimumEngineVersion = core.getInput(inputs.minimumEngineVersion, {
+            required: true
+        });
         const onFail = core.getInput(inputs.onFail, { required: false });
         const s3 = new client_s3_1.S3({
             endpoint,
@@ -62294,7 +62297,8 @@ async function main() {
             version,
             url,
             changelog,
-            dev
+            dev,
+            minimumEngineVersion
         };
         try {
             await writeFileTo(s3, bucket, (0, util_1.joinPath)(destDir, version, 'specification.json'))((0, util_1.joinPath)(srcDir, 'specification.json'));

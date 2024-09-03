@@ -52,6 +52,9 @@ inputs:
   dev:
     description: 'Flag to mark the catalog as a dev release'
     required: false
+  minimum_engine_version:
+    description: 'Minimum engine version the catalog requires'
+    required: true
   on_fail:
     description:
       'Action to take on cleanup on the upload fails. Use "delete" or leave
