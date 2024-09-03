@@ -21,7 +21,7 @@
     ".": "./dist/index.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=21"
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
@@ -73,10 +73,9 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.2",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/parser": "^8.4.0",
     "@vercel/ncc": "^0.38.1",
     "eslint": "^8.57.0",
-    "eslint-plugin-github": "^5.0.1",
     "eslint-plugin-jest": "^28.8.2",
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-prettier": "^5.2.1",
