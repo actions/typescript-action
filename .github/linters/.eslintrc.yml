@@ -31,7 +31,6 @@ extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
-  - plugin:github/recommended
   - plugin:jest/recommended
 
 rules:
@@ -43,7 +42,6 @@ rules:
     'import/no-namespace': 'off',
     'no-console': 'off',
     'no-unused-vars': 'off',
-    'prettier/prettier': 'error',
     'semi': 'off',
     '@typescript-eslint/array-type': 'error',
     '@typescript-eslint/await-thenable': 'error',
@@ -53,7 +51,6 @@ rules:
       ['error', { 'accessibility': 'no-public' }],
     '@typescript-eslint/explicit-function-return-type':
       ['error', { 'allowExpressions': true }],
-    '@typescript-eslint/func-call-spacing': ['error', 'never'],
     '@typescript-eslint/no-array-constructor': 'error',
     '@typescript-eslint/no-empty-interface': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
@@ -76,8 +73,6 @@ rules:
     '@typescript-eslint/promise-function-async': 'error',
     '@typescript-eslint/require-array-sort-compare': 'error',
     '@typescript-eslint/restrict-plus-operands': 'error',
-    '@typescript-eslint/semi': ['error', 'never'],
     '@typescript-eslint/space-before-function-paren': 'off',
-    '@typescript-eslint/type-annotation-spacing': 'error',
     '@typescript-eslint/unbound-method': 'error'
   }
