@@ -47,4 +47,5 @@ export type CatalogVersion = {
   url: string
   changelog: string[]
   dev: boolean
+  minimumEngineVersion?: string
 }
