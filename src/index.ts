@@ -86,6 +86,12 @@ async function main(): Promise<void> {
         joinPath(destDir, version, 'bundle.js')
       )(joinPath(srcDir, 'bundle.js'))
 
+      await writeTo(
+        s3,
+        bucket,
+        joinPath(destDir, version, 'catalog-info.yaml')
+      )(`name: ${name}\nversion: ${version}\n`)
+
       await updateRegistry(
         readFrom(s3, bucket, joinPath(destDir, 'index.json')),
         writeTo(s3, bucket, joinPath(destDir, 'index.json')),
