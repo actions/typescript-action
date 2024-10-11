@@ -62479,6 +62479,12 @@ const StreamNodeSpecificationOutput = zod_1.z.object({
     example: zod_1.z.unknown(),
     howToAccess: zod_1.z.array(zod_1.z.string())
 });
+const StreamNodeSpecificationOutputV2 = zod_1.z.object({
+    name: zod_1.z.string(),
+    description: zod_1.z.string(),
+    type: StreamNodeSpecificationOutputType,
+    example: zod_1.z.unknown()
+});
 const StreamNodeSpecificationAuthor = zod_1.z.object({
     name: zod_1.z.string(),
     company: zod_1.z.string(),
@@ -62517,8 +62523,25 @@ const nodeSpecificationSchemaV1 = zod_1.z.object({
     path: zod_1.z.string().optional(),
     customNode: StreamCustomNodeSpecification.optional()
 });
+const nodeSpecificationSchemaV2 = zod_1.z.object({
+    specVersion: zod_1.z.literal(2),
+    name: zod_1.z.string(),
+    description: zod_1.z.string(),
+    category: zod_1.z.string(),
+    version: StreamSemanticVersion,
+    author: StreamNodeSpecificationAuthor,
+    tag: StreamNodeSpecificationTag.array().optional(),
+    inputs: zod_1.z.array(StreamNodeSpecificationInput).optional(),
+    outputs: zod_1.z.array(StreamNodeSpecificationOutputV2).optional(),
+    additionalConnectors: zod_1.z
+        .array(StreamNodeSpecificationAdditionalConnector)
+        .optional(),
+    path: zod_1.z.string().optional(),
+    customNode: StreamCustomNodeSpecification.optional()
+});
 const nodeSpecificationSchema = zod_1.z.discriminatedUnion('specVersion', [
-    nodeSpecificationSchemaV1
+    nodeSpecificationSchemaV1,
+    nodeSpecificationSchemaV2
 ]);
 exports.specificationSchema = zod_1.z.object({
     nodes: zod_1.z.array(nodeSpecificationSchema),

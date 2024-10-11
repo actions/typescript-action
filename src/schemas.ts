@@ -82,6 +82,13 @@ const StreamNodeSpecificationOutput = z.object({
   howToAccess: z.array(z.string())
 })
 
+const StreamNodeSpecificationOutputV2 = z.object({
+  name: z.string(),
+  description: z.string(),
+  type: StreamNodeSpecificationOutputType,
+  example: z.unknown()
+})
+
 const StreamNodeSpecificationAuthor = z.object({
   name: z.string(),
   company: z.string(),
@@ -125,8 +132,26 @@ const nodeSpecificationSchemaV1 = z.object({
   customNode: StreamCustomNodeSpecification.optional()
 })
 
+const nodeSpecificationSchemaV2 = z.object({
+  specVersion: z.literal(2),
+  name: z.string(),
+  description: z.string(),
+  category: z.string(),
+  version: StreamSemanticVersion,
+  author: StreamNodeSpecificationAuthor,
+  tag: StreamNodeSpecificationTag.array().optional(),
+  inputs: z.array(StreamNodeSpecificationInput).optional(),
+  outputs: z.array(StreamNodeSpecificationOutputV2).optional(),
+  additionalConnectors: z
+    .array(StreamNodeSpecificationAdditionalConnector)
+    .optional(),
+  path: z.string().optional(),
+  customNode: StreamCustomNodeSpecification.optional()
+})
+
 const nodeSpecificationSchema = z.discriminatedUnion('specVersion', [
-  nodeSpecificationSchemaV1
+  nodeSpecificationSchemaV1,
+  nodeSpecificationSchemaV2
 ])
 
 export const specificationSchema = z.object({
