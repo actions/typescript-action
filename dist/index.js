@@ -62546,7 +62546,7 @@ const nodeSpecificationSchema = zod_1.z.discriminatedUnion('specVersion', [
 exports.specificationSchema = zod_1.z.object({
     nodes: zod_1.z.array(nodeSpecificationSchema),
     engineVersion: zod_1.z.string().optional(),
-    specVersion: zod_1.z.number()
+    specVersion: zod_1.z.number().optional()
 });
 const nodeConstructorSchema = zod_1.z.function();
 exports.catalogSchema = zod_1.z.object({
