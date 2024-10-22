@@ -30,6 +30,7 @@
     "format:write": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "local-action": "npx local-action . src/main.ts .env",
     "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
     "package:watch": "npm run package -- --watch",
     "test": "npx jest",
@@ -69,6 +70,7 @@
     "@actions/core": "^1.11.1"
   },
   "devDependencies": {
+    "@github/local-action": "^2.1.2",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.13",
     "@types/node": "^22.7.7",
