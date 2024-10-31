@@ -1,0 +1,60 @@
+# This workflow creates a new release any time a PR is merged that includes an
+# update to the version listed in `package.json`. This ensures that the releases
+# are always in sync with the version listed in the package manifest.
+name: Continuous Delivery
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release Version
+    runs-on: ubuntu-latest
+
+    # Only run this job if the workflow was triggered manually or a
+    # non-Dependabot PR was merged.
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+      startsWith(github.head_ref, 'dependabot/') == false)
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      # Parse the version from package.json and, if not already present,
+      # publish a new action version.
+      - name: Tag
+        id: tag
+        uses: issue-ops/semver@v2
+        with:
+          manifest-path: package.json
+          workspace: ${{ github.workspace }}
+          ref: main
+
+          # Always overwrite if the workflow was triggered manually.
+          overwrite: ${{ github.event_name == 'workflow_dispatch' }}
+
+      # Create a release using the tag from the previous step. The release will
+      # always be created if the workflow was triggered manually, but will only
+      # be created on PR merge if the tag step ran successfully.
+      - if: |
+          github.event_name == 'workflow_dispatch' ||
+          steps.tag.outcome == 'success'
+        name: Create Release
+        id: release
+        uses: issue-ops/releaser@v2
+        with:
+          tag: v${{ steps.tag.outputs.version }}

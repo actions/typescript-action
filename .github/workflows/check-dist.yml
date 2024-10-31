@@ -9,20 +9,37 @@
 # expected from the build.
 name: Check Transpiled JavaScript
 
+# This workflow will only run on PRs targeting `main` and direct pushes to
+# `main`. It will only run if the listed files/paths are modified (e.g. there is
+# no need to run this workflow when documentation files are modified).
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - src/**
+      - .node-version
+      - .prettierrc.json
+      - package.json
+      - package-lock.json
+      - tsconfig.json
   push:
     branches:
       - main
+    paths:
+      - src/**
+      - .node-version
+      - .prettierrc.json
+      - package.json
+      - package-lock.json
+      - tsconfig.json
 
 permissions:
   contents: read
 
 jobs:
   check-dist:
-    name: Check dist/
+    name: Build and Compare
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +64,7 @@ jobs:
 
       # This will fail the workflow if the `dist/` directory is different than
       # expected.
-      - name: Compare Directories
+      - name: Compare Expected and Actual Directories
         id: diff
         run: |
           if [ ! -d dist/ ]; then

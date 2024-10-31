@@ -1,0 +1,41 @@
+# This workflow checks the version of the action that will be published by the
+# current pull request. If the version has already been published, the workflow
+# fails in order to prevent PRs from being merged until the version has been
+# incremented in the package.json manifest file.
+name: Version Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  MANIFEST_PATH: package.json
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  check-version:
+    name: Version Check
+    runs-on: ubuntu-latest
+
+    # Skips Dependabot PRs
+    if: ${{ startsWith(github.head_ref, 'dependabot/') == false }}
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Check Version
+        id: check-version
+        uses: issue-ops/semver@v2
+        with:
+          check-only: true
+          manifest-path: ${{ env.MANIFEST_PATH }}

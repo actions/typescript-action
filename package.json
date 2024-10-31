@@ -37,6 +37,10 @@
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
   "license": "MIT",
+  "jest-junit": {
+    "outputDirectory": "reports",
+    "outputName": "jest-junit.xml"
+  },
   "jest": {
     "preset": "ts-jest",
     "verbose": true,
@@ -64,6 +68,10 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"
+    ],
+    "reporters": [
+      "default",
+      "jest-junit"
     ]
   },
   "dependencies": {
@@ -82,6 +90,7 @@
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-prettier": "^5.2.1",
     "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
