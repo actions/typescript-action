@@ -35,6 +35,7 @@ on:
       - tsconfig.json
 
 permissions:
+  checks: write
   contents: read
 
 jobs:
