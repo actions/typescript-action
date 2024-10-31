@@ -1,3 +1,5 @@
+# This workflow performs CI tests to ensure that the code reaching `main`
+# has been tested and validated.
 name: Continuous Integration
 
 on:
@@ -9,6 +11,7 @@ on:
       - main
 
 permissions:
+  checks: write
   contents: read
 
 jobs:
@@ -43,6 +46,14 @@ jobs:
       - name: Test
         id: npm-ci-test
         run: npm run ci-test
+
+      - name: Report Tests
+        id: report
+        uses: dorny/test-reporter@v1
+        with:
+          name: Test Report
+          path: reports/jest-*.xml
+          reporter: jest-junit
 
   test-action:
     name: GitHub Actions Test

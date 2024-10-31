@@ -1,0 +1,46 @@
+# This workflow creates a new release any time a PR is merged that includes an
+# update to the version listed in `package.json`. This ensures that the releases
+# are always in sync with the version listed in the package manifest.
+name: Continuous Delivery
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release Version
+    runs-on: ubuntu-latest
+
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+      startsWith(github.head_ref, 'dependabot/') == false)
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+
+      - name: Tag
+        id: tag
+        uses: issue-ops/semver@v2
+        with:
+          manifest-path: package.json
+          workspace: ${{ github.workspace }}
+          ref: main
+
+      - name: Create Release
+        id: release
+        uses: issue-ops/releaser@v2
+        with:
+          tag: v${{ steps.tag.outputs.version }}
