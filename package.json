@@ -3,6 +3,7 @@
   "description": "GitHub Actions TypeScript template",
   "version": "0.0.0",
   "author": "",
+  "type": "module",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",
   "repository": {
@@ -13,9 +14,7 @@
     "url": "https://github.com/actions/typescript-action/issues"
   },
   "keywords": [
-    "actions",
-    "node",
-    "setup"
+    "actions"
   ],
   "exports": {
     ".": "./dist/index.js"
@@ -25,15 +24,15 @@
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
-    "ci-test": "npx jest",
+    "ci-test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
     "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "npx prettier --write .",
     "format:check": "npx prettier --check .",
-    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "lint": "npx eslint .",
     "local-action": "npx local-action . src/main.ts .env",
-    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package": "npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",
-    "test": "npx jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
   "license": "MIT",
@@ -44,6 +43,9 @@
     "@eslint/compat": "^1.2.3",
     "@github/local-action": "^2.2.0",
     "@jest/globals": "^29.7.0",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-typescript": "^12.1.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.9.0",
     "@typescript-eslint/eslint-plugin": "^8.14.0",
@@ -58,7 +60,10 @@
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
+    "rollup": "^4.27.0",
     "ts-jest": "^29.2.5",
+    "ts-jest-resolver": "^2.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   }
 }
