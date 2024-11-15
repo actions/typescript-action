@@ -1,3 +1,5 @@
+# See: https://yamllint.readthedocs.io/en/stable/
+
 rules:
   document-end: disable
   document-start:
