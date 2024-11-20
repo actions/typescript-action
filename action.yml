@@ -49,9 +49,6 @@ inputs:
   changelog:
     description: 'Changelog with the changes in the new catalog version'
     required: true
-  dev:
-    description: 'Flag to mark the catalog as a dev release'
-    required: false
   minimum_engine_version:
     description: 'Minimum engine version the catalog requires'
     required: true
