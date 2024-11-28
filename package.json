@@ -21,7 +21,7 @@
     ".": "./dist/index.js"
   },
   "engines": {
-    "node": ">=21"
+    "node": "21.6.2"
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
