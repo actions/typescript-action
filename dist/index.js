@@ -4,12 +4,12 @@ import require$$1 from 'fs';
 import require$$1$5 from 'path';
 import require$$2 from 'http';
 import require$$3 from 'https';
-import require$$0$4 from 'net';
+import require$$0$5 from 'net';
 import require$$1$1 from 'tls';
 import require$$4 from 'events';
 import require$$0$3 from 'assert';
 import require$$0$2 from 'util';
-import require$$0$5 from 'stream';
+import require$$0$4 from 'stream';
 import require$$7 from 'buffer';
 import require$$8 from 'querystring';
 import require$$13 from 'stream/web';
@@ -1080,8 +1080,8 @@ function requireUtil$6 () {
 	const assert = require$$0$3;
 	const { kDestroyed, kBodyUsed } = requireSymbols$4();
 	const { IncomingMessage } = require$$2;
-	const stream = require$$0$5;
-	const net = require$$0$4;
+	const stream = require$$0$4;
+	const net = require$$0$5;
 	const { InvalidArgumentError } = requireErrors();
 	const { Blob } = require$$7;
 	const nodeUtil = require$$0$2;
@@ -7977,7 +7977,7 @@ function requireConnect () {
 	if (hasRequiredConnect) return connect;
 	hasRequiredConnect = 1;
 
-	const net = require$$0$4;
+	const net = require$$0$5;
 	const assert = require$$0$3;
 	const util = requireUtil$6();
 	const { InvalidArgumentError, ConnectTimeoutError } = requireErrors();
@@ -8744,9 +8744,9 @@ function requireClient () {
 	/* global WebAssembly */
 
 	const assert = require$$0$3;
-	const net = require$$0$4;
+	const net = require$$0$5;
 	const http = require$$2;
-	const { pipeline } = require$$0$5;
+	const { pipeline } = require$$0$4;
 	const util = requireUtil$6();
 	const timers = requireTimers();
 	const Request = requireRequest$1();
@@ -11915,7 +11915,7 @@ function requireReadable () {
 	hasRequiredReadable = 1;
 
 	const assert = require$$0$3;
-	const { Readable } = require$$0$5;
+	const { Readable } = require$$0$4;
 	const { RequestAbortedError, NotSupportedError, InvalidArgumentError } = requireErrors();
 	const util = requireUtil$6();
 	const { ReadableStreamFrom, toUSVString } = requireUtil$6();
@@ -12547,7 +12547,7 @@ function requireApiStream () {
 	if (hasRequiredApiStream) return apiStream;
 	hasRequiredApiStream = 1;
 
-	const { finished, PassThrough } = require$$0$5;
+	const { finished, PassThrough } = require$$0$4;
 	const {
 	  InvalidArgumentError,
 	  InvalidReturnValueError,
@@ -12779,7 +12779,7 @@ function requireApiPipeline () {
 	  Readable,
 	  Duplex,
 	  PassThrough
-	} = require$$0$5;
+	} = require$$0$4;
 	const {
 	  InvalidArgumentError,
 	  InvalidReturnValueError,
@@ -14072,7 +14072,7 @@ function requirePendingInterceptorsFormatter () {
 	if (hasRequiredPendingInterceptorsFormatter) return pendingInterceptorsFormatter;
 	hasRequiredPendingInterceptorsFormatter = 1;
 
-	const { Transform } = require$$0$5;
+	const { Transform } = require$$0$4;
 	const { Console } = require$$1$3;
 
 	/**
@@ -17098,7 +17098,7 @@ function requireFetch () {
 	} = requireConstants$3();
 	const { kHeadersList } = requireSymbols$4();
 	const EE = require$$4;
-	const { Readable, pipeline } = require$$0$5;
+	const { Readable, pipeline } = require$$0$4;
 	const { addAbortListener, isErrored, isReadable, nodeMajor, nodeMinor } = requireUtil$6();
 	const { dataURLProcessor, serializeAMimeType } = requireDataURL();
 	const { TransformStream } = require$$13;
@@ -23161,7 +23161,7 @@ function requireReceiver () {
 	if (hasRequiredReceiver) return receiver;
 	hasRequiredReceiver = 1;
 
-	const { Writable } = require$$0$5;
+	const { Writable } = require$$0$4;
 	const diagnosticsChannel = require$$0$9;
 	const { parserStates, opcodes, states, emptyBuffer } = requireConstants();
 	const { kReadyState, kSentClose, kResponse, kReceivedClose } = requireSymbols();
