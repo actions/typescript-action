@@ -21,7 +21,7 @@
     ".": "./dist/index.js"
   },
   "engines": {
-    "node": ">=21"
+    "node": "20.x"
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
@@ -73,7 +73,7 @@
     "@github/local-action": "^2.2.1",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.2",
+    "@types/node": "^20.17.10",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
     "@vercel/ncc": "^0.38.3",
