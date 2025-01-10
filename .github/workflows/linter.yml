@@ -43,7 +43,11 @@ jobs:
           DEFAULT_BRANCH: main
           FILTER_REGEX_EXCLUDE: dist/**/*
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LINTER_RULES_PATH: ${{ github.workspace }}
           VALIDATE_ALL_CODEBASE: true
+          VALIDATE_JAVASCRIPT_ES: false
           VALIDATE_JAVASCRIPT_STANDARD: false
           VALIDATE_JSCPD: false
+          VALIDATE_TYPESCRIPT_ES: false
+          VALIDATE_JSON: false
           VALIDATE_TYPESCRIPT_STANDARD: false
