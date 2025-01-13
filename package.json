@@ -40,7 +40,7 @@
     "@actions/core": "^1.11.1"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.2.3",
+    "@eslint/compat": "^1.2.5",
     "@github/local-action": "^2.5.0",
     "@jest/globals": "^29.7.0",
     "@rollup/plugin-commonjs": "^28.0.1",
@@ -50,7 +50,7 @@
     "@types/node": "^20.17.12",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
-    "eslint": "^9.14.0",
+    "eslint": "^9.18.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
