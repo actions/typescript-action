@@ -124,9 +124,9 @@ So, what are you waiting for? Go ahead and start customizing your action!
    npm run all
    ```
 
-   > This step is important! It will run [`rollup`](https://rollupjs.org/)
-   > to build the final JavaScript action code with all dependencies included.
-   > If you do not run this step, your action will not work correctly when it is
+   > This step is important! It will run [`rollup`](https://rollupjs.org/) to
+   > build the final JavaScript action code with all dependencies included. If
+   > you do not run this step, your action will not work correctly when it is
    > used in a workflow.
 
 1. (Optional) Test your action locally
