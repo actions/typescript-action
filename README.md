@@ -124,12 +124,10 @@ So, what are you waiting for? Go ahead and start customizing your action!
    npm run all
    ```
 
-   > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
-   > to build the final JavaScript action code with all dependencies included.
-   > If you do not run this step, your action will not work correctly when it is
-   > used in a workflow. This step also includes the `--license` option for
-   > `ncc`, which will create a license file for all of the production node
-   > modules used in your project.
+   > This step is important! It will run [`rollup`](https://rollupjs.org/) to
+   > build the final JavaScript action code with all dependencies included. If
+   > you do not run this step, your action will not work correctly when it is
+   > used in a workflow.
 
 1. (Optional) Test your action locally
 
