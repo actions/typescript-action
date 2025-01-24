@@ -1,0 +1,7 @@
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+--env-file .act.env
+--var-file .act.variables
+--secret-file .act.secrets
+--input-file .act.input
+--artifact-server-path ./dist/gh-upload-artifact
+# --action-offline-mode

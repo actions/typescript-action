@@ -1,20 +1,27 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
-  "version": "0.0.0",
-  "author": "",
+  "name": "nx-cloud-skipper-action",
+  "description": "Run nx commands with fallback to --no-cloud if they fail",
+  "version": "1.0.0",
+  "author": {
+    "name": "Robson Oliveira",
+    "email": "robsonos@outlook.com"
+  },
   "type": "module",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/robsonos/nx-cloud-skipper-action#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/robsonos/nx-cloud-skipper-action",
+    "directory": "packages/nx-cloud-skipper-action"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/robsonos/nx-cloud-skipper-action/issues"
   },
   "keywords": [
-    "actions"
+    "actions",
+    "nx",
+    "nx-cloud",
+    "github-action"
   ],
   "exports": {
     ".": "./dist/index.js"
@@ -37,7 +44,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1"
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",

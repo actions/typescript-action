@@ -1,23 +1,37 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: 'Nx Cloud Skipper'
+description: 'Run nx commands with fallback to --no-cloud if they fail'
+author: 'Robson Oliveira dos Santos'
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: heart
-  color: red
+  icon: skip-forward
+  color: black
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  command:
+    description: |-
+      Arguments to pass to the npx nx command (e.g., "affected -t lint test build")
     required: true
-    default: '1000'
+  errorMessages:
+    description: |-
+      List of error messages to detect for retry with --no-cloud.
+      These are must be newline-separated. Inputs that contain separators must be escaped with
+      a backslash (e.g. \, or \\n) unless quoted. Any leading or trailing whitespace is trimmed
+      unless values are quoted.
+      Example:
 
-# Define your outputs here.
+      ```yaml
+      errorMessages: |-
+        Workspace is unable to be authorized
+        exceeding the FREE plan
+      ```
+    required: false
+    default: |-
+      Workspace is unable to be authorized
+      exceeding the FREE plan
+
 outputs:
-  time:
-    description: Your output description here
+  status:
+    description: 'Status of the action (success/failure)'
 
 runs:
   using: node20

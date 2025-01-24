@@ -27238,19 +27238,7 @@ function requireCore () {
 
 var coreExports = requireCore();
 
-/**
- * Waits for a number of milliseconds.
- *
- * @param milliseconds The number of milliseconds to wait.
- * @returns Resolves with 'done!' after the wait is over.
- */
-async function wait(milliseconds) {
-    return new Promise((resolve) => {
-        if (isNaN(milliseconds))
-            throw new Error('milliseconds is not a number');
-        setTimeout(() => resolve('done!'), milliseconds);
-    });
-}
+var execExports = requireExec();
 
 /**
  * The main function for the action.
@@ -27258,21 +27246,75 @@ async function wait(milliseconds) {
  * @returns Resolves when the action is complete.
  */
 async function run() {
+    let stdout = '';
+    let stderr = '';
     try {
-        const ms = coreExports.getInput('milliseconds');
-        // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        coreExports.debug(`Waiting ${ms} milliseconds ...`);
-        // Log the current timestamp, wait, then log the new timestamp
-        coreExports.debug(new Date().toTimeString());
-        await wait(parseInt(ms, 10));
-        coreExports.debug(new Date().toTimeString());
-        // Set outputs for other workflow steps to use
-        coreExports.setOutput('time', new Date().toTimeString());
+        const command = coreExports.getInput('command', { required: true });
+        const errorMessagesInput = coreExports.getInput('errorMessages');
+        // Parse the multiline input into an array
+        const errorMessages = errorMessagesInput
+            .split(/\r|\n/) // Split by newlines
+            .map((msg) => msg.trim()) // Trim whitespace
+            .filter((msg) => msg); // Remove empty lines
+        if (!command.trim()) {
+            coreExports.setFailed('The "command" input must not be empty.');
+            return;
+        }
+        if (errorMessages.length === 0) {
+            coreExports.setFailed('The "errorMessages" input must not be empty.');
+            return;
+        }
+        let nxCommand = `npx nx ${command}`;
+        coreExports.info(`Running: ${nxCommand}`);
+        const execOptions = {
+            listeners: {
+                stdout: (data) => {
+                    const text = data.toString();
+                    stdout += text;
+                    // Log stdout in real time
+                    process.stdout.write(text);
+                },
+                stderr: (data) => {
+                    const text = data.toString();
+                    stderr += text;
+                    // Log stderr in real time
+                    process.stderr.write(text);
+                }
+            }
+        };
+        // Run the Nx command
+        try {
+            await execExports.exec(nxCommand, undefined, execOptions);
+        }
+        catch (error) {
+            // Combine stderr and stdout for error message inspection
+            const combinedOutput = stdout + stderr;
+            // Check if the output contains any of the specified error messages
+            if (errorMessages.some((msg) => combinedOutput.includes(msg))) {
+                coreExports.warning('Detected Nx Cloud-related error. Rerunning with --no-cloud...');
+                nxCommand += ' --no-cloud';
+                try {
+                    await execExports.exec(nxCommand, undefined, execOptions);
+                }
+                catch (retryError) {
+                    coreExports.error('Retry with --no-cloud also failed. Please check your Nx configuration.');
+                    // Throw the retry error to preserve failure context
+                    coreExports.setFailed(`Retry with --no-cloud also failed. Please check your Nx configuration.`);
+                    throw retryError;
+                }
+            }
+            else {
+                // If the error is not related to Nx Cloud, rethrow it
+                coreExports.setFailed(`Unhandled error: ${stderr || stdout}`);
+                throw error;
+            }
+        }
+        coreExports.setOutput('status', 'success');
     }
     catch (error) {
-        // Fail the workflow run if an error occurs
-        if (error instanceof Error)
-            coreExports.setFailed(error.message);
+        if (error instanceof Error) {
+            coreExports.setFailed(`Action failed with error: ${error.message}\n\nFull output:\n${stdout + stderr}`);
+        }
     }
 }
 
