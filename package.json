@@ -61,6 +61,7 @@
     "prettier": "^3.5.0",
     "prettier-eslint": "^16.3.0",
     "rollup": "^4.34.6",
+    "rollup-plugin-license": "^3.5.3",
     "ts-jest": "^29.2.5",
     "ts-jest-resolver": "^2.0.1",
     "ts-node": "^10.9.2",
