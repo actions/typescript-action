@@ -10,7 +10,7 @@ const config = {
     esModule: true,
     file: 'dist/index.js',
     format: 'es',
-    sourcemap: false
+    sourcemap: true
   },
   plugins: [typescript(), nodeResolve({ preferBuiltins: true }), commonjs()]
 }
