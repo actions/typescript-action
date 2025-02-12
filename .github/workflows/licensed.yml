@@ -57,7 +57,7 @@ jobs:
         id: update-licenses
         run: licensed cache
 
-      # Commit the updated licenses to the repository.
+      # Then, commit the updated licenses to the repository.
       - if: ${{ github.event_name == 'workflow_dispatch' }}
         name: Commit Licenses
         id: commit-licenses
@@ -68,6 +68,7 @@ jobs:
           git commit -m "Auto-update license files"
           git push
 
+      # Last, check the status of the cached licenses.
       - name: Check Licenses
         id: check-licenses
         run: licensed status
