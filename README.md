@@ -291,7 +291,7 @@ on the issue(s) found.
 
 Whenever you install or update dependencies, you can use the Licensed CLI to
 update the licenses database. To install Licensed, see the project's
-[README](https://github.com/licensee/licensed?tab=readme-ov-file#installation).
+[Readme](https://github.com/licensee/licensed?tab=readme-ov-file#installation).
 
 To update the cached licenses, run the following command:
 
