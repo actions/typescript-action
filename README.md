@@ -259,3 +259,48 @@ following steps:
    commits, tags and branches to the remote repository. From here, you will need
    to create a new release in GitHub so users can easily reference the new tags
    in their workflows.
+
+## Dependency License Management
+
+This template includes a GitHub Actions workflow,
+[`licensed.yml`](./.github/workflows/licensed.yml), that uses
+[Licensed](https://github.com/licensee/licensed) to check for dependencies with
+missing or non-compliant licenses. This workflow is initially disabled. To
+enable the workflow, follow the below steps.
+
+1. Open [`licensed.yml`](./.github/workflows/licensed.yml)
+1. Uncomment the following lines:
+
+   ```yaml
+   # pull_request:
+   #   branches:
+   #     - main
+   # push:
+   #   branches:
+   #     - main
+   ```
+
+1. Save and commit the changes
+
+Once complete, this workflow will run any time a pull request is created or
+changes pushed directly to `main`. If the workflow detects any dependencies with
+missing or non-compliant licenses, it will fail the workflow and provide details
+on the issue(s) found.
+
+### Updating Licenses
+
+Whenever you install or update dependencies, you can use the Licensed CLI to
+update the licenses database. To install Licensed, see the project's
+[README](https://github.com/licensee/licensed?tab=readme-ov-file#installation).
+
+To update the cached licenses, run the following command:
+
+```bash
+licensed cache
+```
+
+To check the status of cached licenses, run the following command:
+
+```bash
+licensed status
+```
