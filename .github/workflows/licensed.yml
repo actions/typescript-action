@@ -46,7 +46,7 @@ jobs:
         with:
           ruby-version: ruby
 
-      - uses: github/setup-licensed@v1
+      - uses: licensee/setup-licensed@v1.3.2
         with:
           version: 4.x
           github_token: ${{ secrets.GITHUB_TOKEN }}
