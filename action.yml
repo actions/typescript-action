@@ -1,6 +1,7 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: CODEOWNERS coverage checker
+description:
+  Checks if all files in the repository are covered by the CODEOWNERS file.
+author: joelharkes
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
@@ -9,15 +10,20 @@ branding:
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
-    required: true
-    default: '1000'
+  include-gitignore:
+    description: Wether or not to exclude files from .gitignore.
+    required: false
+    default: 'false'
+  ignore-default:
+    description: Wether to ignore the default * CODEOWNERS line.
+    required: false
+    default: 'false'
+  files:
+    description: Files to check, can be used to only check git modified files.
+    required: false
 
 # Define your outputs here.
 outputs:
-  time:
-    description: Your output description here
 
 runs:
   using: node20
