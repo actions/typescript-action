@@ -57,7 +57,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          ignore-default: true
 
       - name: Print Output
         id: output

@@ -8,12 +8,16 @@ interface Input {
   files: string;
 }
 
-export function getInputs(): Input {
+function getInputs(): Input {
   const result = {} as Input;
-  result['include-gitignore'] = core.getBooleanInput('include-gitignore');
-  result['ignore-default'] = core.getBooleanInput('ignore-default');
+  result['include-gitignore'] = getBoolInput('include-gitignore');
+  result['ignore-default'] = getBoolInput('ignore-default');
   result.files = core.getInput('files');
   return result;
+}
+
+function getBoolInput(name: string): boolean {
+  return core.getInput(name)?.toLowerCase() === 'true';
 }
 
 export const runAction = async (input: Input): Promise<void> => {
@@ -103,16 +107,8 @@ export const runAction = async (input: Input): Promise<void> => {
 };
 
 export async function run(): Promise<void> {
-  try {
-    const input = getInputs();
-    return runAction(input);
-  } catch (error) {
-    core.startGroup(
-      error instanceof Error ? error.message : JSON.stringify(error),
-    );
-    core.info(JSON.stringify(error, null, 2));
-    core.endGroup();
-  }
+  const input = getInputs();
+  return runAction(input);
 }
 
 function getCodeownerContent(): string {

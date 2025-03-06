@@ -5,3 +5,6 @@
 
 # Default owners, unless a later match takes precedence.
 * @joelharkes
+
+
+/dist/ @joelharkes
