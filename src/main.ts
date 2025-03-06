@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import * as glob from "@actions/glob";
+import * as glob from '@actions/glob';
 import { readFileSync, existsSync } from 'fs';
 
 interface Input {
@@ -30,28 +30,31 @@ export const runAction = async (input: Input): Promise<void> => {
 
   core.startGroup('Reading CODEOWNERS File');
   const codeownerContent = getCodeownerContent();
-  let codeownerFileGlobs = codeownerContent.split('\n')
-    .map(line => line.split(' ')[0])
-    .filter(file => !file.startsWith('#'))
-    .map(file => file.replace(/^\//, ''));
+  let codeownerFileGlobs = codeownerContent
+    .split('\n')
+    .map((line) => line.split(' ')[0])
+    .filter((file) => !file.startsWith('#'))
+    .map((file) => file.replace(/^\//, ''));
   if (input['ignore-default'] === true) {
-    codeownerFileGlobs = codeownerFileGlobs.filter(file => file !== '*');
+    codeownerFileGlobs = codeownerFileGlobs.filter((file) => file !== '*');
   }
   const codeownersGlob = await glob.create(codeownerFileGlobs.join('\n'));
   let codeownersFiles = await codeownersGlob.glob();
   // core.info(JSON.stringify(codeownersFiles));
   core.endGroup();
-  
+
   core.startGroup('Matching CODEOWNER Files with found files');
-  codeownersFiles = codeownersFiles.filter(file => filesToCheck.includes(file));
+  codeownersFiles = codeownersFiles.filter((file) =>
+    filesToCheck.includes(file),
+  );
   core.info(`CODEOWNER Files in All Files: ${codeownersFiles.length}`);
   core.info(JSON.stringify(codeownersFiles));
   core.endGroup();
 
   if (input['include-gitignore'] === true) {
-  core.startGroup('Ignoring .gitignored files');
-  let gitIgnoreFiles: string[] = [];
-    if(!existsSync('.gitignore')){
+    core.startGroup('Ignoring .gitignored files');
+    let gitIgnoreFiles: string[] = [];
+    if (!existsSync('.gitignore')) {
       core.warning('No .gitignore file found');
     } else {
       const gitIgnoreBuffer = readFileSync('.gitignore', 'utf8');
@@ -59,7 +62,9 @@ export const runAction = async (input: Input): Promise<void> => {
       gitIgnoreFiles = await gitIgnoreGlob.glob();
       core.info(`.gitignore Files: ${gitIgnoreFiles.length}`);
       const lengthBefore = filesToCheck.length;
-      filesToCheck = filesToCheck.filter(file => !gitIgnoreFiles.includes(file));
+      filesToCheck = filesToCheck.filter(
+        (file) => !gitIgnoreFiles.includes(file),
+      );
       const filesIgnored = lengthBefore - filesToCheck.length;
       core.info(`Files Ignored: ${filesIgnored}`);
     }
@@ -67,46 +72,55 @@ export const runAction = async (input: Input): Promise<void> => {
   }
 
   core.startGroup('Checking CODEOWNERS Coverage');
-  const filesNotCovered = filesToCheck.filter(file => !codeownersFiles.includes(file));
-  const amountCovered = filesToCheck.length - filesNotCovered.length
+  const filesNotCovered = filesToCheck.filter(
+    (file) => !codeownersFiles.includes(file),
+  );
+  const amountCovered = filesToCheck.length - filesNotCovered.length;
 
-
-  const coveragePercent = filesToCheck.length === 0 ? 100 : (amountCovered / filesToCheck.length) * 100;
+  const coveragePercent =
+    filesToCheck.length === 0
+      ? 100
+      : (amountCovered / filesToCheck.length) * 100;
   const coverageMessage = `${amountCovered}/${filesToCheck.length}(${coveragePercent.toFixed(2)}%) files covered by CODEOWNERS`;
   core.notice(coverageMessage, {
     title: 'Coverage',
-    file: 'CODEOWNERS'
+    file: 'CODEOWNERS',
   });
   core.endGroup();
   core.startGroup('Annotating files');
-  filesNotCovered.forEach(file => core.error(`File not covered by CODEOWNERS: ${file}`, {
-    title: 'File mssing in CODEOWNERS',
-    file: file,
-  }));
+  filesNotCovered.forEach((file) =>
+    core.error(`File not covered by CODEOWNERS: ${file}`, {
+      title: 'File mssing in CODEOWNERS',
+      file: file,
+    }),
+  );
   core.endGroup();
-  if(filesNotCovered.length > 0){
-    core.setFailed(`${filesNotCovered.length}/${filesToCheck.length} files not covered in CODEOWNERS`);
+  if (filesNotCovered.length > 0) {
+    core.setFailed(
+      `${filesNotCovered.length}/${filesToCheck.length} files not covered in CODEOWNERS`,
+    );
   }
-}
+};
 
 export async function run(): Promise<void> {
   try {
     const input = getInputs();
     return runAction(input);
   } catch (error) {
-    core.startGroup(error instanceof Error ? error.message : JSON.stringify(error));
+    core.startGroup(
+      error instanceof Error ? error.message : JSON.stringify(error),
+    );
     core.info(JSON.stringify(error, null, 2));
     core.endGroup();
   }
-};
-
+}
 
 function getCodeownerContent(): string {
-  if(existsSync('CODEOWNERS')) {
-    return readFileSync('CODEOWNERS', 'utf8')
+  if (existsSync('CODEOWNERS')) {
+    return readFileSync('CODEOWNERS', 'utf8');
   }
-  if(existsSync('.github/CODEOWNERS')){
+  if (existsSync('.github/CODEOWNERS')) {
     return readFileSync('.github/CODEOWNERS', 'utf8');
   }
-    throw new Error('No CODEOWNERS file found');
+  throw new Error('No CODEOWNERS file found');
 }
