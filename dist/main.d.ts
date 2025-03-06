@@ -1,6 +1,8 @@
-/**
- * The main function for the action.
- *
- * @returns Resolves when the action is complete.
- */
+interface Input {
+    'include-gitignore': boolean;
+    'ignore-default': boolean;
+    files: string;
+}
+export declare const runAction: (input: Input) => Promise<void>;
 export declare function run(): Promise<void>;
+export {};
