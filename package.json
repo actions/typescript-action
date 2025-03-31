@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^8.28.0",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.0.2",
-    "eslint-import-resolver-typescript": "^4.2.5",
+    "eslint-import-resolver-typescript": "^4.3.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-prettier": "^5.2.5",
@@ -60,7 +60,7 @@
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.5.3",
     "prettier-eslint": "^16.3.0",
-    "rollup": "^4.37.0",
+    "rollup": "^4.38.0",
     "ts-jest": "^29.3.0",
     "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.8.2"
