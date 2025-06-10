@@ -22,3 +22,24 @@ MD030:
 # Code block style
 MD046:
   style: fenced
+# .github/workflows/auto-evolve.yml
+name: Strategy Evolution Pipeline
+
+on:
+  schedule:
+    - cron: '0 18 * * 1-5'  # Market close on weekdays
+
+jobs:
+  evolve:
+    runs-on: quantum-safe-runner
+    steps:
+      - name: Check performance
+        run: python -m frontier_trader.monitor
+      
+      - name: Generate new version
+        if: ${{ needs.monitor.outputs.upgrade == 'true' }}
+        run: python -m evolution.generator
+        
+      - name: Deploy to production
+        if: ${{ needs.test.outputs.passed == 'true' }}
+        run: git push production-strategies main
