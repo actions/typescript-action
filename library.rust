@@ -1,0 +1,47 @@
+pub trait TradingStrategy {
+    fn name(&self) -> &str;
+    fn on_market_data(&mut self, data: MarketData) -> Option<TradeSignal>;
+    // ... other methods
+}
+// Define a common trait in a shared crate
+pub trait TradingStrategy {
+    fn new(config: &str) -> Self where Self: Sized;
+    fn on_market_data(&mut self, data: &MarketData) -> Vec<TradeSignal>;
+    fn stats(&self) -> StrategyStats;
+}
+use libloading::{Library, Symbol};
+
+struct StrategyPlugin {
+    lib: Library,
+    strategy: Box<dyn TradingStrategy>,
+}
+
+impl StrategyPlugin {
+    unsafe fn load(path: &str, config: &str) -> Result<Self, Box<dyn Error>> {
+        let lib = Library::new(path)?;
+        let new_strategy: Symbol<fn(&str) -> Box<dyn TradingStrategy>> = lib.get(b"new_strategy")?;
+        let strategy = new_strategy(config);
+        Ok(StrategyPlugin { lib, strategy })
+    }
+}
+// Pseudocode
+fn generate_and_compile(code: &str) -> Result<String, CompilationError> {
+    // Write code to a temporary directory
+    let dir = tempfile::tempdir()?;
+    let src_path = dir.path().join("strategy.rs");
+    std::fs::write(&src_path, code)?;
+
+    // Compile to a shared library
+    let output = Command::new("rustc")
+        .arg("--crate-type=cdylib")
+        .arg(&src_path)
+        .output()?;
+
+    if output.status.success() {
+        let lib_path = dir.path().join("libstrategy.so"); // or .dylib/.dll
+        // Move the library to a known location and return the path
+        Ok(lib_path)
+    } else {
+        Err(CompilationError(output.stderr))
+    }
+}
