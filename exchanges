@@ -1,0 +1,13 @@
+class ExchangeAdapter {
+    constructor() {
+        this.adaptationMatrix = {
+            'binance': new BinanceStrategyAdapter(),
+            'coinbase': new CoinbaseStrategyAdapter()
+        };
+    }
+    
+    autoAdapt(strategy, exchange) {
+        const adapter = this.adaptationMatrix[exchange];
+        return adapter.adaptStrategy(strategy);
+    }
+}
