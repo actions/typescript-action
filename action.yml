@@ -22,3 +22,19 @@ outputs:
 runs:
   using: node20
   main: dist/index.js
+from litellm import Router
+agent_router = Router(model_list=[
+    {"model_name": "organization_agent", "litellm_params": {"model": "ollama/mistral"}},
+    {"model_name": "finance_agent", "litellm_params": {"model": "ollama/codellama"}}
+])sequenceDiagram
+    Project Manager->>Director Agent: New Task Request
+    Director Agent->>Workload Agent: Capacity Check
+    Workload Agent->>Finance Agent: Budget Approval
+    Finance Agent-->>Director Agent: Approval Status
+    Director Agent->>Project Agent: Task Assignment
+
+  # Sample transaction analyzer
+def analyze_transaction(agent, transaction):
+    return agent.query(
+        f"CATEGORIZE: {transaction['description']} | AMOUNT: {transaction['amount']}"
+    )
