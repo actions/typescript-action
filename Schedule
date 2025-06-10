@@ -1,0 +1,13 @@
+npm run bundle
+gantt
+    title Development Schedule
+    dateFormat  YYYY-MM-DD
+    section Core Agents
+    Director Agent     :2025-06-11, 2d
+    Workload Balancer  :2025-06-12, 3d
+    section Integration
+    GCP Vertex Setup   :2025-06-13, 2d
+    Financial Modeling :2025-06-14, 2d
+    section Submission
+    Demo Video         :2025-06-16, 1d
+    Final Deployment   :2025-06-17, 1d
