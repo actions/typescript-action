@@ -1,0 +1,19 @@
+# Create new bucket with proper permissions
+BUCKET_NAME="wyoverse-hackathon-$(date +%s)"
+gsutil mb -l us-central1 -b on gs://$BUCKET_NAME
+gsutil iam ch serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com:legacyBucketWriter gs://$BUCKET_NAME
+
+# Update deployment configuration
+sed -i "s|_SEAL_VERSION.*|_BUCKET_NAME=\"$BUCKET_NAME\"|g" prod_build.yaml# Apply emergency infrastructure fix
+gcloud builds submit --config=emergency_fix.yaml \
+  --substitutions=_BUCKET_NAME="$BUCKET_NAME"from google.cloud import storage
+
+def verify_bucket_integrity(bucket_name):
+    client = storage.Client()
+    try:
+        bucket = client.get_bucket(bucket_name)
+        return f"✅ Bucket {bucket_name} verified | Objects: {len(list(bucket.list_blobs()))}"
+    except Exception as e:
+        return f"🚨 Verification failed: {str(e)}"
+
+print(verify_bucket_integrity(BUCKET_NAME))
