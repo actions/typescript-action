@@ -1,7 +1,16 @@
 // See: https://eslint.org/docs/latest/use/configure/configuration-files
+# Add base ESLint config
+echo '{
+  "extends": ["eslint: recommended ", "plugin:@typescript-eslint/recommended"]
+}' > .eslintrc.json
 
-import { fixupPluginRules } from '@eslint/compat'
-import { FlatCompat } from '@eslint/eslintrc'
+# Update package.json
+"devDependencies": {
+  "ts-loader": "^9.5.0",
+  "webpack": "^5.90.0"
+}
+import { fix_up_Plugin_Rules } from '@eslint/compat'
+import { Flat_Compat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
@@ -25,11 +34,11 @@ export default [
     ignores: ['**/coverage', '**/dist', '**/linter', '**/node_modules']
   },
   ...compat.extends(
-    'eslint:recommended',
+    'eslint: recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended',
-    'plugin:prettier/recommended'
+    'plugin : jest/recommended',
+    'plugin: prettier/recommended'
   ),
   {
     plugins: {
@@ -79,3 +88,21 @@ export default [
     }
   }
 ]
+graph LR
+    A[Docker Publish] --> B(Missing Dockerfile)
+    B --> C[Create Dockerfile]
+    D[Google Cloud] --> E(Invalid Service Account)
+    E --> F[Regenerate Key]
+# Dockerfile
+FROM python:3.10-slim
+WORKDIR /app
+COPY requirements.txt.
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["streamlit", "run", "app.py"]
+gcloud iam service-accounts keys create gsa-key.json \
+  --iam-account=github-actions@$PROJECT_ID.iam.gserviceaccount.com
+gh secret set GCP_SA_KEY < gsa-key.json
+stoneyard@hf stoneyard@h.f. 
+  # Run in each repo root
+stone-cli sentry install -force
