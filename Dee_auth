@@ -1,4 +1,4 @@
-dee = SystemIntegrator(
+Dee = SystemIntegrator(
     access_level="FULL_PRIVILEGE",
     constraints={
         "financial_actions": "REQUIRE_APPROVAL",
@@ -121,6 +121,105 @@ public class EnhancedDee : MonoBehaviour {
 }
 stone-cli docker generate --app=streamlit > Dockerfile
 gh secret remove GCP_SA_KEY
+# Add base ESLint config
+echo '{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"]
+}' > .eslintrc.json
+
+# Update package.json
+"devDependencies": {
+  "ts-loader": "^9.5.0",
+  "webpack": "^5.90.0"
+}
+graph LR
+    A[Docker Publish] --> B(Missing Dockerfile)
+    B --> C[Create Dockerfile]
+    D[Google Cloud] --> E(Invalid Service Account)
+    E --> F[Regenerate Key]
 gh secret set GCP_SA_KEY < new-gsa-key.json
 git commit -am "Added Dockerfile and new GCP key"
 git push
+`mermaid  
+graph TD  
+    A[Hackathon Submission] --> B[UI Polish]  
+    B --> C[4K Texture Optimization]  
+    C --> D[Multi-chain Wallet Testing]  
+```  
+**Nightly Tasks (Automated):**  
+```python  
+while hacking:  
+    run_auto_ui_tests()  
+    generate_feedback_report()  
+    if errors_detected:  
+        alert_slack(channel="#casino-polish")  
+``json  
+{  
+  "hackathon_mode": "activated",  
+  "funding_priority": "extreme",  
+  "backup_plan": "Sell 3 land NFTs if submission is delayed" = resolve with solution 
+}  
+```  
+```bash  
+stone-cli start --mode=war_room --shift=24/7  
+```  
+`````yaml
+# .github/workflows/codeql.yml
+on: [push, pull_request]
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: python
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+```
+
+**Python Version Lock**:  
+```diff
+# .github/workflows/ci.yml
+- python-version: "3.11"
++ python-version: "3.10"
+```
+dockerfile
+# Dockerfile
+FROM python:3.10-slim
+WORKDIR /app
+COPY requirements.txt.
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["streamlit", "run", "app.py"]
+```
+
+**GCP Service Account Reset**:  
+```bash
+gcloud iam service-accounts keys create gsa-key.json \
+  --iam-account=github-actions@$PROJECT_ID.iam.gserviceaccount.com
+gh secret set GCP_SA_KEY < gsa-key.json
+```
+`yaml
+# .github/workflows/stone-sentry.yml
+name: Stone Sentry
+on: [workflow_dispatch, push]
+jobs:
+  guardian:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Quantum Preflight
+      uses: stoneverse/quantum-ci@v3
+      with:
+        wyoming-mode: true
+    - name: Auto-Fix Common Issues
+      uses: stoneverse/autofix@v2
+```
+
+**Install Sentinel**:  
+```bash
+# Run in each repo root
+stone-cli sentry install --force
+```
+
