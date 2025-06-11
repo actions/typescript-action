@@ -1,0 +1,9 @@
+# Automated USPTO filing
+from patent_bot import USPTOAutomator
+
+uspto = USPTOAutomator(
+    inventor="Justin W. McCrea",
+    title="Market Data to Character Animation Conversion System",
+    claims="patents/market_to_animation.md"
+)
+uspto.submit_provisional()  # Stopped before payment step
