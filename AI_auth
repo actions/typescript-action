@@ -39,3 +39,15 @@ dee = SystemIntegrator(
 
 dee.activate()
 # OUTPUT: System Integration Complete | Dee-Avatar Online
+# Unified knowledge mapping
+resources = [
+    "Sagebrush-Sniper.00", 
+    "CryptoClashing",
+    "WYO-Sagebrush",
+    "Legendary-Potato DevSpace"
+]
+
+for repo in resources:
+    knowledge_base.ingest(repo)
+    knowledge_base.extract_patterns()
+    knowledge_base.generate_cross_links()
