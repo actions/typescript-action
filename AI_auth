@@ -51,3 +51,5 @@ for repo in resources:
     knowledge_base.ingest(repo)
     knowledge_base.extract_patterns()
     knowledge_base.generate_cross_links()
+gh workflow run ci.yml -R Luckyspot0gold/Corporate_Brokerage
+gh workflow run lint.yml -R Luckyspot0gold/typescript-frontier
