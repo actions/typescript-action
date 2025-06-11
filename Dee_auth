@@ -119,3 +119,8 @@ public class EnhancedDee : MonoBehaviour {
         );
     }
 }
+stone-cli docker generate --app=streamlit > Dockerfile
+gh secret remove GCP_SA_KEY
+gh secret set GCP_SA_KEY < new-gsa-key.json
+git commit -am "Added Dockerfile and new GCP key"
+git push
