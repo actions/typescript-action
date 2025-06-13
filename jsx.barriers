@@ -1,0 +1,23 @@
+```jsx
+// React component for resource matching
+function ResourceMatcher({ barriers }) {
+  const [resources, setResources] = useState([]);
+  
+  useEffect(() => {
+    API.get('resourceAPI', `/match/${barriers.join(',')}`)
+      .then(data => setResources(data))
+  }, []);
+  
+  return (
+    <div className="resource-grid">
+      {resources.map(res => (
+        <ResourceCard 
+          title={res.name} 
+          category={res.category}
+          awsLink={res.s3Link}
+        />
+      )}
+    </div>
+  )
+}
+```
