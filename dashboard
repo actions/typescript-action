@@ -1,0 +1,10 @@
+*Impact Metrics Dashboard** (for funders):
+   ```python
+   # impact_metrics.py
+   def calculate_impact():
+       users = DynamoDB.scan(TableName='users')
+       return {
+           'barriers_resolved': sum(u['resolved'] for u in users),
+           'resources_accessed': sum(u['resourceCount'] for u in users),
+           'estimated_economic_impact': len(users) * 1820 # USD/year
+       }
