@@ -131,3 +131,9 @@ fi
 
 # Completed
 echo -e "${BOLD_GREEN}Done!${OFF}"
+
+**Demo Video Script**:
+   - 0:00-0:30: Problem statement (financial/educational barriers)
+   - 0:30-1:15: Live demo (user onboarding → barrier detection → resource matching)
+   - 1:15-1:45: AWS tech highlights (SageMaker/Lex/DynamoDB)
+   - 1:45-2:00: Social impact potential
