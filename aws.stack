@@ -1,0 +1,5 @@
+**AWS Tech Stack**:  
+- **AI/ML**: SageMaker (predictive analytics) + Lex (conversational AI)  
+- **Database**: DynamoDB (user profiles) + S3 (resource storage)  
+- **Compute**: Lambda (serverless functions)  
+- **Frontend**: Amplify (web deployment)  
