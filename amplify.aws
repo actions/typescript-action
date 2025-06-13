@@ -1,0 +1,5 @@
+amplify init
+amplify add auth # Cognito User Pools
+amplify add api # GraphQL API
+amplify add predictions # ML Services
+amplify push
