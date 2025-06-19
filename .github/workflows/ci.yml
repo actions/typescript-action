@@ -48,9 +48,9 @@ jobs:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
     env:
-      EMAIL: ${{env.EMAIL}}
-      PASSWORD: ${{env.PASSWORD}}
-      DOMAIN: ${{env.DOMAIN}}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      DOMAIN: ${{ secrets.DOMAIN }}
 
     steps:
       - name: Checkout
