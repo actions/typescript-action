@@ -57,9 +57,9 @@ jobs:
         id: test-action
         uses: ./
         with:
-          branch: "main"
-          projectName: "CodeClarityCE/codeclarity-action"
-          analyzerName: "JS Analyser"
+          branch: 'main'
+          projectName: 'CodeClarityCE/codeclarity-action'
+          analyzerName: 'JS Analyser'
 
       - name: Print Output
         id: output

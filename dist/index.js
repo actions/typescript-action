@@ -27249,14 +27249,194 @@ var coreExports = requireCore();
 /**
  * Waits for a number of milliseconds.
  *
- * @param milliseconds The number of milliseconds to wait.
+ * @param email Email of the user that trigers the analysis.
+ * @param password Password of the user that trigers the analysis.
+ * @param domain Domain where CodeClarity's instance is located.
  * @returns Resolves with 'done!' after the wait is over.
  */
-async function wait(milliseconds) {
+async function authenticate(email, password, domain) {
     return new Promise((resolve) => {
-        if (isNaN(milliseconds))
-            throw new Error('milliseconds is not a number');
-        setTimeout(() => resolve('done!'), milliseconds);
+        // Perform an HTTP POST request using fetch
+        const requestBody = {
+            email: email,
+            password: password
+        };
+        fetch(`https://${domain}/api/auth/authenticate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data.data.token);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function getUser(token, domain) {
+    return new Promise((resolve) => {
+        fetch(`https://${domain}/api/auth/user`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data.data.id);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function getOrganization(token, domain) {
+    return new Promise((resolve) => {
+        fetch(`https://${domain}/api/org`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data.data[0].organization.id);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param organizationId Organization's ID.
+ * @param projectName Project to analyze name.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function getProject(token, organizationId, projectName, domain) {
+    return new Promise((resolve) => {
+        fetch(`https://${domain}/api/org/${organizationId}/projects?search_key=${projectName}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data.data[0].id);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param organizationId Organization's ID.
+ * @param analyzerName Project to analyze name.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function getAnalyzer(token, organizationId, analyzerName, domain) {
+    return new Promise((resolve) => {
+        fetch(`https://${domain}/api/org/${organizationId}/analyzers/name?analyzer_name=${analyzerName}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data.data.id);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @param organizationID Organization ID.
+ * @param projectID Project ID.
+ * @param analyzerID Analyzer ID.
+ * @param branchName Branch to analyze.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function startAnalysis(token, domain, organizationID, projectID, analyzerID, branchName) {
+    return new Promise((resolve) => {
+        // Perform an HTTP POST request using fetch
+        const requestBody = {
+            analyzer_id: analyzerID,
+            branch: branchName,
+            config: {
+                'js-sbom': {
+                    branch: branchName,
+                    project: `${organizationID}/projects/${projectID}/${branchName}`
+                },
+                'js-license': {
+                    licensePolicy: ['']
+                }
+            }
+        };
+        fetch(`https://${domain}/api/org/${organizationID}/projects/${projectID}/analyses`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data.status);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
     });
 }
 
@@ -27267,12 +27447,45 @@ async function wait(milliseconds) {
  */
 async function run() {
     try {
-        const ms = coreExports.getInput('milliseconds');
+        const branch = coreExports.getInput('branch');
+        let projectName = coreExports.getInput('projectName');
+        let analyzerName = coreExports.getInput('analyzerName');
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        coreExports.debug(`Waiting ${ms} milliseconds ...`);
+        coreExports.debug(`Analyzing project ${projectName} on branch ${branch} with analyzer ${analyzerName} ...`);
+        analyzerName = encodeURIComponent(analyzerName);
+        coreExports.debug(`Sanitized analyzer name is ${analyzerName}`);
+        projectName = encodeURIComponent(projectName);
+        coreExports.debug(`Sanitized analyzer name is ${projectName}`);
         // Log the current timestamp, wait, then log the new timestamp
         coreExports.debug(new Date().toTimeString());
-        await wait(parseInt(ms, 10));
+        // Retrieving information stored in env vars
+        const email = process.env.EMAIL;
+        const password = process.env.PASSWORD;
+        if (!email || !password) {
+            const error = new Error('email or password env var empty');
+            coreExports.setFailed(error.message);
+            return;
+        }
+        const domain = process.env.DOMAIN || 'platform.codeclarity.io'; // Read from environment variable or default
+        coreExports.debug(domain);
+        // Authenticate
+        const userToken = await authenticate(email, password, domain);
+        coreExports.debug(userToken);
+        // Retrieve User
+        const userId = await getUser(userToken, domain);
+        coreExports.debug(userId);
+        // Retrieve organization
+        const organizationId = await getOrganization(userToken, domain);
+        coreExports.debug(organizationId);
+        // Retrieve project
+        const projectId = await getProject(userToken, organizationId, projectName, domain);
+        coreExports.debug(projectId);
+        // Retrieve analyzer
+        const analyzerId = await getAnalyzer(userToken, organizationId, analyzerName, domain);
+        coreExports.debug(analyzerId);
+        // Start analysis
+        const status = await startAnalysis(userToken, domain, organizationId, projectId, analyzerId, branch);
+        coreExports.debug(status);
         coreExports.debug(new Date().toTimeString());
         // Set outputs for other workflow steps to use
         coreExports.setOutput('time', new Date().toTimeString());
