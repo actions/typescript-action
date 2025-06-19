@@ -1,5 +1,10 @@
 name: Continuous Integration
 
+env:
+  EMAIL: ${{env.EMAIL}}
+  PASSWORD: ${{env.PASSWORD}}
+  DOMAIN: ${{env.DOMAIN}}
+
 on:
   pull_request:
     branches:
