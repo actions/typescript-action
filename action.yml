@@ -1,18 +1,28 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: CodeClarity
+description: Runs a CodeClarity scan
+author: CodeClarityCE
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: heart
-  color: red
+  icon: crosshair
+  color: black
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  branch:
+    description: The branch you want to analyze
     required: true
-    default: '1000'
+    default: 'main'
+
+  projectName:
+    description: The project you want to analyze
+    required: true
+    default: 'CodeClarityCE/frontend'
+
+  analyzerName:
+    description: The analyzer you want to use
+    required: true
+    default: 'JavaScript Analyzer'
 
 # Define your outputs here.
 outputs:

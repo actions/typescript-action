@@ -9,7 +9,10 @@
       "cwd": "${workspaceRoot}",
       "args": ["@github/local-action", ".", "src/main.ts", ".env"],
       "console": "integratedTerminal",
-      "skipFiles": ["<node_internals>/**", "node_modules/**"]
+      "skipFiles": ["<node_internals>/**", "node_modules/**"],
+      "env": {
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+      }
     }
   ]
 }

@@ -1,5 +1,12 @@
 import * as core from '@actions/core'
-import { wait } from './wait.js'
+import {
+  authenticate,
+  getAnalyzer,
+  getOrganization,
+  getProject,
+  getUser,
+  startAnalysis
+} from './codeclarity.js'
 
 /**
  * The main function for the action.
@@ -8,14 +15,75 @@ import { wait } from './wait.js'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const branch: string = core.getInput('branch')
+    let projectName: string = core.getInput('projectName')
+    let analyzerName: string = core.getInput('analyzerName')
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    core.debug(
+      `Analyzing project ${projectName} on branch ${branch} with analyzer ${analyzerName} ...`
+    )
+
+    analyzerName = encodeURIComponent(analyzerName)
+    core.debug(`Sanitized analyzer name is ${analyzerName}`)
+    projectName = encodeURIComponent(projectName)
+    core.debug(`Sanitized analyzer name is ${projectName}`)
 
     // Log the current timestamp, wait, then log the new timestamp
     core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
+
+    // Retrieving information stored in env vars
+    const email = process.env.EMAIL
+    const password = process.env.PASSWORD
+    if (!email || !password) {
+      const error = new Error('email or password env var empty')
+      core.setFailed(error.message)
+      return
+    }
+    const domain = process.env.DOMAIN || 'platform.codeclarity.io' // Read from environment variable or default
+    core.debug(domain)
+
+    // Authenticate
+    const userToken = await authenticate(email, password, domain)
+    core.debug(userToken)
+
+    // Retrieve User
+    const userId = await getUser(userToken, domain)
+    core.debug(userId)
+
+    // Retrieve organization
+    const organizationId = await getOrganization(userToken, domain)
+    core.debug(organizationId)
+
+    // Retrieve project
+    const projectId = await getProject(
+      userToken,
+      organizationId,
+      projectName,
+      domain
+    )
+    core.debug(projectId)
+
+    // Retrieve analyzer
+    const analyzerId = await getAnalyzer(
+      userToken,
+      organizationId,
+      analyzerName,
+      domain
+    )
+    core.debug(analyzerId)
+
+    // Start analysis
+    const status = await startAnalysis(
+      userToken,
+      domain,
+      organizationId,
+      projectId,
+      analyzerId,
+      branch
+    )
+    core.debug(status)
+
     core.debug(new Date().toTimeString())
 
     // Set outputs for other workflow steps to use
