@@ -1,10 +1,5 @@
 name: Continuous Integration
 
-env:
-  EMAIL: ${{env.EMAIL}}
-  PASSWORD: ${{env.PASSWORD}}
-  DOMAIN: ${{env.DOMAIN}}
-
 on:
   pull_request:
     branches:
@@ -52,6 +47,10 @@ jobs:
   test-action:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
+    env:
+      EMAIL: ${{env.EMAIL}}
+      PASSWORD: ${{env.PASSWORD}}
+      DOMAIN: ${{env.DOMAIN}}
 
     steps:
       - name: Checkout
