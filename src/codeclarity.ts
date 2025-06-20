@@ -156,7 +156,11 @@ export async function getProject(
       .then((response) => response.json())
       .then((data) => {
         // Handle the received data, e.g., save to auth_tokens.json
-        resolve((data as responseBody).data[0].id)
+        try {
+          resolve((data as responseBody).data[0].id)
+        } catch {
+          resolve('')
+        }
       })
       .catch((error) => {
         console.error('Error during authentication:', error)
@@ -201,6 +205,105 @@ export async function getAnalyzer(
       .then((data) => {
         // Handle the received data, e.g., save to auth_tokens.json
         resolve((data as responseBody).data.id)
+      })
+      .catch((error) => {
+        console.error('Error during authentication:', error)
+        // rejects(new Error('Failed to authenticate'))
+      })
+  })
+}
+
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param organizationId Organization's ID.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+export async function getGithuIntegration(
+  token: string,
+  organizationId: string,
+  domain: string
+): Promise<string> {
+  return new Promise((resolve) => {
+    interface Integration {
+      id: string
+      integration_type: string
+      integration_provider: string
+    }
+
+    interface responseBody {
+      data: Array<Integration>
+    }
+
+    fetch(`https://${domain}/api/org/${organizationId}/integrations/vcs`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the received data, e.g., save to auth_tokens.json
+        for (const integration of (data as responseBody).data) {
+          if (integration.integration_provider == 'GITHUB') {
+            resolve(integration.id)
+            break
+          }
+        }
+      })
+      .catch((error) => {
+        console.error('Error during authentication:', error)
+        // rejects(new Error('Failed to authenticate'))
+      })
+  })
+}
+
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @param organizationID Organization ID.
+ * @param integrationID Integration ID.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+export async function importProject(
+  token: string,
+  domain: string,
+  organizationID: string,
+  integrationID: string,
+  projectName: string
+): Promise<string> {
+  return new Promise((resolve) => {
+    // Perform an HTTP POST request using fetch
+    const requestBody = {
+      integration_id: integrationID,
+      url: 'https://github.com/' + projectName,
+      name: projectName,
+      description: 'Imported by Github Action'
+    }
+
+    interface responseBody {
+      id: string
+      status_message: string
+    }
+
+    fetch(`https://${domain}/api/org/${organizationID}/projects`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(requestBody)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the received data, e.g., save to auth_tokens.json
+        resolve((data as responseBody).id)
       })
       .catch((error) => {
         console.error('Error during authentication:', error)

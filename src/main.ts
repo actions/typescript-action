@@ -2,9 +2,11 @@ import * as core from '@actions/core'
 import {
   authenticate,
   getAnalyzer,
+  getGithuIntegration,
   getOrganization,
   getProject,
   getUser,
+  importProject,
   startAnalysis
 } from './codeclarity.js'
 
@@ -45,24 +47,43 @@ export async function run(): Promise<void> {
 
     // Authenticate
     const userToken = await authenticate(email, password, domain)
-    core.debug(userToken)
+    core.debug('User token: ' + userToken)
 
     // Retrieve User
     const userId = await getUser(userToken, domain)
-    core.debug(userId)
+    core.debug('User ID: ' + userId)
 
     // Retrieve organization
     const organizationId = await getOrganization(userToken, domain)
-    core.debug(organizationId)
+    core.debug('Organization ID: ' + organizationId)
 
     // Retrieve project
-    const projectId = await getProject(
+    let projectId = await getProject(
       userToken,
       organizationId,
       projectName,
       domain
     )
-    core.debug(projectId)
+    core.debug('Project ID: ' + projectId)
+
+    if (projectId == '') {
+      // Retrieve integration
+      const integrationId = await getGithuIntegration(
+        userToken,
+        organizationId,
+        domain
+      )
+      core.debug('Integration ID: ' + integrationId)
+
+      projectId = await importProject(
+        userToken,
+        domain,
+        organizationId,
+        integrationId,
+        core.getInput('projectName')
+      )
+      core.debug('Integration ID: ' + projectId)
+    }
 
     // Retrieve analyzer
     const analyzerId = await getAnalyzer(
@@ -71,7 +92,7 @@ export async function run(): Promise<void> {
       analyzerName,
       domain
     )
-    core.debug(analyzerId)
+    core.debug('Analyzer ID: ' + analyzerId)
 
     // Start analysis
     const status = await startAnalysis(
