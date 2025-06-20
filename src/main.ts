@@ -5,6 +5,7 @@ import {
   getGithuIntegration,
   getOrganization,
   getProject,
+  getResult,
   getUser,
   importProject,
   startAnalysis
@@ -95,7 +96,7 @@ export async function run(): Promise<void> {
     core.debug('Analyzer ID: ' + analyzerId)
 
     // Start analysis
-    const status = await startAnalysis(
+    const analysisId = await startAnalysis(
       userToken,
       domain,
       organizationId,
@@ -103,12 +104,38 @@ export async function run(): Promise<void> {
       analyzerId,
       branch
     )
-    core.debug(status)
+    core.debug(analysisId)
+
+    // Fetch results
+    let result
+    try {
+      // Wait 15 seconds
+      await new Promise((resolve) => setTimeout(resolve, 15000))
+
+      result = await getResult(
+        userToken,
+        organizationId,
+        projectId,
+        analysisId,
+        domain
+      )
+    } catch {
+      core.debug('Initial attempt failed. Retrying...')
+      // Wait another 30 seconds before retrying
+      await new Promise((resolve) => setTimeout(resolve, 15000))
+      result = await getResult(
+        userToken,
+        organizationId,
+        projectId,
+        analysisId,
+        domain
+      )
+    }
 
     core.debug(new Date().toTimeString())
 
     // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    core.setOutput('vulnerabilities', result)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

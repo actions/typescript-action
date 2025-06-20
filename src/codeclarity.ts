@@ -261,6 +261,56 @@ export async function getGithuIntegration(
   })
 }
 
+export interface vulnerabilityReponseBody {
+  data: {
+    number_of_critical: number
+    number_of_high: number
+    number_of_medium: number
+    number_of_low: number
+    number_of_none: number
+  }
+}
+
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param organizationId Organization's ID.
+ * @param projectId Project's ID.
+ * @param analysisId Analysis' ID.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+export async function getResult(
+  token: string,
+  organizationId: string,
+  projectId: string,
+  analysisId: string,
+  domain: string
+): Promise<vulnerabilityReponseBody> {
+  return new Promise((resolve) => {
+    fetch(
+      `https://${domain}/api/org/${organizationId}/projects/${projectId}/analysis/${analysisId}/vulnerabilities/stats?workspace=.`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the received data, e.g., save to auth_tokens.json
+        resolve(data as vulnerabilityReponseBody)
+      })
+      .catch((error) => {
+        console.error('Error during authentication:', error)
+        // rejects(new Error('Failed to authenticate'))
+      })
+  })
+}
+
 /**
  * Waits for a number of milliseconds.
  *
@@ -348,7 +398,7 @@ export async function startAnalysis(
     }
 
     interface responseBody {
-      status: string
+      id: string
     }
 
     fetch(
@@ -366,7 +416,7 @@ export async function startAnalysis(
       .then((response) => response.json())
       .then((data) => {
         // Handle the received data, e.g., save to auth_tokens.json
-        resolve((data as responseBody).status)
+        resolve((data as responseBody).id)
       })
       .catch((error) => {
         console.error('Error during authentication:', error)
