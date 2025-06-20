@@ -57,12 +57,19 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
+      - name: Extract branch name
+        shell: bash
+        run:
+          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >>
+          $GITHUB_OUTPUT
+        id: extract_branch
+
       - name: Test Local Action
         id: test-action
         uses: ./
         with:
-          branch: 'main'
-          projectName: 'CodeClarityCE/codeclarity-action'
+          branch: ${{ steps.extract_branch.outputs.branch }}
+          projectName: ${{ github.repository }}
           analyzerName: 'JS Analyser'
 
       - name: Print Output

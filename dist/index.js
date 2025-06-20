@@ -27355,7 +27355,12 @@ async function getProject(token, organizationId, projectName, domain) {
             .then((response) => response.json())
             .then((data) => {
             // Handle the received data, e.g., save to auth_tokens.json
-            resolve(data.data[0].id);
+            try {
+                resolve(data.data[0].id);
+            }
+            catch {
+                resolve('');
+            }
         })
             .catch((error) => {
             console.error('Error during authentication:', error);
@@ -27385,6 +27390,77 @@ async function getAnalyzer(token, organizationId, analyzerName, domain) {
             .then((data) => {
             // Handle the received data, e.g., save to auth_tokens.json
             resolve(data.data.id);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param organizationId Organization's ID.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function getGithuIntegration(token, organizationId, domain) {
+    return new Promise((resolve) => {
+        fetch(`https://${domain}/api/org/${organizationId}/integrations/vcs`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            for (const integration of data.data) {
+                if (integration.integration_provider == 'GITHUB') {
+                    resolve(integration.id);
+                    break;
+                }
+            }
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @param organizationID Organization ID.
+ * @param integrationID Integration ID.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function importProject(token, domain, organizationID, integrationID, projectName) {
+    return new Promise((resolve) => {
+        // Perform an HTTP POST request using fetch
+        const requestBody = {
+            integration_id: integrationID,
+            url: 'https://github.com/' + projectName,
+            name: projectName,
+            description: 'Imported by Github Action'
+        };
+        fetch(`https://${domain}/api/org/${organizationID}/projects`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data.id);
         })
             .catch((error) => {
             console.error('Error during authentication:', error);
@@ -27470,19 +27546,26 @@ async function run() {
         coreExports.debug(domain);
         // Authenticate
         const userToken = await authenticate(email, password, domain);
-        coreExports.debug(userToken);
+        coreExports.debug('User token: ' + userToken);
         // Retrieve User
         const userId = await getUser(userToken, domain);
-        coreExports.debug(userId);
+        coreExports.debug('User ID: ' + userId);
         // Retrieve organization
         const organizationId = await getOrganization(userToken, domain);
-        coreExports.debug(organizationId);
+        coreExports.debug('Organization ID: ' + organizationId);
         // Retrieve project
-        const projectId = await getProject(userToken, organizationId, projectName, domain);
-        coreExports.debug(projectId);
+        let projectId = await getProject(userToken, organizationId, projectName, domain);
+        coreExports.debug('Project ID: ' + projectId);
+        if (projectId == '') {
+            // Retrieve integration
+            const integrationId = await getGithuIntegration(userToken, organizationId, domain);
+            coreExports.debug('Integration ID: ' + integrationId);
+            projectId = await importProject(userToken, domain, organizationId, integrationId, coreExports.getInput('projectName'));
+            coreExports.debug('Integration ID: ' + projectId);
+        }
         // Retrieve analyzer
         const analyzerId = await getAnalyzer(userToken, organizationId, analyzerName, domain);
-        coreExports.debug(analyzerId);
+        coreExports.debug('Analyzer ID: ' + analyzerId);
         // Start analysis
         const status = await startAnalysis(userToken, domain, organizationId, projectId, analyzerId, branch);
         coreExports.debug(status);
