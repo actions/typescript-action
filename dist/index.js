@@ -27434,6 +27434,36 @@ async function getGithuIntegration(token, organizationId, domain) {
  * Waits for a number of milliseconds.
  *
  * @param token User's token.
+ * @param organizationId Organization's ID.
+ * @param projectId Project's ID.
+ * @param analysisId Analysis' ID.
+ * @param domain Domain where CodeClarity's instance is located.
+ * @returns Resolves with 'done!' after the wait is over.
+ */
+async function getResult(token, organizationId, projectId, analysisId, domain) {
+    return new Promise((resolve) => {
+        fetch(`https://${domain}/api/org/${organizationId}/projects/${projectId}/analysis/${analysisId}/vulnerabilities/stats?workspace=.`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            // Handle the received data, e.g., save to auth_tokens.json
+            resolve(data);
+        })
+            .catch((error) => {
+            console.error('Error during authentication:', error);
+            // rejects(new Error('Failed to authenticate'))
+        });
+    });
+}
+/**
+ * Waits for a number of milliseconds.
+ *
+ * @param token User's token.
  * @param domain Domain where CodeClarity's instance is located.
  * @param organizationID Organization ID.
  * @param integrationID Integration ID.
@@ -27507,7 +27537,7 @@ async function startAnalysis(token, domain, organizationID, projectID, analyzerI
             .then((response) => response.json())
             .then((data) => {
             // Handle the received data, e.g., save to auth_tokens.json
-            resolve(data.status);
+            resolve(data.id);
         })
             .catch((error) => {
             console.error('Error during authentication:', error);
@@ -27567,11 +27597,21 @@ async function run() {
         const analyzerId = await getAnalyzer(userToken, organizationId, analyzerName, domain);
         coreExports.debug('Analyzer ID: ' + analyzerId);
         // Start analysis
-        const status = await startAnalysis(userToken, domain, organizationId, projectId, analyzerId, branch);
-        coreExports.debug(status);
+        const analysisId = await startAnalysis(userToken, domain, organizationId, projectId, analyzerId, branch);
+        coreExports.debug('Analysis ID: ' + analysisId);
+        // Fetch results
+        // Wait 15 seconds
+        await new Promise((resolve) => setTimeout(resolve, 15000));
+        let result = await getResult(userToken, organizationId, projectId, analysisId, domain);
+        if (result.status_code == 500) {
+            coreExports.debug('Initial attempt failed. Retrying...');
+            // Wait 30 seconds before retrying
+            await new Promise((resolve) => setTimeout(resolve, 30000));
+            result = await getResult(userToken, organizationId, projectId, analysisId, domain);
+        }
         coreExports.debug(new Date().toTimeString());
         // Set outputs for other workflow steps to use
-        coreExports.setOutput('time', new Date().toTimeString());
+        coreExports.setOutput('vulnerabilities', result);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
