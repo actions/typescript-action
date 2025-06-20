@@ -269,6 +269,7 @@ export interface vulnerabilityReponseBody {
     number_of_low: number
     number_of_none: number
   }
+  status_code: number
 }
 
 /**

@@ -104,25 +104,25 @@ export async function run(): Promise<void> {
       analyzerId,
       branch
     )
-    core.debug(analysisId)
+    core.debug('Analysis ID: ' + analysisId)
 
     // Fetch results
-    let result
-    try {
-      // Wait 15 seconds
-      await new Promise((resolve) => setTimeout(resolve, 15000))
 
-      result = await getResult(
-        userToken,
-        organizationId,
-        projectId,
-        analysisId,
-        domain
-      )
-    } catch {
+    // Wait 15 seconds
+    await new Promise((resolve) => setTimeout(resolve, 15000))
+
+    let result = await getResult(
+      userToken,
+      organizationId,
+      projectId,
+      analysisId,
+      domain
+    )
+
+    if (result.status_code == 500) {
       core.debug('Initial attempt failed. Retrying...')
-      // Wait another 30 seconds before retrying
-      await new Promise((resolve) => setTimeout(resolve, 15000))
+      // Wait 30 seconds before retrying
+      await new Promise((resolve) => setTimeout(resolve, 30000))
       result = await getResult(
         userToken,
         organizationId,
