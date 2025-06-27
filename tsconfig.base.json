@@ -6,6 +6,7 @@
     "declarationMap": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "lib": ["ES2022"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
