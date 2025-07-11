@@ -10,7 +10,7 @@ Ensure you adhere to the following guidelines when creating release notes:
 
 - Use a clear and consistent format for the release notes
 - Include a summary of the changes made in the release
-- Highlight any new features, improvements, or bug fixes
+- Highlight any new features, improvements, or bugfixes
 - If applicable, include instructions for upgrading or migrating to the new
   version
 - Use technical language that is appropriate for the audience, but avoid jargon
@@ -31,4 +31,4 @@ nature of the changes, please make sure to adjust the release notes accordingly:
 - For **major** changes, include a detailed description of the breaking changes
   and how users can adapt to them
 - For **minor** changes, highlight new features and improvements
-- For **patch** changes, focus on bug fixes and minor improvements
+- For **patch** changes, focus on bugfixes and minor improvements
