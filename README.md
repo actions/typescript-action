@@ -106,7 +106,7 @@ There are a few things to keep in mind when writing your action code:
   ```
 
   For more information about the GitHub Actions toolkit, see the
-  [documentation](https://github.com/actions/toolkit/blob/master/README.md).
+  [documentation](https://github.com/actions/toolkit/blob/main/README.md).
 
 So, what are you waiting for? Go ahead and start customizing your action!
 
@@ -138,6 +138,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
    to a repository.
 
    The `local-action` utility can be run in the following ways:
+
    - Visual Studio Code Debugger
 
      Make sure to review and, if needed, update
@@ -175,7 +176,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
 Your action is now published! :rocket:
 
 For information about versioning your action, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
+[Versioning](https://github.com/actions/toolkit/blob/main/docs/action-versioning.md)
 in the GitHub Actions toolkit.
 
 ## Validate the Action
@@ -208,7 +209,7 @@ For example workflow runs, check out the
 
 After testing, you can create version tag(s) that developers can use to
 reference different stable versions of your action. For more information, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
+[Versioning](https://github.com/actions/toolkit/blob/main/docs/action-versioning.md)
 in the GitHub Actions toolkit.
 
 To include the action in a workflow in another repository, you can use the
