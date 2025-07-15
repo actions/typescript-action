@@ -138,7 +138,6 @@ So, what are you waiting for? Go ahead and start customizing your action!
    to a repository.
 
    The `local-action` utility can be run in the following ways:
-
    - Visual Studio Code Debugger
 
      Make sure to review and, if needed, update
