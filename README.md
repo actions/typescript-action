@@ -25,6 +25,7 @@ follow the below instructions:
 1. Click **Create repository**
 1. Clone your new repository
 
+<!-- prettier-ignore -->
 > [!IMPORTANT]
 >
 > Make sure to remove or update the [`CODEOWNERS`](./CODEOWNERS) file! For
@@ -36,6 +37,7 @@ follow the below instructions:
 After you've cloned the repository to your local machine or codespace, you'll
 need to perform some initial setup steps before you can develop your action.
 
+<!-- prettier-ignore -->
 > [!NOTE]
 >
 > You'll need to have a reasonably modern version of
