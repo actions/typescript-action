@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.3.2",
-    "@github/local-action": "^5.2.0",
+    "@github/local-action": "^6.0.0",
     "@jest/globals": "^30.1.2",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
