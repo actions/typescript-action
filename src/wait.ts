@@ -1,13 +1,15 @@
 /**
  * Waits for a number of milliseconds.
  *
- * @param milliseconds The number of milliseconds to wait.
+ * @param milliseconds Number of milliseconds to wait.
  * @returns Resolves with 'done!' after the wait is over.
  */
-export async function wait(milliseconds: number): Promise<string> {
-  return new Promise((resolve) => {
-    if (isNaN(milliseconds)) throw new Error('milliseconds is not a number')
+export function wait(milliseconds: number): Promise<string> {
+  if (Number.isNaN(milliseconds)) {
+    throw new Error("The 'milliseconds' parameter must be a valid number.")
+  }
 
+  return new Promise((resolve) => {
     setTimeout(() => resolve('done!'), milliseconds)
   })
 }
