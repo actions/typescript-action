@@ -11,34 +11,32 @@ it is generated from.
 
 ## Repository Structure
 
-| Path                   | Description                                              |
-| ---------------------- | -------------------------------------------------------- |
-| `__fixtures__/`        | Unit Test Fixtures                                       |
-| `__tests__/`           | Unit Tests                                               |
-| `.devcontainer/`       | Development Container Configuration                      |
-| `.github/`             | GitHub Configuration                                     |
-| `.licenses/`           | License Information                                      |
-| `.vscode/`             | Visual Studio Code Configuration                         |
-| `badges/`              | Badges for readme                                        |
-| `dist/`                | Generated JavaScript Code                                |
-| `src/`                 | TypeScript Source Code                                   |
-| `.env.example`         | Environment Variables Example for `@github/local-action` |
-| `.licensed.yml`        | Licensed Configuration                                   |
-| `.markdown-lint.yml`   | Markdown Linter Configuration                            |
-| `.node-version`        | Node.js Version Configuration                            |
-| `.prettierrc.yml`      | Prettier Formatter Configuration                         |
-| `.yaml-lint.yml`       | YAML Linter Configuration                                |
-| `action.yml`           | GitHub Action Metadata                                   |
-| `CODEOWNERS`           | Code Owners File                                         |
-| `eslint.config.mjs`    | ESLint Configuration                                     |
-| `jest.config.js`       | Jest Configuration                                       |
-| `LICENSE`              | License File                                             |
-| `package.json`         | NPM Package Configuration                                |
-| `README.md`            | Project Documentation                                    |
-| `rollup.config.ts`     | Rollup Bundler Configuration                             |
-| `tsconfig.base.json`   | Base TypeScript Configuration                            |
-| `tsconfig.eslint.json` | TypeScript Configuration for ESLint                      |
-| `tsconfig.json`        | TypeScript Configuration                                 |
+| Path                 | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| `__fixtures__/`      | Unit Test Fixtures                                       |
+| `__tests__/`         | Unit Tests                                               |
+| `.devcontainer/`     | Development Container Configuration                      |
+| `.github/`           | GitHub Configuration                                     |
+| `.licenses/`         | License Information                                      |
+| `.vscode/`           | Visual Studio Code Configuration                         |
+| `badges/`            | Badges for readme                                        |
+| `dist/`              | Generated JavaScript Code                                |
+| `src/`               | TypeScript Source Code                                   |
+| `.env.example`       | Environment Variables Example for `@github/local-action` |
+| `.licensed.yml`      | Licensed Configuration                                   |
+| `.markdown-lint.yml` | Markdown Linter Configuration                            |
+| `.node-version`      | Node.js Version Configuration                            |
+| `.prettierrc.yml`    | Prettier Formatter Configuration                         |
+| `.yaml-lint.yml`     | YAML Linter Configuration                                |
+| `action.yml`         | GitHub Action Metadata                                   |
+| `CODEOWNERS`         | Code Owners File                                         |
+| `eslint.config.mjs`  | ESLint Configuration                                     |
+| `jest.config.js`     | Jest Configuration                                       |
+| `LICENSE`            | License File                                             |
+| `package.json`       | NPM Package Configuration                                |
+| `README.md`          | Project Documentation                                    |
+| `rollup.config.ts`   | Rollup Bundler Configuration                             |
+| `tsconfig.json`      | TypeScript Configuration                                 |
 
 ## Environment Setup
 
