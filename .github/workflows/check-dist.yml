@@ -39,7 +39,7 @@ jobs:
 
       - name: Remove dist/ Directory
         id: remove-dist
-        run: rm -rf ./dist/
+        run: npx rimraf ./dist
 
       - name: Install Dependencies
         id: install
