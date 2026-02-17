@@ -1,24 +1,13 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
-
-# Add your action's branding here. This will appear on the GitHub Marketplace.
-branding:
-  icon: heart
-  color: red
+name: 'Pull Request Labeler'
+description: 'Automatically labels pull requests based on branch name'
+author: 'Hannah Thankam Alex'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  branch-pattern:
+    description: 'Branch pattern to label mapping (JSON string)'
     required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: Your output description here
 
 runs:
-  using: node24
-  main: dist/index.js
+  using: 'node24'
+  main: 'dist/index.js'
