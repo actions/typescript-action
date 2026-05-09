@@ -1,6 +1,6 @@
 // See: https://jestjs.io/docs/configuration
 
-/** @type {import('ts-jest').JestConfigWithTsJest} **/
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 export default {
   clearMocks: true,
   collectCoverage: true,
