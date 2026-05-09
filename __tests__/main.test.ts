@@ -21,6 +21,7 @@ describe('main.ts', () => {
   beforeEach(() => {
     // Set the action's inputs as return values from core.getInput().
     core.getInput.mockImplementation(() => '500')
+    core.isDebug.mockReturnValue(false)
 
     // Mock the wait function so that it does not actually wait.
     wait.mockImplementation(() => Promise.resolve('done!'))
@@ -40,6 +41,40 @@ describe('main.ts', () => {
       // Simple regex to match a time string in the format HH:MM:SS.
       expect.stringMatching(/^\d{2}:\d{2}:\d{2}/)
     )
+  })
+
+  it('Fails fast when input is missing', async () => {
+    core.getInput.mockClear().mockReturnValueOnce('')
+    await run()
+    expect(core.setFailed).toHaveBeenNthCalledWith(
+      1,
+      'Input required and not supplied: milliseconds'
+    )
+    expect(wait).not.toHaveBeenCalled()
+  })
+
+  it('Logs debug info in debug mode', async () => {
+    core.isDebug.mockReturnValue(true)
+    process.env.GITHUB_ACTIONS = 'true'
+    process.env.GITHUB_WORKFLOW = 'ci'
+    process.env.GITHUB_RUN_ID = '123'
+    process.env.GITHUB_SHA = 'deadbeef'
+    process.env.GITHUB_REF = 'refs/heads/main'
+    process.env.RUNNER_OS = 'Linux'
+
+    await run()
+
+    const messages = core.debug.mock.calls.map(call => call[0])
+    expect(messages.some(msg => msg.includes('Node.js version:'))).toBe(true)
+    expect(messages.some(msg => msg.includes('Environment:'))).toBe(true)
+  })
+
+  it('Does not log debug env info without debug mode', async () => {
+    core.isDebug.mockReturnValue(false)
+    await run()
+    const messages = core.debug.mock.calls.map(call => call[0])
+    expect(messages.some(msg => msg.includes('Node.js version:'))).toBe(false)
+    expect(messages.some(msg => msg.includes('Environment:'))).toBe(false)
   })
 
   it('Sets a failed status', async () => {
