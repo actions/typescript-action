@@ -24,3 +24,8 @@ updates:
         dependency-type: production
         update-types:
           - patch
+
+  - package-ecosystem: "devcontainers"
+    directory: "/"
+    schedule:
+      interval: weekly
