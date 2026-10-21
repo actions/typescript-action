@@ -30,7 +30,7 @@ set -e
 # script/release
 
 # Variables
-semver_tag_regex='v[0-9]+\.[0-9]+\.[0-9]+$'
+semver_tag_regex='^v[0-9]+\.[0-9]+\.[0-9]+$'
 semver_tag_glob='v[0-9].[0-9].[0-9]*'
 git_remote='origin'
 major_semver_tag_regex='\(v[0-9]*\)'
