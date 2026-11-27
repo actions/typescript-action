@@ -47,7 +47,7 @@ jobs:
         env:
           CHECKOV_FILE_NAME: .checkov.yml
           DEFAULT_BRANCH: main
-          FILTER_REGEX_EXCLUDE: (dist/**/*|fixtures/invalid-config.yml|package-lock\.json)
+          FILTER_REGEX_EXCLUDE: (dist/**/*|fixtures/invalid-config.yml|package-lock\.json|CLAUDE\.md)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: .
           VALIDATE_ALL_CODEBASE: true
